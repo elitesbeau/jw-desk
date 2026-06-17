@@ -1,157 +1,158 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>JW Desk — Wed, Jun 3, 2026, 04:04 PM ET</title>
+<title>JW Desk — Wed, Jun 17, 2026, 04:41 PM ET</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#FAF9F5;--bg-2:#F4F1EA;--bg-3:#EBE7DC;--fg:#1F1E1B;--fg-dim:rgba(31,30,27,.66);--fg-mute:rgba(31,30,27,.42);--line:rgba(31,30,27,.08);--line-2:rgba(31,30,27,.18);--accent:#E5E9E0;--amber:#B07A2E;--positive:#4A8762;--danger:#A8442C;--r-card:14px;--ease:cubic-bezier(.4,0,.2,1);--spring:cubic-bezier(.34,1.56,.64,1)}
+:root{--bg:#FAF9F5;--bg-2:#F4F1EA;--bg-3:#EBE7DC;--fg:#1F1E1B;--fg-dim:rgba(31,30,27,.66);--fg-mute:rgba(31,30,27,.42);--line:rgba(31,30,27,.08);--line-2:rgba(31,30,27,.18);--accent:#E5E9E0;--amber:#B07A2E;--positive:#4A8762;--danger:#A8442C;--r:14px;--ease:cubic-bezier(.4,0,.2,1);--spring:cubic-bezier(.34,1.56,.64,1)}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--fg);font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
 .mono{font-family:'IBM Plex Mono',monospace}
-.mono-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-mute)}
+.lab{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-mute)}
 .up{color:var(--positive)}.dn{color:var(--danger)}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
-
-/* ============ INTRO INTERVIEW (Tend onboarding idiom) ============ */
-#interview{position:fixed;inset:0;z-index:100;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:24px;transition:opacity .5s var(--ease)}
-#interview.gone{opacity:0;pointer-events:none}
-.iv-card{width:100%;max-width:520px}
-.iv-brand{display:flex;justify-content:center;margin-bottom:22px}
-.iv-brand .chip{background:var(--accent);border-radius:7px;padding:7px 12px;font-weight:600;font-size:17px;letter-spacing:-.01em}
-.iv-dots{display:flex;gap:7px;justify-content:center;margin-bottom:26px}
-.iv-dots i{width:7px;height:7px;border-radius:999px;background:var(--line-2);transition:all .3s var(--spring)}
-.iv-dots i.on{background:var(--fg);width:22px}
-.iv-stage{text-align:center;animation:rise .45s var(--ease)}
 @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.iv-greet{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-mute);margin-bottom:12px}
-.iv-q{font-size:25px;font-weight:500;letter-spacing:-.02em;line-height:1.25;margin-bottom:8px}
-.iv-sub{color:var(--fg-dim);font-size:14px;margin-bottom:26px}
-.iv-opts{display:flex;flex-direction:column;gap:10px}
-.iv-opt{display:flex;align-items:center;justify-content:space-between;gap:12px;text-align:left;padding:15px 18px;border:1px solid var(--line-2);border-radius:12px;background:var(--bg);font-size:15px;transition:all .18s var(--ease)}
-.iv-opt:hover{background:var(--bg-2);transform:translateY(-1px);box-shadow:0 4px 16px rgba(31,30,27,.05)}
-.iv-opt .lbl b{font-weight:500}.iv-opt .lbl span{display:block;font-size:12.5px;color:var(--fg-mute);margin-top:2px}
-.iv-opt .pick{font-family:'IBM Plex Mono',monospace;font-size:18px;color:var(--line-2);transition:color .18s}
-.iv-opt:hover .pick{color:var(--fg)}
-.iv-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:24px}
-.iv-chip{display:inline-flex;align-items:center;gap:6px;background:var(--bg-3);border:1px solid transparent;border-radius:999px;padding:8px 14px;font-family:'IBM Plex Mono',monospace;font-size:12px;transition:all .15s var(--spring)}
-.iv-chip.on{background:var(--accent);border-color:var(--fg);transform:scale(1.04)}
-.iv-chip:hover{border-color:var(--line-2)}
-.iv-go{margin-top:4px;background:var(--fg);color:var(--bg);border-radius:12px;padding:13px 22px;font-size:14px;font-weight:500;width:100%;transition:all .18s var(--ease)}
-.iv-go:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(31,30,27,.18)}
-.iv-skip{display:block;margin:14px auto 0;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;color:var(--fg-mute);text-decoration:underline;text-underline-offset:3px}
-.iv-load{text-align:center}
-.iv-load .bar{height:4px;background:var(--bg-3);border-radius:999px;overflow:hidden;margin:22px auto 0;max-width:300px}
-.iv-load .bar i{display:block;height:100%;width:0;background:var(--positive);border-radius:999px;animation:fill 1.7s var(--ease) forwards}
-@keyframes fill{to{width:100%}}
-.iv-load .tick{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--fg-dim);margin-top:14px;min-height:18px}
+@keyframes posIn{to{opacity:1;transform:none}}
+@keyframes ping{75%,100%{transform:scale(2.8);opacity:0}}
 
-/* ============ DASHBOARD ============ */
-#dash{opacity:0;transition:opacity .6s var(--ease);max-width:1180px;margin:0 auto;padding:0 28px 100px}
-#dash.show{opacity:1}
-.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 0;background:rgba(250,249,245,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);flex-wrap:wrap}
-.tb-l{display:flex;align-items:center;gap:11px}
-.tb-l .chip{background:var(--accent);border-radius:6px;padding:5px 9px;font-weight:600;font-size:14px}
-.tb-l .wm{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-mute)}
-.tb-r{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.tb-r .mono{font-size:11px;letter-spacing:.04em;color:var(--fg-dim)}
-.dot{position:relative;width:7px;height:7px}.dot::before{content:"";position:absolute;inset:0;border-radius:999px;background:var(--positive)}
-.dot.ping::after{content:"";position:absolute;inset:0;border-radius:999px;background:var(--positive);animation:ping 1.6s var(--ease) infinite}
-@keyframes ping{75%,100%{transform:scale(2.6);opacity:0}}
-.redo{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;color:var(--fg-dim);border:1px solid var(--line);border-radius:999px;padding:6px 12px;transition:all .15s}
-.redo:hover{background:var(--bg-2);border-color:var(--line-2)}
+/* ===== briefing overlay mechanics ===== */
+#brief{position:fixed;inset:0;z-index:60;background:var(--bg);display:flex;align-items:flex-start;justify-content:center;padding:28px;overflow-y:auto;transition:opacity .5s var(--ease)}
+#brief.gone{opacity:0;pointer-events:none}
+#board{opacity:0;transition:opacity .6s var(--ease)}
+#board.show{opacity:1}
+.enterBtn{background:var(--fg);color:var(--bg);border-radius:13px;padding:14px 26px;font-size:15px;font-weight:500;transition:all .2s var(--ease)}
+.enterBtn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(31,30,27,.2)}
 
-.hero{display:grid;grid-template-columns:minmax(0,1.5fr) 1fr;gap:20px;margin-top:30px;align-items:stretch}
-@media(max-width:860px){.hero{grid-template-columns:1fr}}
-.regime{border:1px solid var(--line-2);border-radius:var(--r-card);background:var(--bg);padding:22px 24px}
-.regime .hl{font-size:21px;font-weight:500;letter-spacing:-.02em;line-height:1.3;margin:8px 0 12px}
-.regime .body{color:var(--fg-dim);font-size:14.5px;max-width:640px}
-.ctx{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.kpi{border:1px solid var(--line);border-radius:11px;background:var(--bg-2);padding:13px 15px}
-.kpi .k{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-mute)}
-.kpi .v{font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:500;line-height:1.1;margin-top:4px}
-.kpi .ch{font-family:'IBM Plex Mono',monospace;font-size:11px;margin-top:2px}
+/* ===== briefing — focus book ===== */
+.bc-wrap{max-width:1180px;margin:0 auto;width:100%;padding:5vh 0;animation:rise .5s var(--ease)}
+.bc-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+.bc-head .chip{background:var(--accent);border-radius:6px;padding:5px 9px;font-weight:600;font-size:14px}
+.bc-head h1{font-size:30px;font-weight:500;letter-spacing:-.025em}
+.bc-head .pl{font-family:'IBM Plex Mono',monospace;font-size:20px;margin-left:auto}
+.bc-head .sub{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--fg-mute)}
+.bc-greet{color:var(--fg-dim);font-size:14.5px;margin-bottom:22px}
+.bc-split{display:grid;grid-template-columns:1.4fr 1fr;gap:22px}
+@media(max-width:900px){.bc-split{grid-template-columns:1fr}}
+.bc-hero{border:1px solid var(--line-2);border-radius:18px;background:var(--bg);padding:26px 28px;box-shadow:0 10px 30px rgba(31,30,27,.06)}
+.bc-hero .h{display:flex;align-items:center;gap:12px;margin:12px 0 4px}
+.bc-hero .sym{font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:500}
+.bc-hero .mv{font-family:'IBM Plex Mono',monospace;font-size:18px;margin-left:auto}
+.bc-hero .nm{color:var(--fg-mute);font-size:13px;margin-bottom:6px}
+.bc-hero .rd{font-size:15.5px;line-height:1.6;margin-top:12px}
+.bc-hero .news{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:7px}
+.bc-hero .news span{font-size:12.5px;color:var(--fg-dim);display:flex;gap:8px}
+.bc-hero .news .src{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-mute);min-width:54px;flex:none;padding-top:2px}
+.bc-list .lab{display:block;margin-bottom:10px}
+.bc-row{display:grid;grid-template-columns:auto 1fr auto auto;gap:11px;align-items:center;padding:11px 14px;border:1px solid var(--line);border-radius:11px;margin-bottom:7px;cursor:pointer;transition:all .16s var(--ease)}
+.bc-row:hover{border-color:var(--line-2);transform:translateX(2px)}
+.bc-row.active{border-color:var(--fg);background:var(--bg-2)}
+.bc-row .sym{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:500;min-width:50px}
+.bc-row .n{font-size:12px;color:var(--fg-mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bc-row .mv{font-family:'IBM Plex Mono',monospace;font-size:12.5px}
+.bc-enter-row{margin-top:20px;display:flex;justify-content:center}
 
-.funnel{display:flex;margin-top:18px;border:1px solid var(--line-2);border-radius:var(--r-card);overflow:hidden;background:var(--bg)}
-.fstep{flex:1;padding:14px 18px;border-right:1px solid var(--line);position:relative}
-.fstep:last-child{border-right:none}
-.fstep .k{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-mute)}
-.fstep .v{font-family:'IBM Plex Mono',monospace;font-size:25px;font-weight:500;line-height:1.1;margin-top:4px}
-.fstep .s{font-size:11px;color:var(--fg-dim);margin-top:3px}
-.fstep .arrow{position:absolute;right:-9px;top:50%;transform:translateY(-50%);z-index:2;width:18px;height:18px;background:var(--bg);border:1px solid var(--line-2);border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--fg-mute)}
+/* ===== sparkline / gauge (shared) ===== */
+.spark{display:block;width:100%;height:46px}
+.spark path{fill:none;stroke-width:1.6;stroke-linejoin:round;stroke-linecap:round}
+.spark path.area{stroke:none;opacity:.10}
+.spark path.line{stroke-dasharray:1;stroke-dashoffset:1}
+.spark path.line.draw{animation:drawLine 1.1s var(--ease) forwards}
+@keyframes drawLine{to{stroke-dashoffset:0}}
+.msp{width:54px;height:20px;flex:none}
+.sparkwrap{margin:16px 0 2px;border:1px solid var(--line);border-radius:11px;padding:10px 12px 6px;background:var(--bg-2)}
+.sparkwrap .sl{display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-mute);margin-bottom:2px}
+.gauge{display:flex;align-items:center;gap:9px;margin-top:14px}
+.gauge .seg{height:6px;flex:1;border-radius:999px;background:var(--bg-3);overflow:hidden}
+.gauge .seg i{display:block;height:100%;width:0;background:var(--positive);transition:width .9s var(--ease)}
+.gauge .gl{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--fg-mute);min-width:104px}
 
-.bar-row{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:38px 0 14px;flex-wrap:wrap}
-.bar-row h2{font-size:17px;font-weight:500;letter-spacing:-.01em}
-.controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.pill{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;border:1px solid var(--line);border-radius:999px;padding:7px 13px;color:var(--fg-dim);background:var(--bg);transition:all .15s var(--ease)}
-.pill:hover{border-color:var(--line-2);background:var(--bg-2)}
-.pill.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
-.pill .ct{opacity:.6;margin-left:5px}
-.sort{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--fg-mute);border:1px solid var(--line);border-radius:999px;padding:7px 13px;transition:all .15s}
-.sort:hover{border-color:var(--line-2)}
-
-#grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px;transition:opacity .2s}
-#grid.dim .card:not(.open){opacity:.4;filter:saturate(.6)}
-.card{border:1px solid var(--line);border-radius:var(--r-card);background:var(--bg);overflow:hidden;transition:transform .2s var(--ease),box-shadow .2s var(--ease),border-color .2s,opacity .25s;cursor:pointer}
-.card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(31,30,27,.07);border-color:var(--line-2)}
-.card.open{grid-column:1/-1;cursor:default;border-color:var(--fg);box-shadow:0 10px 30px rgba(31,30,27,.1)}
-.card.call{border-left:3px solid var(--positive)}
-.card.call.short{border-left-color:var(--danger)}
-.c-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:14px 16px 0}
-.c-sym{display:flex;align-items:center;gap:8px}
-.c-sym .t{font-family:'IBM Plex Mono',monospace;font-size:16px;font-weight:500}
-.c-sym .badge{font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;border-radius:5px;background:var(--accent)}
-.c-sym .badge.short{background:rgba(168,68,44,.14);color:var(--danger)}
-.c-sym .badge.long{background:rgba(74,135,98,.14);color:var(--positive)}
-.c-move{font-family:'IBM Plex Mono',monospace;font-size:16px;font-weight:500}
-.c-name{font-size:11px;color:var(--fg-mute);padding:2px 16px 0}
-.c-mid{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px 14px}
-.band-mini{display:inline-flex;gap:3px}
-.band-mini .seg{font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.04em;text-transform:uppercase;padding:3px 7px;border-radius:5px;border:1px solid var(--line);color:var(--fg-mute);background:var(--bg)}
-.band-mini .seg.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
-.band-mini .seg.lean.on{background:var(--positive);border-color:var(--positive)}
-.band-mini .seg.tilt.on{background:var(--amber);border-color:var(--amber)}
-.band-mini .seg.none.on{background:var(--fg-mute);border-color:var(--fg-mute);color:var(--bg)}
-.rel{display:flex;align-items:center;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--fg-mute)}
-.rel .track{width:46px;height:5px;border-radius:999px;background:var(--bg-3);overflow:hidden}
-.rel .track i{display:block;height:100%;background:var(--fg-dim);border-radius:999px}
-.c-cat{padding:0 16px 14px;font-size:12.5px;color:var(--fg-dim);line-height:1.45}
-.c-detail{display:none;border-top:1px solid var(--line);padding:16px;background:var(--bg-2);animation:rise .3s var(--ease)}
-.card.open .c-detail{display:block}
-.card.open .c-cat{display:none}
-.det-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media(max-width:680px){.det-grid{grid-template-columns:1fr}}
-.det-block dt{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-mute);margin-bottom:4px}
-.det-block dd{font-size:13.5px;color:var(--fg-dim);line-height:1.5}
-.det-block.read{grid-column:1/-1}
-.det-block.read dd{color:var(--fg)}
-.det-tags{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px;padding-top:13px;border-top:1px solid var(--line)}
-.det-tags .tg{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--fg-dim)}
-.det-tags .tg b{color:var(--fg)}
-.invalid{display:flex;gap:9px;margin-top:13px;padding:11px 13px;background:var(--bg);border-radius:10px;border:1px solid var(--line)}
-.invalid .x{font-family:'IBM Plex Mono',monospace;color:var(--amber)}
-.invalid dt{font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:2px}
-.invalid dd{font-size:13px;color:var(--fg-dim)}
-.empty-note{grid-column:1/-1;border:1px dashed var(--line-2);border-radius:var(--r-card);padding:18px;color:var(--fg-mute);text-align:center;font-size:13px}
-
-.lower{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;margin-top:34px}
-@media(max-width:860px){.lower{grid-template-columns:1fr}}
-.panel{border:1px solid var(--line);border-radius:var(--r-card);background:var(--bg);padding:18px 20px}
+/* ===== live board ===== */
+.ticker{position:sticky;top:0;z-index:25;background:var(--fg);overflow:hidden;white-space:nowrap;border-bottom:1px solid var(--line-2)}
+.ticker .track{display:inline-block;padding:8px 0;animation:scrollX 80s linear infinite}
+.ticker:hover .track{animation-play-state:paused}
+.ticker .ti{display:inline-flex;align-items:center;gap:7px;margin:0 18px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:rgba(250,249,245,.55)}
+.ticker .ti b{color:var(--bg);font-weight:500}
+.ticker .ti .u{color:#7FC9A0}.ticker .ti .d{color:#E08B76}
+@keyframes scrollX{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.cHead{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:15px 28px;border-bottom:1px solid var(--line);max-width:1180px;margin:0 auto}
+.cHead .chip{background:var(--accent);border-radius:6px;padding:5px 9px;font-weight:600;font-size:14px}
+.cHead .hl{font-size:18px;font-weight:500;letter-spacing:-.015em;flex:1;min-width:220px}
+.cHead .clock{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--fg-dim);display:flex;align-items:center;gap:7px}
+.cHead .clock .live{position:relative;width:7px;height:7px}
+.cHead .clock .live::before{content:"";position:absolute;inset:0;border-radius:999px;background:var(--positive)}
+.cHead .clock .live::after{content:"";position:absolute;inset:0;border-radius:999px;background:var(--positive);animation:ping 1.8s var(--ease) infinite}
+.idx{display:flex;gap:18px}
+.idx .i{font-family:'IBM Plex Mono',monospace;font-size:12px;text-align:right}
+.idx .i b{display:block;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-mute);font-weight:400;margin-bottom:2px}
+.wrapC{max-width:1180px;margin:0 auto;padding:22px 28px 40px}
+.regimeBand{border:1px solid var(--line);border-radius:var(--r);background:var(--bg);padding:16px 20px;margin-bottom:22px}
+.regimeBand .t{color:var(--fg-dim);font-size:14.5px;margin-top:6px;max-width:760px}
+.split{display:grid;grid-template-columns:1.4fr 1fr;gap:22px}
+@media(max-width:900px){.split{grid-template-columns:1fr}}
+.hero{border:1px solid var(--line-2);border-radius:18px;background:var(--bg);padding:26px 28px;box-shadow:0 10px 30px rgba(31,30,27,.06)}
+.hero .hero-h{display:flex;align-items:center;gap:12px;margin:14px 0 4px}
+.hero .hsym{font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:500}
+.hero .hmv{font-family:'IBM Plex Mono',monospace;font-size:18px;margin-left:auto}
+.hero .hname{color:var(--fg-mute);font-size:13px}
+.hero .hread{font-size:15.5px;line-height:1.65;color:var(--fg);margin-top:6px}
+.hero .hgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.hero .hgrid p{font-size:13.5px;color:var(--fg-dim);margin-top:4px;line-height:1.5}
+.hero .hinv{margin-top:16px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--amber);background:rgba(176,122,46,.07);padding:10px 13px;border-radius:9px}
+.tag{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;border-radius:5px;background:var(--accent)}
+.tag.long{background:rgba(74,135,98,.14);color:var(--positive)}.tag.short{background:rgba(168,68,44,.14);color:var(--danger)}.tag.none{background:var(--bg-3);color:var(--fg-mute)}
+.listcol .topline{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.autobadge{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-mute);display:inline-flex;align-items:center;gap:5px;cursor:pointer;border:1px solid var(--line);border-radius:999px;padding:4px 9px}
+.autobadge.on{color:var(--positive);border-color:rgba(74,135,98,.35)}
+.autobadge .pd{width:5px;height:5px;border-radius:999px;background:currentColor}
+.lrow{display:grid;grid-template-columns:auto 1fr auto auto;gap:11px;align-items:center;padding:11px 14px;border:1px solid var(--line);border-radius:11px;background:var(--bg);margin-bottom:7px;cursor:pointer;transition:all .16s var(--ease)}
+.lrow:hover{border-color:var(--line-2);transform:translateX(2px)}
+.lrow.active{border-color:var(--fg);background:var(--bg-2)}
+.lrow .sym{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:500;min-width:50px}
+.lrow .cat{font-size:12.5px;color:var(--fg-mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lrow .mv{font-family:'IBM Plex Mono',monospace;font-size:12.5px}
+.callflag{width:6px;height:6px;border-radius:999px;background:var(--positive);display:inline-block;flex:none}
+.cLower{display:grid;grid-template-columns:1.3fr 1fr;gap:22px;margin-top:26px}
+@media(max-width:900px){.cLower{grid-template-columns:1fr}}
+.feed{border:1px solid var(--line);border-radius:14px;background:var(--bg);overflow:hidden}
+.feed .fh{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--bg-2)}
+.feed .fh .lab{margin:0}
+.feed .fbody{padding:8px 16px 14px;height:176px;overflow-y:auto;display:flex;flex-direction:column;font-family:'IBM Plex Mono',monospace;font-size:11.5px}
+.feed .fline{display:flex;gap:9px;padding:6px 0;color:var(--fg-dim);opacity:0;transform:translateY(6px);animation:posIn .4s var(--ease) forwards;border-bottom:1px solid var(--line)}
+.feed .fline:last-child{border-bottom:none}
+.feed .fline .tm{color:var(--fg-mute);flex:none}
+.feed .fline .ok{color:var(--positive)}
+.statcol{display:flex;flex-direction:column;gap:12px}
+.fstep2{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--bg)}
+.fstep2 .st{padding:13px 14px;border-right:1px solid var(--line)}
+.fstep2 .st:last-child{border-right:none}
+.fstep2 .st .k{font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-mute)}
+.fstep2 .st .v{font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:500;margin-top:3px}
+.breadth{border:1px solid var(--line);border-radius:14px;background:var(--bg);padding:14px 16px}
+.breadth .bl{display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--fg-dim);margin-bottom:8px}
+.breadth .bar{display:flex;height:9px;border-radius:999px;overflow:hidden;background:var(--bg-3)}
+.breadth .bar .a{background:var(--positive);width:0;transition:width 1s var(--ease)}
+.breadth .bar .d{background:var(--danger);width:0;transition:width 1s var(--ease)}
+.panels{display:grid;grid-template-columns:1.3fr 1fr;gap:22px;margin-top:22px}
+@media(max-width:900px){.panels{grid-template-columns:1fr}}
+.panel{border:1px solid var(--line);border-radius:var(--r);background:var(--bg);padding:18px 20px}
 .panel h3{font-size:13px;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-mute);margin-bottom:12px}
-.risk-body{color:var(--fg-dim);font-size:14px;line-height:1.55}
-.risk-body.danger{border-left:3px solid var(--danger);padding-left:14px}
+.risk-body{color:var(--fg-dim);font-size:14px;line-height:1.55;border-left:3px solid var(--danger);padding-left:14px}
 .noise{margin-top:12px;font-size:12.5px;color:var(--fg-mute);font-style:italic}
 .watch-l{display:flex;flex-direction:column;gap:8px}
 .watch-l .w{display:flex;gap:11px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line)}
 .watch-l .w:last-child{border-bottom:none}
 .watch-l .w .t{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;min-width:48px}
 .watch-l .w .d{font-size:13px;color:var(--fg-dim)}
-.foot{margin-top:40px;padding-top:20px;border-top:1px solid var(--line)}
-.disclaimer{font-size:12px;color:var(--fg-mute);max-width:740px;line-height:1.6}
+.foot{max-width:1180px;margin:0 auto;padding:30px 28px 110px}
+.foot .top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.redo{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;color:var(--fg-dim);border:1px solid var(--line);border-radius:999px;padding:6px 12px;transition:all .15s}
+.redo:hover{background:var(--bg-2);border-color:var(--line-2)}
+.disclaimer{font-size:12px;color:var(--fg-mute);max-width:760px;line-height:1.6}
 .prov{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:16px}
 .prov .pi .k{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-mute)}
 .prov .pi .v{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--fg-dim)}
 
-/* ============ CHAT — "Ask the desk" (Tend chat idiom) ============ */
-#chatDock{position:fixed;right:22px;bottom:22px;z-index:60}
+/* ===== chat — Ask the desk ===== */
+#chatDock{position:fixed;right:22px;bottom:22px;z-index:70}
 .chat-fab{display:flex;align-items:center;gap:9px;background:var(--fg);color:var(--bg);border-radius:999px;padding:13px 19px;box-shadow:0 10px 30px rgba(31,30,27,.22);font-size:14px;font-weight:500;transition:transform .2s var(--spring),box-shadow .2s}
 .chat-fab:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 14px 38px rgba(31,30,27,.28)}
 .chat-fab .spark{color:var(--accent)}
@@ -187,49 +188,47 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 @keyframes blink{0%,60%,100%{opacity:.25}30%{opacity:1}}
 </style></head><body>
 
-<!-- ============ INTRO INTERVIEW ============ -->
-<div id="interview"><div class="iv-card">
-  <div class="iv-brand"><span class="chip">JW</span></div>
-  <div class="iv-dots" id="ivDots"></div>
-  <div id="ivBody"></div>
-</div></div>
+<!-- ===== briefing — your book first ===== -->
+<div id="brief"><div class="bc-wrap" id="briefInner"></div></div>
 
-<!-- ============ DASHBOARD ============ -->
-<div id="dash">
-  <div class="topbar">
-    <div class="tb-l"><span class="chip">JW</span><span class="wm">Private Wealth · Desk</span></div>
-    <div class="tb-r"><span class="dot ping"></span><span class="mono" id="tbDate"></span><button class="redo" onclick="location.reload()">↺ re-run interview</button></div>
+<!-- ===== live board ===== -->
+<div id="board">
+  <div class="ticker"><div class="track" id="tickTrack"></div></div>
+  <div class="cHead">
+    <span class="chip">JW</span>
+    <div class="hl">“Tech-led risk-off with no idiosyncratic edge — every mover is unanchored, nothing to chase at the open.”</div>
+    <div class="idx" id="cIdx"></div>
+    <div class="clock"><span class="live"></span><span id="cClock">--:--:-- ET</span></div>
   </div>
-
-  <div class="hero">
-    <div class="regime">
-      <span class="mono-label">Regime read</span>
-      <div class="hl" id="hHead"></div>
-      <div class="body" id="hRegime"></div>
+  <div class="wrapC">
+    <div class="regimeBand"><span class="lab">Regime read</span><div class="t" id="regimeT"></div></div>
+    <div class="split">
+      <div class="hero" id="hero"></div>
+      <div class="listcol">
+        <div class="topline"><span class="lab">The board · <span id="moverCount"></span> movers, ranked</span><span class="autobadge on" id="autoBadge"><span class="pd"></span>auto-rotate</span></div>
+        <div id="list"></div>
+      </div>
     </div>
-    <div class="ctx" id="hCtx"></div>
+    <div class="cLower">
+      <div class="feed"><div class="fh"><span class="lab">Desk activity · live</span><span class="lab" id="feedCount"></span></div><div class="fbody" id="feed"></div></div>
+      <div class="statcol">
+        <div class="fstep2" id="funnelRow"></div>
+        <div class="breadth"><div class="bl"><span>Breadth · adv / dec</span><span id="brLab"></span></div><div class="bar"><div class="a" id="brA"></div><div class="d" id="brD"></div></div></div>
+      </div>
+    </div>
+    <div class="panels">
+      <div class="panel"><h3>Top risk</h3><div class="risk-body" id="pRisk"></div><div class="noise" id="pNoise"></div></div>
+      <div class="panel"><h3>Watch list</h3><div class="watch-l" id="pWatch"></div></div>
+    </div>
   </div>
-
-  <div class="funnel" id="hFunnel"></div>
-
-  <div class="bar-row">
-    <h2>The desk · <span id="moverCount"></span> movers analyzed</h2>
-    <div class="controls" id="filters"></div>
-  </div>
-  <div id="grid"></div>
-
-  <div class="lower">
-    <div class="panel"><h3>Top risk</h3><div class="risk-body" id="pRisk"></div><div class="noise" id="pNoise"></div></div>
-    <div class="panel"><h3>Watch list</h3><div class="watch-l" id="pWatch"></div></div>
-  </div>
-
   <div class="foot">
-    <p class="disclaimer"><b style="color:var(--fg-dim)">Internal research note — not investment advice.</b> A coverage-universe scan narrowed to overnight movers, one analyst agent per surviving name, synthesized by a CIO pass. Conviction bands are ordinal and uncalibrated; no probabilities, no position sizing, no holdings provided to the models.</p>
+    <div class="top"><span class="lab">Wed, Jun 17, 2026, 04:41 PM ET</span><button class="redo" onclick="location.reload()">↺ replay briefing</button></div>
+    <p class="disclaimer"><b style="color:var(--fg-dim)">Internal research note — not investment advice.</b> A coverage-universe scan narrowed to overnight movers, one analyst agent per surviving name, synthesized by a CIO pass. Sparklines and the ticker are illustrative (no intraday tick data on this feed). Conviction bands are ordinal and uncalibrated; no probabilities, no position sizing.</p>
     <div class="prov" id="pProv"></div>
   </div>
 </div>
 
-<!-- ============ ASK THE DESK (chat) ============ -->
+<!-- ===== Ask the desk ===== -->
 <div id="chatDock">
   <button class="chat-fab" id="chatOpen"><span class="spark">✦</span> Ask the desk</button>
   <div class="chat-panel">
@@ -244,224 +243,149 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 </div>
 
 <script>
-const B = {"dateStr":"Wed, Jun 3, 2026, 04:04 PM ET","context":{"spx":{"price":754.8,"changePct":-0.628},"ndx":{"price":744.43,"changePct":-0.2319},"rut":{"price":287.31,"changePct":-1.4915},"vix":null},"funnel":{"scanned":51,"moved":31,"agents":12,"calls":0},"regime":"Broad risk-off tape with weak breadth: SPX -0.63%, Nasdaq holding up better at -0.23%, and Russell down a sharp -1.49% signals small-caps and high-beta are bearing the brunt. Crypto-levered names (COIN, MSTR, HOOD) clustering at -6% confirms a crypto/risk sentiment drag overlaying the index weakness. VIX is unavailable, so we're flying without a volatility read this morning.","headline":"Risk-off and small-cap-led, but the entire 12-name board is catalyst-blind noise — nothing to chase pre-open.","topRisk":"Several of these gaps (WMT, ORCL, PLTR, SNOW) carry the signature of earnings or guidance events that landed after the scanner cutoff; acting on any of them before the catalyst is identified risks stepping into a fully-priced or still-accelerating fundamental move with undefined risk.","noiseNote":"All 12 deep-dives came back catalyst-unknown with no RVOL confirmation — the crypto cluster (COIN/MSTR/HOOD), large-cap tech (NVDA/AMZN/SHOP/META/AMD), and the unexplained gaps (PLTR/SNOW) are best read as macro/sector beta or pre-confirmation artifacts, not signal. Filter did its job; the tape simply isn't offering an edge this morning.","watch":[{"symbol":"WMT","why":"3.57% gap in a mega-cap is almost certainly an earnings print hitting after scanner cutoff — confirm the tape before forming any view."},{"symbol":"ORCL","why":"5.63% drop fits a post-earnings guidance reaction; if confirmed earnings-driven, the move likely has follow-through and is not a dip to buy blind."},{"symbol":"PLTR","why":"-7.14% is the largest mover with no headline; high retail beta means it can extend hard if a company-specific item surfaces post-open."},{"symbol":"COIN","why":"Cleanest read on the board — likely pure BTC beta drag; watch crypto spot for the broader risk-off tell rather than as a standalone trade."}],"movers":[{"symbol":"HOOD","name":"Robinhood","changePct":-6.41,"vs50":null,"vs200":null,"marketCapB":null,"catalyst":"unclear — no headlines surfaced, likely sympathy sell with broader fintech/crypto risk-off or options/derivatives flow","read":"A 6.4% decline with no identifiable headline is a yellow flag, not a green light. Without RVOL data or a confirmed catalyst, this could be sector drag (crypto down, HOOD's revenue is levered to crypto trading volume), a block trade, or options pin/unwind post-expiry. No headline means no edge in identifying direction.","setup":"none — no edge without catalyst confirmation","risk":"A crypto market reversal intraday turns this into a mean-reversion rip; short thesis evaporates fast given HOOD's beta to crypto sentiment","band":"none","direction":"none","invalidation":"Any headline confirming a specific catalyst (earnings pre-announcement, regulatory action, or macro crypto event) would reframe the entire read","relevance":25,"isCall":false,"callThesis":null,"callInvalid":null},{"symbol":"PLTR","name":"Palantir","changePct":-7.14,"vs50":null,"vs200":null,"marketCapB":null,"catalyst":"unclear — no headlines surfaced to explain the move","read":"A -7.14% move in PLTR with no accompanying headlines is suspect; given PLTR's history of sympathy moves with broad tech/risk-off sessions and its extreme retail sentiment premium, this is likely macro or sector drag amplified by thin pre-market liquidity rather than a company-specific event. Without RVOL data to confirm unusual volume, treating this as signal is premature.","setup":"none — no edge without an identifiable catalyst or volume confirmation","risk":"A company-specific negative — earnings pre-announcement, contract loss, or insider sale — surfaces post-open and the move extends aggressively","band":"none","direction":"none","invalidation":"Any confirmed company-specific headline reverses the noise thesis immediately","relevance":22,"isCall":false,"callThesis":null,"callInvalid":null},{"symbol":"SNOW","name":"Snowflake","changePct":-7,"vs50":null,"vs200":null,"marketCapB":null,"catalyst":"unclear — no headlines surfaced to explain the -7% move","read":"A 7% decline with zero headline context is a red flag for data quality or a late-breaking event not yet indexed. Without RVOL confirmation or a news anchor, this cannot be distinguished from a data/feed error versus a real fundamental event. Do not act on this until a catalyst is identified.","setup":"none — no edge without a confirmed catalyst","risk":"Move is real and driven by an earnings pre-announcement or guidance cut that surfaces moments after open, leaving no time to position intelligently","band":"none","direction":"none","invalidation":"Any confirmed fundamental catalyst (guide-down, secondary, partner loss) immediately changes the read and requires re-evaluation from scratch","relevance":20,"isCall":false,"callThesis":null,"callInvalid":null},{"symbol":"ORCL","name":"Oracle","changePct":-5.63,"vs50":null,"vs200":null,"marketCapB":null,"catalyst":"unclear — no headlines surfaced, likely post-earnings or macro tape drag","read":"A 5.63% decline with no headline context is incomplete data, not a clean signal. ORCL has a history of sharp post-earnings moves, so this could be a delayed reaction to guidance or a beat-without-raise print, but without confirming headlines or RVOL data there is no basis to distinguish that from sector-wide cloud/software selling. Trading on this setup blind is speculative.","setup":"none — no edge","risk":"If this is post-earnings drift on weak guidance, the move has more room; buying a 5% dip without knowing the fundamental driver is an undefined-risk trade.","band":"none","direction":"none","invalidation":"Any confirmation this is earnings-driven guidance cut invalidates a long thesis immediately","relevance":20,"isCall":false,"callThesis":null,"callInvalid":null},{"symbol":"WMT","name":"Walmart","changePct":3.57,"vs50":null,"vs200":null,"marketCapB":null,"catalyst":"unclear — no headlines surfaced","read":"3.57% move in a $500B mega-cap with zero headline attribution is immediately suspect; the most likely explanations are a scheduled earnings release hitting after scanner cutoff or a data/feed artifact, not organic price discovery. Without RVOL confirmation or a catalyst, this is unactionable noise until the earnings tape or a news wire is confirmed.","setup":"none — no edge without knowing the catalyst","risk":"this is an earnings gap and the move is already fully priced into the open, leaving no entry","band":"none","direction":"none","invalidation":"any confirmed feed error or absence of a fundamental catalyst by 9:25 AM ET kills all interest","relevance":20,"isCall":false,"callThesis":null,"callInvalid":null},{"symbol":"COIN","name":"Coinbase","changePct":-6.36,"vs50":null,"vs200":null,"marketCapB":null,"catalyst":"unclear — no headlines surfaced; likely crypto risk-off or BTC price pressure","read":"No catalyst, no RVOL data, no technicals — this is a low-information flag. COIN moves 5-7% on routine crypto volatility; a -6.36% move without a discrete catalyst is almost certainly beta drag from BTC/ETH weakness, not an idiosyncratic event worth acting on.","setup":"none — no edge without confirming catalyst or volume confirmation","risk":"A real catalyst exists but wasn't captured by the scanner — earnings revision, SEC action, or exchange outage would reprice the name further","band":"none","direction":"none","invalidation":"Any confirmed headline (regulatory, operational, or guidance) would reopen the thesis entirely","relevance":18,"isCall":false,"callThesis":null,"callInvalid":null},{"symbol":"MSTR","name":"MicroStrategy","changePct":-6.26,"vs50":null,"vs200":null,"marketCapB":null,"catalyst":"unclear — no headlines surfaced; likely sympathy sell with Bitcoin overnight weakness","read":"MSTR is a leveraged Bitcoin proxy; a -6.26% move with no specific headline is almost certainly tracking BTC downside plus convexity drag from its premium-to-NAV structure. Without RVOL data or a specific catalyst, this is high-probability noise tied to crypto sentiment, not an idiosyncratic MSTR event.","setup":"none — no edge without knowing BTC spot level and whether MSTR premium has compressed to a tradeable entry","risk":"BTC continues to sell off intraday, accelerating MSTR's move well beyond -6% given its embedded leverage","band":"none","direction":"none","invalidation":"BTC stabilizes above overnight low and MSTR premium-to-NAV holds — thesis for concern evaporates entirely","relevance":18,"isCall":false,"callThesis":null,"callInvalid":null},{"symbol":"META","name":"Meta Platforms","changePct":3.86,"vs50":null,"vs200":null,"marketCapB":null,"catalyst":"unclear — no headlines surfaced","read":"No catalyst identified and no technical data provided to contextualize the ~3.9% move. Without RVOL confirmation or a news anchor, this is unverified overnight drift that could be sympathy with broad tech, index rebalancing, or a stale data artifact. Treat as noise until a catalyst is confirmed.","setup":"none — no edge without a confirmed catalyst or technical structure","risk":"Move reverses at open if driven by thin overnight liquidity with no fundamental anchor","band":"none","direction":"none","invalidation":"Any confirmed catalyst or RVOL > 2x at open would reopen the setup for reassessment","relevance":18,"isCall":false,"callThesis":null,"callInvalid":null},{"symbol":"AMD","name":"Advanced Micro Devices","changePct":3.55,"vs50":null,"vs200":null,"marketCapB":null,"catalyst":"unclear — no headlines surfaced","read":"No catalyst is identifiable from available data. A 3.55% pre-open move with zero headline support on AMD most likely reflects spillover from a sector peer catalyst (NVDA, INTC, AVGO) or index/ETF rebalancing noise rather than a company-specific event. Without RVOL confirmation or a datable catalyst, this is unactionable.","setup":"none — no edge without a catalyst to anchor size or timing","risk":"Move fades entirely at open if it was pure sympathy trade and the originating peer catalyst doesn't hold","band":"none","direction":"none","invalidation":"Any confirmed company-specific catalyst that surfaces before open resets this entire read","relevance":18,"isCall":false,"callThesis":null,"callInvalid":null},{"symbol":"SHOP","name":"Shopify","changePct":-3.45,"vs50":null,"vs200":null,"marketCapB":null,"catalyst":"unclear — no headlines surfaced","read":"No catalyst, no RVOL data, no technicals provided. A 3.45% down move in a high-beta tech name on zero news is likely broad market sympathy or sector rotation drag, not company-specific signal. Without volume confirmation or a fundamental trigger, this is noise until proven otherwise.","setup":"none — no edge without catalyst or volume data","risk":"A delayed headline (earnings pre-release, guidance cut, macro read-through) surfaces post-open and the move accelerates","band":"none","direction":"none","invalidation":"Any company-specific headline or confirmed abnormal volume prints","relevance":18,"isCall":false,"callThesis":null,"callInvalid":null},{"symbol":"AMZN","name":"Amazon","changePct":-3.2,"vs50":null,"vs200":null,"marketCapB":null,"catalyst":"unclear — no headlines surfaced","read":"3.2% down move with zero headline attribution is most likely broad market beta selloff or macro-driven risk-off; without RVOL data or a specific catalyst, this is indistinguishable from sector drag. No edge in trading a vacuum.","setup":"none — no edge","risk":"an undetected catalyst (earnings guide leak, regulatory action, key exec departure) that makes the move directional and material","band":"none","direction":"none","invalidation":"any surfaced headline with fundamental weight changes the entire read immediately","relevance":18,"isCall":false,"callThesis":null,"callInvalid":null},{"symbol":"NVDA","name":"NVIDIA","changePct":-3.45,"vs50":null,"vs200":null,"marketCapB":null,"catalyst":"unclear — no headlines surfaced","read":"No RVOL data, no technical context, and zero headlines make this unfalsifiable. A -3.45% move in NVDA is within normal daily range given its beta and options-implied move; without a catalyst or elevated volume confirmation, this is indistinguishable from sector rotation or macro tape drag.","setup":"none — no edge","risk":"An undetected material catalyst (export restriction, earnings pre-announcement, or large block unwind) that the scanner simply missed","band":"none","direction":"none","invalidation":"Any confirmed headline emerges — thesis changes immediately on new information","relevance":12,"isCall":false,"callThesis":null,"callInvalid":null}],"prov":{"analyst":"claude-sonnet-4-6","cio":"claude-opus-4-8","calls":13,"inTok":8540,"outTok":3274,"cost":0.179}};
-const QA = [{"q":"Give me the 30-second version.","a":"Risk-off tape, weak breadth, nothing to do. SPY -0.63%, but Russell -1.49% — small-caps and high-beta taking the hit. Nasdaq holding up best at -0.23%.\n\nCrypto-levered names clustered down ~6%: COIN -6.4%, HOOD -6.4%, MSTR -6.3%. That's BTC beta drag, not idiosyncratic — COIN is the cleanest read, watch crypto spot as the risk tell.\n\nThe board's biggest single mover is PLTR -7.1%, no headline. SNOW -7% same story. Both suspect without volume confirmation.\n\nThe real flag: WMT +3.6%, ORCL -5.6%, PLTR, SNOW all carry the signature of earnings/guidance prints that landed *after* the scanner cutoff. ORCL -5.6% especially fits a post-earnings guidance reaction — if confirmed, that's follow-through, not a dip to buy blind.\n\nBottom line: every one of the 12 names is catalyst-blind noise. Zero conviction calls. Confirm the tape on WMT/ORCL/PLTR/SNOW before forming any view — nothing to chase pre-open."},{"q":"Anything actually worth trading today?","a":"Short answer: no. Per today's run, nothing on the board is tradeable pre-open.\n\nEvery one of the 12 deep-analyzed names came back catalyst-blind — no headlines, no RVOL, no technical context. The desk graded all 12 at conviction \"none\" and relevance ≤25/100. That's not laziness, it's the honest read: you can't distinguish signal from noise without a catalyst or volume anchor, and most of these moves have a cleaner explanation than \"company-specific event.\"\n\nHere's how the board actually breaks down:\n\n**Pure beta/noise — leave alone:**\n- The crypto cluster (COIN -6.36%, MSTR -6.26%, HOOD -6.41%) is the cleanest read on the board: BTC risk-off drag, not idiosyncratic. COIN routinely moves 5-7% on routine crypto vol. MSTR is a levered BTC proxy. Nothing to trade here — watch crypto spot as a *risk-tell for the broader tape*, not as a standalone setup.\n- NVDA -3.45%, AMZN -3.20%, SHOP -3.45%, AMD +3.55%, META +3.86% — all within normal beta range on a -0.63% SPX / -1.49% Russell risk-off day. High-beta names doing high-beta things. No edge.\n\n**The actual landmines — the ones that *look* like catalysts but aren't confirmed:**\n- **WMT +3.57%** — a 3.57% gap in a ~$500B mega-cap doesn't happen organically. Signature of an earnings print landing after scanner cutoff. Could already be fully priced into the open.\n- **ORCL -5.63%** — fits a post-earnings guidance reaction. If that's confirmed, it has follow-through and is *not* a blind dip-buy.\n- **PLTR -7.14%** — largest mover, no headline, extreme retail beta. If something company-specific surfaces post-open, it extends hard.\n- **SNOW -7.00%** — same profile; 7% on zero context is either a real event not yet indexed or a data artifact.\n\nThese four are precisely where you'd get hurt acting early — stepping into a fully-priced or still-accelerating fundamental move with undefined risk.\n\n**Bottom line:** the move to make is to confirm the tape, not chase the gap. If WMT/ORCL/PLTR/SNOW turn out to be earnings-driven, the read changes from scratch — but until a catalyst is identified, there's no edge here. Don't manufacture conviction out of a noisy risk-off open.\n\nWhat I *don't* have: VIX (unavailable this morning), RVOL on any name, BTC spot level, and any intraday/post-open tape. If you want a verdict on WMT or ORCL specifically, get me the catalyst confirmation and I'll re-rack it."},{"q":"Why is PLTR moving?","a":"Honest answer: **we don't know, and the desk explicitly flagged it as unexplained.**\n\nHere's what the run actually says on PLTR:\n- **Move:** -7.14% — the single largest mover on the 12-name board.\n- **Catalyst:** unclear. No headlines surfaced to explain it.\n- **No supporting data:** no RVOL, no 50/200-DMA, no mktcap context. The analyst couldn't even confirm whether volume was unusual.\n\nThe working thesis from the desk is that this is **macro/sector drag amplified, not a company-specific event** — PLTR has a long history of sympathy moves with broad tech/risk-off sessions, and it carries an extreme retail sentiment premium that makes it whip harder than its fundamentals warrant. That fits today's tape: risk-off session (SPY -0.63%), small-cap/high-beta getting hit hardest (IWM -1.49%), and the crypto-levered high-beta cluster (COIN, MSTR, HOOD all ~-6%) confirming a sentiment drag. PLTR's -7% slots right into that high-beta cohort.\n\nBut — and this is the important part — the analyst graded conviction at **none** and relevance at **22/100** precisely because that's a *guess*, not a read. Without RVOL or a headline, you cannot distinguish \"macro beta drag\" from \"a company-specific item that surfaces post-open.\"\n\n**The risk the desk is watching:** the explicit invalidation is *any confirmed company-specific headline* — an earnings pre-announcement, a contract loss, an insider sale. PLTR's retail beta means if something idiosyncratic surfaces post-open, this can extend hard well past -7%. The CIO called it out by name in the watch list for exactly this reason.\n\nBottom line: -7% with no catalyst and no volume confirmation is **suspect noise until proven otherwise**. No edge here pre-open — confirm the tape and look for a headline before forming any view."},{"q":"Rank the movers by what matters most.","a":"There's no real conviction ranking to be had here — the desk flagged all 12 as catalyst-blind. But if you're forcing a priority order by **what's worth watching the tape for**, here's how I'd stack them:\n\n**Tier 1 — Almost certainly events, confirm the tape first:**\n\n1. **WMT +3.57%** — A 3.57% gap in a $500B mega-cap doesn't happen on noise. This has the fingerprint of an earnings print landing after the scanner cutoff. Highest-probability \"real\" move on the board. *Invalidation: feed error or no catalyst by 9:25 ET kills it.*\n\n2. **ORCL -5.63%** — Fits the classic post-earnings guidance-reaction profile. ORCL has a history of sharp post-print moves. If confirmed earnings-driven, this has follow-through and is explicitly **not a dip to buy blind** per the desk.\n\n3. **PLTR -7.14%** — Largest mover on the board. No headline, but extreme retail beta means if a company-specific item surfaces post-open it can extend hard. Worth watching precisely because the gap size + zero attribution is the most suspect combination.\n\n**Tier 2 — High-probability beta drag, lower idiosyncratic risk:**\n\n4. **SNOW -7.00%** — Second-largest down move, no headline. Desk flagged this as either a data-quality red flag OR a late guidance event. Watch, but lower priority than ORCL because there's no earnings-history anchor pointing one way.\n\n5. **COIN -6.36%** — The CIO called this the **cleanest read on the board**: pure BTC beta. Matters less as a standalone and more as your **risk-off thermometer** — watch crypto spot for the broader sentiment tell.\n\n6. **MSTR -6.26% / HOOD -6.41%** — Same crypto cluster. MSTR is a levered BTC proxy (convexity + premium-to-NAV drag), HOOD is crypto-volume levered. These confirm the crypto-sentiment overlay but offer no independent edge. Treat as a group with COIN.\n\n**Tier 3 — Index/sector beta, lowest relevance:**\n\n7. **META +3.86%, AMD +3.55%** — Up-moves in the green tape pocket (QQQ only -0.23%). Likely sympathy/rebalancing. AMD specifically reads as peer spillover (NVDA/AVGO).\n\n8. **NVDA -3.45%, SHOP -3.45%, AMZN -3.20%** — Within normal daily range for their betas. NVDA got the lowest relevance score on the board (12/100) — this is noise.\n\n**The honest take:** The only line that actually matters is Tier 1, and even there your edge is *waiting for the tape to confirm the catalyst*, not pre-positioning. The crypto cluster (COIN/MSTR/HOOD) matters as a regime signal, not as trades. Everything in Tier 3 is index drag in a weak-breadth session — IWM -1.49% tells you small-cap/high-beta is the real story, and these names are just expressing it.\n\nNothing to chase pre-open. The work today is identification, not execution."},{"q":"What should I worry about today?","a":"Straight answer: the thing to worry about today is **acting on data you can't yet explain.** Every one of the 12 names that moved is catalyst-blind — no headlines, no RVOL, no technicals surfaced. That's not a \"buy the dip\" board, it's a \"wait for the tape\" board.\n\nRanked by what actually deserves your attention:\n\n**1. The four earnings-shaped gaps — WMT, ORCL, PLTR, SNOW.** These are the real risk because they have the *signature* of fundamental events that landed after the scanner cutoff:\n- **WMT +3.57%** — a 3.5% move in a ~$500B mega-cap doesn't happen on noise. That's an earnings print or a feed artifact. If it's earnings, it's already priced into the open — no entry.\n- **ORCL -5.63%** — fits the post-earnings guidance-reaction profile. If confirmed earnings-driven, this likely has *follow-through* — not a dip to buy blind.\n- **PLTR -7.14%** — biggest mover on the board. Extreme retail beta means if a company-specific item surfaces post-open, it can extend hard. No headline yet ≠ no catalyst.\n- **SNOW -7.00%** — same risk profile as ORCL; a guide-down or secondary surfacing minutes after open leaves no time to position.\n\nThe worry on all four is identical: stepping into a fully-priced or still-accelerating fundamental move with **undefined risk** before you know what drove it.\n\n**2. The crypto cluster — COIN -6.36%, MSTR -6.26%, HOOD -6.41%.** This is the *cleanest* read on the board and therefore the *least* idiosyncratic. These are clustering at ~-6% together, which screams pure BTC beta drag, not three separate company events. COIN/MSTR routinely move 5-7% on crypto vol alone. Don't trade these as standalone names — watch them as your **risk-off tell**: if crypto spot stabilizes, this whole cohort mean-reverts fast (HOOD's short thesis evaporates on a crypto rip). If BTC keeps bleeding, MSTR extends hardest given its leverage/premium-to-NAV convexity.\n\n**3. The macro regime itself.** IWM -1.49% vs SPY -0.63% vs QQQ -0.23% — small-caps and high-beta are bearing the brunt, Nasdaq holding up. The NVDA/AMD/AMZN/SHOP/META moves are almost certainly just beta drag inside this risk-off tape, not signal. And critically: **VIX is unavailable** — you're flying without a volatility read this morning, so size accordingly to that blind spot.\n\n**What you should NOT worry about:** missing a trade. There's no edge to chase here. Nothing on this board cleared conviction. The honest call is to confirm the WMT/ORCL/PLTR/SNOW catalysts on the tape before forming *any* view, and treat the crypto cluster as a sentiment gauge rather than an entry.\n\nBottom line: the only real risk today is your own itch to act inside an information vacuum."},{"q":"Which moves look catalyst-driven vs just noise?","a":"Here's the honest split from this morning's board — and the key caveat up front: **none of these have a confirmed catalyst.** Every note flags \"no headline surfaced.\" So this is pattern-recognition on the *shape* of the gap, not confirmed events.\n\n**Likely catalyst-driven (the gap signature smells like an event the scanner missed):**\n\n- **WMT +3.57%** — A 3.57% move in a ~$500B mega-cap doesn't happen on tape drift. Mega-caps don't gap like that without an earnings print or a feed artifact. Highest-probability earnings tell on the board.\n- **ORCL -5.63%** — Fits the classic post-earnings guidance-reaction profile. ORCL has a history of sharp post-print moves. If confirmed earnings-driven, the desk's view is this has *follow-through* — not a blind dip-buy.\n- **PLTR -7.14%** — Largest mover, no headline. The size alone is suspect. Could still be retail-beta amplification of risk-off, but -7% is big enough that a company-specific item (pre-announce, contract, insider sale) is a live possibility. Watch it post-open — high retail beta means it extends hard if something surfaces.\n- **SNOW -7.00%** — Same bucket as ORCL/PLTR by magnitude. 7% with zero context is either a real late-breaking event (guide cut / secondary) or a data-quality problem. Can't distinguish blind.\n\n**Almost certainly noise / beta drag (no idiosyncratic edge):**\n\n- **COIN -6.36%, MSTR -6.26%, HOOD -6.41%** — This is the cleanest read on the entire board. Three crypto-levered names clustered at ~-6% is **BTC beta, not three separate company events.** MSTR is a leveraged BTC proxy + premium-to-NAV drag; COIN routinely moves 5-7% on spot; HOOD's revenue is crypto-volume levered. Watch crypto spot as the *risk-off tell*, not as a trade.\n- **NVDA -3.45%, AMD +3.55%, SHOP -3.45%, AMZN -3.20%, META +3.86%** — All within normal daily range for these betas. Looks like sector rotation / macro tape drag, not signal. NVDA's -3.45% is inside its options-implied move. AMD's pop is most likely peer sympathy (NVDA/INTC/AVGO). META's +3.86% is the only odd one of this group — a green print in a red tape — but still no anchor; treat as unverified drift.\n\n**Bottom line:** The four worth *confirming the tape on* are WMT, ORCL, PLTR, SNOW — those carry the earnings/guidance signature. The crypto trio is noise dressed as conviction. Everything else is beta. And remember the regime: SPX -0.63%, IWM -1.49% — small-cap/high-beta led risk-off. That tape alone explains most of the -3% names without needing a catalyst.\n\nNothing here is actionable pre-open until a wire confirms what hit after the scanner cutoff."}];
+const B = {"dateStr":"Wed, Jun 17, 2026, 04:41 PM ET","context":{"spx":{"price":740.96,"changePct":-1.2488},"ndx":{"price":722.51,"changePct":-1.007},"rut":{"price":289.88,"changePct":-0.7532},"vix":null},"funnel":{"scanned":51,"moved":34,"agents":12,"calls":0},"regime":"Broad risk-off tape: SPX -1.25%, Nasdaq -1.01%, Russell -0.75% with mega-cap tech leading the decline. The cluster of 2-5% down moves across MSFT, AMZN, GOOGL, ORCL, UBER, HD reads as index-level beta selling rather than name-specific stress — no single name is breaking from the pack on news. VIX is unavailable, so we're flying without a fear gauge; treat pre-market prints as liquidity-thin and unconfirmed.","headline":"Tech-led risk-off with no idiosyncratic edge — every mover is unanchored, nothing to chase at the open.","topRisk":"An undetected company-specific catalyst (earnings pre-announcement, guidance cut, regulatory action) sits behind one of the 'unanchored' mega-cap moves and the scanner simply missed it — fading or chasing any of these blind risks stepping into a real event mid-tape.","noiseNote":"Of the 12 deep-dives, 9 are mega-cap moves with no headline that map cleanly to broad risk-off beta (META, MSFT, AMZN, GOOGL, ORCL, UBER, HD, SHOP, COIN) — dismissed as tape-driven. The two outliers worth a glance are HOOD (counter-tape gap up) and AVGO (green in a red tape); both still lack confirmation.","watch":[{"symbol":"HOOD","why":"+8.78% with zero headline attribution on a $10B+ float is too large to dismiss; needs catalyst/RVOL confirmation before it's anything but a question mark."},{"symbol":"AVGO","why":"+4.3% bucking the risk-off tape with no news — possible leaked catalyst or index/options flow; watch the wire and pre-market volume."},{"symbol":"MSTR","why":"-5.09% as a BTC proxy; only matters if Bitcoin direction confirms — otherwise reflexive noise."}],"movers":[{"symbol":"HOOD","name":"Robinhood","changePct":8.78,"vs50":null,"vs200":null,"marketCapB":null,"catalyst":"unclear — no headlines surfaced","read":"8.78% overnight gap with zero headline attribution is either a dark-pool block, a leaked catalyst (earnings pre-announcement, M&A, regulatory), or a data artifact. Without RVOL confirmation or a news anchor, this cannot be traded with conviction — but the magnitude is too large to dismiss as random drift on a $10B+ float name.","setup":"none — no edge until catalyst is identified; wait for pre-market tape and news wire to surface the driver before sizing","risk":"gap fades entirely if move is a data error, stale print, or thin pre-market fill with no fundamental backing","band":"none","direction":"none","invalidation":"any confirmed data error or absence of a real catalyst by market open collapses the move back toward $96-97","relevance":45,"isCall":false,"callThesis":null,"callInvalid":null},{"symbol":"AVGO","name":"Broadcom","changePct":4.3,"vs50":null,"vs200":null,"marketCapB":null,"catalyst":"unclear — no headlines surfaced; likely sympathy with AI/semis tape or undisclosed news","read":"4.3% move with zero headline attribution is suspicious; AVGO is liquid enough that random drift of this magnitude is unusual, but without RVOL confirmation or a catalyst anchor this could be index rebalance flow, options-related, or a pre-market thin-tape exaggeration that fades on open. No edge in chasing blind.","setup":"none — no edge","risk":"move is real and catalyst-driven (earnings leak, M&A, analyst action) and fades rapidly at open after information surfaces","band":"none","direction":"none","invalidation":"confirmed fundamental catalyst with volume conviction above prior session RVOL >2x","relevance":30,"isCall":false,"callThesis":null,"callInvalid":null},{"symbol":"MSFT","name":"Microsoft","changePct":-3.79,"vs50":null,"vs200":null,"marketCapB":null,"catalyst":"unclear — no headlines surfaced","read":"A -3.79% move in a $2.8T name without a headline is meaningful in absolute dollar terms but requires a catalyst to trade against. No RVOL or technical data was surfaced, so this could be sympathy selling with broad tech, a macro rates move, or a data gap in the scanner — all three are more likely than an idiosyncratic MSFT event. Without a headline anchor, this is noise until proven otherwise.","setup":"none — no edge without a confirmed catalyst or technical context","risk":"A missed earnings pre-announcement or Azure guidance cut surfaces post-flag and the move accelerates significantly","band":"none","direction":"none","invalidation":"Any material headline (earnings, guidance, regulatory) surfaces — reassess immediately from scratch","relevance":30,"isCall":false,"callThesis":null,"callInvalid":null},{"symbol":"META","name":"Meta Platforms","changePct":-5.44,"vs50":null,"vs200":null,"marketCapB":null,"catalyst":"unclear — no headlines surfaced; likely macro/sector sympathy or after-hours index rebalance noise","read":"Without headlines, RVOL data, or a technical anchor, a 5.4% move on META is uninterpretable — it could be broad tech selling, a missed whisper on an unreported earnings/guide, or thin pre-market liquidity exaggerating a futures-driven flush. No headline surface means the desk hasn't confirmed a company-specific trigger, which argues against acting on this print.","setup":"none — no edge without a confirmed catalyst or volume confirmation","risk":"A company-specific negative (guidance cut, regulatory action, ad-spend warning) surfaces post-open and the move extends materially","band":"none","direction":"none","invalidation":"Any confirmed fundamental headline — positive or negative — immediately supersedes this read","relevance":20,"isCall":false,"callThesis":null,"callInvalid":null},{"symbol":"MSTR","name":"MicroStrategy","changePct":-5.09,"vs50":null,"vs200":null,"marketCapB":null,"catalyst":"unclear — no headlines surfaced; likely Bitcoin overnight weakness bleeding through","read":"No data-driven catalyst is present. MSTR trades as a leveraged Bitcoin proxy, so a 5% drop maps cleanly to any BTC softness overnight — this is reflexive, not idiosyncratic. Without RVOL confirmation or a specific headline (dilution, filing, Saylor statement), this is noise until proven otherwise.","setup":"none — no edge without confirming BTC direction or a MSTR-specific catalyst","risk":"BTC reverses sharply higher intraday, squeezing any short thesis built on this move","band":"none","direction":"none","invalidation":"BTC stabilizes or reclaims prior session levels — MSTR gap fills and the 5% move is irrelevant","relevance":18,"isCall":false,"callThesis":null,"callInvalid":null},{"symbol":"AMZN","name":"Amazon","changePct":-3.46,"vs50":null,"vs200":null,"marketCapB":null,"catalyst":"unclear — no headlines surfaced","read":"A 3.46% down move in a mega-cap with zero headline attribution and no technical or RVOL context is almost certainly macro/sector drag or broad risk-off tape, not a name-specific event. Without a catalyst, this is noise until proven otherwise. No edge in chasing it.","setup":"none — no edge","risk":"A real catalyst (guidance cut, regulatory action, AWS miss leak) exists but didn't surface in the scan, meaning the move is worse than it looks","band":"none","direction":"none","invalidation":"Any headline confirming a fundamental catalyst would immediately change the read","relevance":18,"isCall":false,"callThesis":null,"callInvalid":null},{"symbol":"SHOP","name":"Shopify","changePct":-4.54,"vs50":null,"vs200":null,"marketCapB":null,"catalyst":"unclear — no headlines surfaced to explain the move","read":"No catalyst, no RVOL data, no technicals — this is an unanchored 4.5% move with nothing to hang a thesis on. Shopify moves this much on macro risk-off days or sympathy with broader e-commerce/tech weakness, but without confirmation that's speculation. Noise until proven otherwise.","setup":"none — no edge without a catalyst or technical context","risk":"A real fundamental catalyst (earnings preannouncement, guidance cut, partner data) exists but wasn't captured by the scanner — trading blind into that is dangerous","band":"none","direction":"none","invalidation":"Any surfaced headline with fundamental content immediately reframes this entire read","relevance":12,"isCall":false,"callThesis":null,"callInvalid":null},{"symbol":"HD","name":"Home Depot","changePct":-2.85,"vs50":null,"vs200":null,"marketCapB":null,"catalyst":"unclear — no headlines surfaced","read":"A 2.85% down move in a mega-cap consumer discretionary with no headline attribution is likely macro or sector rotation driven — housing data, rate repricing, or broad tape weakness. Without RVOL confirmation or a news hook, this is almost certainly noise riding a sector move rather than a company-specific signal.","setup":"none — no edge without a catalyst or technical context to frame entry","risk":"A surprise negative catalyst (earnings preannouncement, housing print miss) surfaces post-open and the move extends sharply","band":"none","direction":"none","invalidation":"Any company-specific headline emerges that contextualizes the move","relevance":12,"isCall":false,"callThesis":null,"callInvalid":null},{"symbol":"COIN","name":"Coinbase","changePct":-2.57,"vs50":null,"vs200":null,"marketCapB":null,"catalyst":"unclear — no headlines surfaced, likely crypto market beta selloff","read":"No catalyst, no RVOL data, no technicals provided — this is almost certainly noise riding a broader crypto tape move. A 2.57% drawdown in COIN with zero news is well within its normal daily range given BTC/ETH beta typically runs 1.5-2x. Nothing here demands attention.","setup":"none — no edge","risk":"BTC accelerates lower on macro or regulatory news that wasn't captured in this scan run, turning noise into signal","band":"none","direction":"none","invalidation":"A specific negative headline (SEC action, earnings pre-announcement, exchange incident) that surfaces post-scan","relevance":12,"isCall":false,"callThesis":null,"callInvalid":null},{"symbol":"ORCL","name":"Oracle","changePct":-2.55,"vs50":null,"vs200":null,"marketCapB":null,"catalyst":"unclear — no headlines surfaced","read":"Without headlines, RVOL data, or technicals, a -2.55% move in a mega-cap like ORCL is unreadable. Post-earnings drift, broad tech rotation, or a missed internal note are all equally plausible. This is noise until a catalyst is identified.","setup":"none — no edge","risk":"An undetected material catalyst (guidance cut, analyst action, customer churn data) means the move is larger than it looks","band":"none","direction":"none","invalidation":"Any sourced headline or pre-market volume spike above 2x normal immediately changes the read","relevance":12,"isCall":false,"callThesis":null,"callInvalid":null},{"symbol":"UBER","name":"Uber","changePct":-3.19,"vs50":null,"vs200":null,"marketCapB":null,"catalyst":"unclear — no headlines surfaced","read":"No RVOL data, no technicals, no headlines: this move cannot be attributed to any identifiable catalyst. A 3.2% overnight decline in a large-cap like UBER with zero news context is most likely macro/index pressure or thin pre-market tape, not a stock-specific event worth acting on.","setup":"none — no edge","risk":"An undetected material headline (regulatory, earnings pre-announcement) is the actual driver and scanner simply missed it","band":"none","direction":"none","invalidation":"Any surfaced headline with fundamental content immediately changes the calculus","relevance":10,"isCall":false,"callThesis":null,"callInvalid":null},{"symbol":"GOOGL","name":"Alphabet","changePct":-2.53,"vs50":null,"vs200":null,"marketCapB":null,"catalyst":"unclear — no headlines surfaced","read":"No catalyst, no RVOL data, no technical context provided — this is unactionable as presented. A 2.5% move in a mega-cap without a headline is likely broad market beta or index-level selling, not a name-specific event worth isolating.","setup":"none — no edge","risk":"A real catalyst exists but wasn't captured by the scanner, making any fade or follow-through call uninformed","band":"none","direction":"none","invalidation":"Any surfaced headline — earnings, regulatory, or macro — that explains the move immediately changes the read","relevance":10,"isCall":false,"callThesis":null,"callInvalid":null}],"ticker":[{"s":"SPY","p":-1.25},{"s":"QQQ","p":-1.01},{"s":"IWM","p":-0.75},{"s":"AAPL","p":-1.1},{"s":"MSFT","p":-3.79},{"s":"NVDA","p":-1.33},{"s":"GOOGL","p":-2.53},{"s":"META","p":-5.44},{"s":"AMZN","p":-3.46},{"s":"TSLA","p":-2.05},{"s":"AVGO","p":4.3},{"s":"ORCL","p":-2.55},{"s":"AMD","p":1.02},{"s":"JPM","p":0.7},{"s":"BAC","p":-0.55},{"s":"GS","p":0.78},{"s":"MS","p":1.87},{"s":"BLK","p":0.49},{"s":"SCHW","p":0.9},{"s":"V","p":-0.82},{"s":"MA","p":-1.66},{"s":"LLY","p":-0.94},{"s":"UNH","p":-1.99},{"s":"JNJ","p":-0.42},{"s":"ABBV","p":-0.56},{"s":"MRK","p":0.23},{"s":"COST","p":-2.14},{"s":"WMT","p":-2.4},{"s":"HD","p":-2.85},{"s":"NKE","p":-1.89},{"s":"MCD","p":-1.43},{"s":"SBUX","p":-1.83},{"s":"CAT","p":1.11},{"s":"BA","p":-0.82},{"s":"GE","p":1.51},{"s":"XOM","p":-0.79},{"s":"CVX","p":-1.4},{"s":"COP","p":-0.12},{"s":"PLTR","p":-1.97},{"s":"COIN","p":-2.57},{"s":"MSTR","p":-5.09},{"s":"HOOD","p":8.78},{"s":"NET","p":-1.78},{"s":"CRWD","p":0.51},{"s":"SNOW","p":-1.59},{"s":"SHOP","p":-4.54},{"s":"UBER","p":-3.19},{"s":"ABNB","p":-0.47},{"s":"XLK","p":-0.34},{"s":"XLF","p":-0.55},{"s":"XLV","p":-1.46},{"s":"XLE","p":-1.25},{"s":"XLY","p":-2.51},{"s":"SMH","p":1.29}],"breadth":{"adv":13,"dec":41},"activity":["Desk online — 51 coverage names queued","Quant sweep complete — 34 cleared the 1% liquidity filter","HOOD flagged — unclear — no headlines surfaced","AVGO flagged — unclear — no headlines surfaced; likely sympathy wit","MSFT flagged — unclear — no headlines surfaced","META flagged — unclear — no headlines surfaced; likely macro/sector","MSTR flagged — unclear — no headlines surfaced; likely Bitcoin over","AMZN flagged — unclear — no headlines surfaced","SHOP flagged — unclear — no headlines surfaced to explain the move","12 analyst agents reporting in","CIO synthesizing the board…","Brief assembled — 0 conviction calls on the tape"],"prov":{"analyst":"claude-sonnet-4-6","cio":"claude-opus-4-8","calls":14,"inTok":9323,"outTok":3675,"cost":0.182},"portfolio":{"totals":{"mktVal":3284449,"costVal":1812194,"dayPL":65073,"dayPLPct":2.02,"unreal":1472255,"positions":10},"winner":"PLTR","loser":"JPM","positions":[{"symbol":"PLTR","name":"Palantir","shares":4200,"price":130.63,"changePct":4.35,"value":548646,"dayChg":22871,"unrealPct":442.03,"note":"UBS pushing back on the bear case is a real-ish catalyst giving bulls a narrative hook, but at this valuation PLTR routinely swings 4%+ on sentiment alone — hold-through-noise unless you think the valuation debate has structurally shifted.","news":[{"title":"PLTR Stock: What Does Its Valuation Imply?","source":"Yahoo"},{"title":"UBS Delivers Stark Message For Palantir Bears Worried About AI Rivals","source":"Yahoo"},{"title":"EnduroSat Names Brandon Tripp as Chief Commercial Officer","source":"Yahoo"}]},{"symbol":"NVDA","name":"NVIDIA","shares":1200,"price":204.65,"changePct":3.1,"value":245580,"dayChg":7384,"unrealPct":121.48,"note":"The China trade reprieve (easing of chip export restrictions) is a genuine fundamental catalyst, not noise — meaningful for a holder given China revenue exposure, worth watching for follow-through.","news":[{"title":"Michael Burry Has a Stark Message on SpaceX's $3 Trillion Valuation","source":"Yahoo"},{"title":"Nvidia Gets a China Trade Reprieve","source":"Yahoo"},{"title":"Sector Update: Tech Stocks Rise Late Afternoon","source":"Yahoo"}]},{"symbol":"COIN","name":"Coinbase","shares":600,"price":164.915,"changePct":2.8,"value":98949,"dayChg":2695,"unrealPct":-17,"note":"Jefferies expanding the addressable market thesis is a soft initiating-type comment, not a hard catalyst — this looks like crypto risk-on drift riding the broader tape, treat it as noise.","news":[{"title":"Coinbase’s push into tokenized equities, AI could expand addressable market, says Jefferies","source":"Yahoo"},{"title":"Trace Finance Raises $32M as Stablecoin Payment Rails Expand","source":"Yahoo"},{"title":"Coinbase Unveils Free AI Investment Advisor. It Plans to Become a Financial Super App.","source":"Yahoo"}]},{"symbol":"AMZN","name":"Amazon","shares":1400,"price":237.5,"changePct":2.05,"value":332500,"dayChg":6679,"unrealPct":56.46,"note":"The headlines attached here (Burry/SpaceX, SentinelOne) have zero bearing on Amazon — this is pure broad-market tech beta bounce, noise for a holder.","news":[{"title":"Michael Burry Has a Stark Message on SpaceX's $3 Trillion Valuation","source":"Yahoo"},{"title":"SentinelOne Bets on Purple AI to Automate the Security Operations Center","source":"Yahoo"},{"title":"PLTR Stock: What Does Its Valuation Imply?","source":"Yahoo"}]},{"symbol":"LLY","name":"Eli Lilly","shares":320,"price":1112,"changePct":1.92,"value":355840,"dayChg":6703,"unrealPct":82.3,"note":"The J&J-skips-GLP-1 headline marginally reduces competitive overhang, but 'trillion-dollar question' valuation pieces are perennial noise — this is drift on a low-float day, hold through it.","news":[{"title":"J&J Skips GLP-1 Race, Targets No. 1 Cancer Spot By 2030","source":"Yahoo"},{"title":"Eli Lilly Stock's Trillion-Dollar Question","source":"Yahoo"},{"title":"The Number That Could Test Johnson & Johnson Stock","source":"Yahoo"}]},{"symbol":"GOOGL","name":"Alphabet","shares":1100,"price":363.79,"changePct":1.47,"value":400169,"dayChg":5797,"unrealPct":162.47,"note":"Neither headline is an GOOGL catalyst — this is index/mega-cap tech beta off the QQQ bounce, plain drift for a holder.","news":[{"title":"Uber Targets Houston Robotaxi Launch With Lucid, Nuro","source":"Yahoo"},{"title":"PLTR Stock: What Does Its Valuation Imply?","source":"Yahoo"},{"title":"Stripe-Led Frontier Commits Another $915 Million to Carbon Removal","source":"Yahoo"}]},{"symbol":"AAPL","name":"Apple","shares":1500,"price":295.95,"changePct":1.24,"value":443925,"dayChg":5437,"unrealPct":75.95,"note":"The AI-fatigue framing in the news is actually a mild negative narrative, so the move is just sector-wide tech bounce noise — no action warranted.","news":[{"title":"Apple Faces AI Fatigue as Stock's 10% Gain Trails Nasdaq's 19%","source":"Yahoo"},{"title":"Sector Update: Tech Stocks Rise Late Afternoon","source":"Yahoo"},{"title":"Explore the top gainers and losers within the dow jones index in today's session.","source":"ChartMill"}]},{"symbol":"COST","name":"Costco","shares":260,"price":965.59,"changePct":1.18,"value":251053,"dayChg":2928,"unrealPct":34.04,"note":"The DEI-consumer-shift story is tangentially positive for Costco but far too thin to trade on — this is defensive-consumer drift, noise for a holder.","news":[{"title":"LGBTQ consumers cut spending at Target, Walmart, Amazon over DEI","source":"Yahoo"},{"title":"Buy and Hold Forever? Here's How Costco Wholesale and Walmart Stack Up.","source":"Yahoo"},{"title":"How to Play Walmart Stock After Its Recent 9.2% Pullback?","source":"Yahoo"}]},{"symbol":"MSFT","name":"Microsoft","shares":900,"price":378.91,"changePct":0.86,"value":341019,"dayChg":2908,"unrealPct":1.72,"note":"The Oracle/Microsoft cloud dispute headline is inconclusive and minor; the move is sector tech beta, noise for a holder.","news":[{"title":"Oracle Disputes Report on Failed Microsoft Cloud Deal","source":"Yahoo"},{"title":"Sector Update: Tech Stocks Rise Late Afternoon","source":"Yahoo"},{"title":"PLTR Stock: What Does Its Valuation Imply?","source":"Yahoo"}]},{"symbol":"JPM","name":"JPMorgan","shares":800,"price":333.46,"changePct":0.63,"value":266768,"dayChg":1670,"unrealPct":82.92,"note":"A fully-priced October rate hike is a genuine macro signal worth noting — higher-for-longer can compress multiples broadly, but for a bank holder near-term net interest income support is a partial offset, monitor but hold through today's drift.","news":[{"title":"Traders Fully Price in a Rate Hike by October on Hawkish Fed","source":"Yahoo"},{"title":"Explore the top gainers and losers within the dow jones index in today's session.","source":"ChartMill"},{"title":"The case for applying an old-school dividend strategy to investing today","source":"Yahoo"}]}]}};
+const QA = [{"q":"How did my book do overnight?","a":"Solid green night, JW — **+$65,073 (+2.02%)**, book at **$3.28M**. Every name's up, but read the move, not the P&L.\n\n**Where the dollars came from:**\n- **PLTR** +$22,871 (+4.35%) — your biggest gainer, and it's mostly the engine of today's number. UBS pushback on the bear case gave bulls a hook, but the desk is clear: at this valuation PLTR swings 4%+ on sentiment alone. Don't mistake this for a re-rating.\n- **NVDA** +$7,384 (+3.1%) — the one move with real fundamental backing. China chip-export reprieve is a genuine catalyst given your China revenue exposure. Watch for follow-through.\n- **AMZN** +$6,679 (+2.05%) — pure tech beta bounce. Attached headlines (Burry/SpaceX, SentinelOne) have zero to do with AMZN. Noise.\n- **LLY** +$6,703 (+1.92%) — J&J skipping GLP-1 trims competitive overhang marginally, but it's drift on a low-float day.\n- **GOOGL** +$5,797, **AAPL** +$5,437, **MSFT** +$2,908, **COST** +$2,928, **COIN** +$2,695, **JPM** +$1,670 — all drift/beta. No idiosyncratic catalysts.\n\n**The honest read:** roughly **80% of your overnight gain (PLTR + NVDA + AMZN)** sits in two names of pure sentiment (PLTR, AMZN) and one of real substance (NVDA). Strip the noise and your only *fundamentally-anchored* gainer is NVDA's China trade.\n\n**One flag worth your attention:** the broader tape is **risk-OFF** — SPY -1.25%, QQQ -1.01%. Your book printed green against a red market, which means these are thin, liquidity-light pre-market prints. And in the wider scan, **MSFT (-3.79%), AMZN (-3.46%), GOOGL (-2.53%), COIN (-2.57%)** are showing as *down* movers — the same tickers you hold. That's the gap between your overnight quote and where the coverage scan flagged the names. Don't be surprised if some of this overnight green compresses once the regular session catches the risk-off tape.\n\nNothing here demands action. Hold-through-noise on the lot; the only name where follow-through actually matters is NVDA."},{"q":"Give me the 30-second version.","a":"**30-second version:**\n\nYour book's up +$65K (+2.02%) overnight — driven by PLTR (+$22.9K) and NVDA (+$7.4K). Two moves are real, the rest is beta:\n\n- **NVDA** — China chip-export reprieve is a *genuine* fundamental catalyst. Watch for follow-through.\n- **PLTR** — UBS pushing back on the bear case gives bulls a hook, but PLTR swings 4%+ on sentiment alone. Hold-through-noise unless the valuation debate has structurally shifted.\n- **Everything else** (AMZN, GOOGL, AAPL, COST, MSFT, LLY, COIN) — drift/tech beta, no name-specific edge. Hold through it.\n\n**One caveat:** the scan tape says broad **risk-off** (SPY -1.25%, QQQ -1.01%) — yet your book is *green*. That's because your prices are overnight prints; the scanner is seeing the same mega-caps (MSFT, AMZN, GOOGL) selling off intraday. Don't be surprised if your marks compress at the open.\n\n**CIO bottom line:** nothing to chase — every mover in the universe is unanchored, no idiosyncratic edge. VIX is unavailable, so pre-market prints are thin/unconfirmed.\n\n**Watch list (not your book):** HOOD +8.78% on zero news (too big to dismiss), AVGO +4.3% bucking the tape. Both need a catalyst before they're anything but question marks."},{"q":"Anything actually worth trading today?","a":"Short answer: no. Per the desk's own synthesis — top calls: none, nothing to chase.\n\nHere's the honest read:\n\n**The tape is the story, not any name.** SPY -1.25%, QQQ -1.01%, IWM -0.75%, mega-cap tech leading down. The cluster of 2-5% drops — MSFT -3.79%, AMZN -3.46%, UBER -3.19%, HD -2.85%, GOOGL -2.53%, ORCL -2.55% — all read as index-level beta selling. Zero headline attribution on any of them. That's not 12 trades; that's one macro move wearing 12 tickers. Every analyzed mover came back conviction: none.\n\n**The only things that aren't pure noise are question marks, not setups:**\n\n- **HOOD +8.78%** — too big to dismiss on a $10B+ float, but no headline, no RVOL confirmation. Could be a dark-pool block, a leaked catalyst, or a data artifact. Invalidates back toward $96-97 if it's an error or no real catalyst by open. This is \"watch the wire,\" not \"trade.\"\n- **AVGO +4.30%** — bucking the risk-off tape with no news is itself suspicious (it's too liquid for random drift of this size). Possible leaked catalyst or options/index flow. No edge chasing blind; want RVOL >2x prior session before it's anything.\n- **MSTR -5.09%** — only matters if BTC confirms. It's a leveraged Bitcoin proxy; the move maps cleanly to overnight BTC softness. Reflexive, not idiosyncratic.\n\n**Two caveats that matter more than usual today:**\n\n1. **VIX is unavailable** — we're flying without a fear gauge, and pre-market prints are liquidity-thin and unconfirmed. Don't treat any of these levels as gospel.\n\n2. **The top risk is what the scanner missed.** The danger isn't that these moves are noise — it's that one of the \"unanchored\" mega-caps is sitting on a real catalyst (guidance cut, pre-announcement, regulatory) the scan didn't surface. Fading or chasing any of these blind is how you step into a live event mid-tape.\n\nSo: nothing in the coverage scan clears the bar to trade. HOOD and AVGO are worth keeping a tab open on, purely to see if a catalyst surfaces — but until then they're questions, not answers.\n\nOn your own book, separately: NVDA's China chip-export reprieve is the one genuine fundamental catalyst in the whole run worth tracking for follow-through. Everything else you hold is beta drift today."},{"q":"Why is HOOD moving?","a":"Honest answer: **we don't know, and that's exactly the point.**\n\nHOOD gapped **+8.78% overnight** with **zero headline attribution** — no news, no filing, no analyst action surfaced in the scan. That's the whole story right now.\n\nWhat the desk can say:\n\n- **It's too big to dismiss.** An 8.78% move on a $10B+ float name isn't random drift. On a name this liquid, a gap that size usually means *something* — a dark-pool block, a leaked catalyst (earnings pre-announcement, M&A, regulatory), or a data artifact. We just can't see which.\n- **But there's no edge to trade it.** No RVOL confirmation, no news anchor. Conviction is flagged **none**, relevance only **45/100** — which is high *for an unanchored name* precisely because the magnitude is suspicious, not because we have a thesis.\n- **Context makes it more interesting, not less.** This is happening on a **risk-off tape** (SPY -1.25%, QQQ -1.01%, mega-cap tech leading down). HOOD ripping +8.78% while everything else bleeds means it is *not* riding beta — whatever's moving it is name-specific. That's the tell.\n\n**What to watch before it's anything but a question mark:**\n- The news wire — does a real catalyst surface?\n- Pre-market volume / RVOL — is there actual conviction behind the gap?\n\n**Invalidation:** if it turns out to be a data error, stale print, or thin pre-market fill with no fundamental backing, the move collapses back toward **$96-97**.\n\nNote this isn't in your book — it's a coverage-scan name, so no direct P&L read for you. It's on the CIO watchlist as a flagged unknown, not a call. Wait for the catalyst or the tape to confirm before it means anything."},{"q":"What should I worry about today?","a":"The honest answer: **nothing in today's run gives you a clear thing to worry about — and that's actually the thing to be careful about.**\n\nHere's the structural problem. Your book printed green overnight (+$65K), but the broader tape behind those prints is risk-off: SPY -1.25%, QQQ -1.01%, mega-cap tech leading the decline. Your holdings show as up because those are *overnight/pre-market* marks on thin liquidity. The scan of the actual moving names tells a different story — and several of your names are in the down-cluster:\n\n- **MSFT -3.79%**, **AMZN -3.46%**, **GOOGL -2.53%**, **COIN -2.57%** all flagged as movers in the scan, all \"no headline, no edge.\" That's a different number than the green print in your book, which means the pre-market marks may not hold into the cash open.\n\nSo the real risks, ranked:\n\n**1. The undetected-catalyst risk (the CIO's top risk).** Every one of these moves is \"unanchored\" — the desk found *no* headline behind MSFT, AMZN, GOOGL, ORCL, COIN. The danger isn't the beta selling; it's that one of these is hiding a real company-specific event (guidance cut, regulatory action, earnings pre-announcement) the scanner simply missed. You hold four of the cluster names. If one of them is real, your green print flips hard at the open.\n\n**2. You're flying without a fear gauge.** VIX is n/a. Pre-market prints are explicitly flagged as liquidity-thin and unconfirmed. Don't treat this morning's +2% book as locked in.\n\n**3. JPM / rates.** The one genuine macro signal in your book: a fully-priced October hike. Higher-for-longer compresses multiples across your whole tech-heavy book — that's a slow grind, not a today event, but it's the one fundamental thread worth tracking.\n\nWhat's **not** worth worrying about: the headlines attached to your names are noise — the Burry/SpaceX and SentinelOne stuff has zero bearing on AMZN, the J&J/GLP-1 item is marginal for LLY, the Oracle/MSFT cloud dispute is inconclusive. NVDA's China reprieve is the one *positive* fundamental catalyst in the book.\n\nBottom line: don't chase, don't fade. Watch the wire for whether any of MSFT/AMZN/GOOGL gets a catalyst attached after the open — that's what would turn today's \"noise\" into something you actually need to act on."},{"q":"Which moves look catalyst-driven vs just noise?","a":"Straight answer: **almost nothing in today's scan is confirmed catalyst-driven.** The CIO read is \"every mover is unanchored\" — the scanner surfaced no headlines on the 12 deep-analyzed names. So most of this is noise, with two flags worth babysitting. Let me split it.\n\n**Genuinely noise (high confidence):**\n- **MSTR -5.09%** — clean BTC proxy move. Reflexive, not idiosyncratic. Irrelevant unless Bitcoin direction confirms. (relevance 18)\n- **COIN -2.57%** — crypto beta, well within its normal 1.5-2x BTC range. Nothing demands attention. (relevance 12). *Note this is in your book* — desk says hold-through-noise.\n- **AMZN -3.46%, GOOGL -2.53%, MSFT -3.79%, ORCL -2.55%, UBER -3.19%, HD -2.85%** — this is the mega-cap cluster the CIO explicitly calls **index-level beta selling**, not name-specific stress. The tape is risk-off (SPY -1.25%, QQQ -1.01%) and these are all moving together. No one is breaking from the pack. AMZN, GOOGL, MSFT are in your book — desk read on all three: broad-tech beta, hold.\n- **META -5.44%, SHOP -4.54%** — bigger moves, but still no anchor. META at 5.4% is large enough to merit a glance, but with zero headline it's \"uninterpretable,\" not catalyst-confirmed. SHOP is the same story with lower conviction (relevance 12).\n\n**The two question marks — too big to call noise, not yet catalyst-confirmed:**\n- **HOOD +8.78%** — this is the one to actually care about. An 8.78% gap on a $10B+ float with *zero* headline attribution is too large to dismiss. Could be a dark-pool block, a leaked catalyst (earnings pre-announce, M&A, regulatory), or a data artifact. **No edge until RVOL + a news anchor confirm it.** Invalidation: if no real catalyst surfaces by open, it collapses back toward $96-97.\n- **AVGO +4.30%** — bucking the entire risk-off tape, which is itself the tell. AVGO is too liquid for random 4% drift. Possible leaked catalyst or index/options flow. Watch the wire and pre-market volume; confirmation = RVOL >2x.\n\n**The honest caveat the desk is flagging:** the top *risk* today is that one of these \"unanchored\" mega-cap moves is actually hiding a real company-specific catalyst the scanner simply missed — a guidance cut or pre-announcement that surfaces mid-tape. So \"noise\" here means \"no catalyst *surfaced*,\" not \"confirmed nothing happened.\" Don't fade or chase any of these blind.\n\n**Bottom line ranking of what's catalyst-*suspicious*:** HOOD > AVGO > META, then everything else is tape. And remember VIX is unavailable — these are thin, unconfirmed pre-market prints, so weight all of it accordingly."}];
 const SHARED = Array.isArray(QA) && QA.length > 0;
 const $ = (id) => document.getElementById(id);
 const pct = (x) => x == null ? 'n/a' : (x > 0 ? '+' : '') + (+x).toFixed(2) + '%';
 const cls = (x) => x > 0 ? 'up' : x < 0 ? 'dn' : '';
-const state = { lead: null, focus: new Set(), filter: 'all', sort: 'rel' };
+const money = (x) => (x < 0 ? '-' : '') + '$' + Math.abs(Math.round(x)).toLocaleString();
+const signed = (x) => (x >= 0 ? '+' : '') + money(x);
+const escc = (s) => String(s == null ? '' : s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
 
-/* ---------- intro interview ----------
-   Never asks JW's market view — the desk's read is what it is. This only sets how the
-   brief is laid out, plus optional focus names. */
-const STEPS = [
-  { greet: 'Good morning, JW', q: 'How should the desk lay out your brief?', sub: 'The read is identical either way — this only orders the page.',
-    opts: [
-      { v: 'all', b: 'Macro Overview', s: 'Regime first, then the full board' },
-      { v: 'calls', b: 'Cut to the conviction calls', s: 'Only what the desk flags as actionable' },
-      { v: 'movers', b: 'Biggest movers first', s: 'Ranked by what moved most' },
-    ], set: 'lead' },
-  { type: 'chips', greet: 'Step 2 of 2 · optional', q: 'Any names you\'re tracking?', sub: 'Star them to pin them to the top. Skip if none.' },
-];
-let step = 0;
-function dots() { $('ivDots').innerHTML = STEPS.concat([{}]).map((_, i) => '<i class="' + (i <= step ? 'on' : '') + '"></i>').join(''); }
-function renderStep() {
-  dots();
-  const st = STEPS[step];
-  if (!st) return finishInterview();
-  let html = '<div class="iv-stage"><div class="iv-greet">' + st.greet + '</div><div class="iv-q">' + st.q + '</div><div class="iv-sub">' + st.sub + '</div>';
-  if (st.type === 'chips') {
-    html += '<div class="iv-chips">' + B.movers.map((m) => '<button class="iv-chip" data-sym="' + m.symbol + '">' + m.symbol + '</button>').join('') + '</div>';
-    html += '<button class="iv-go" id="ivGo">Assemble my desk →</button><button class="iv-skip" id="ivSkip">skip — show everything</button>';
-  } else {
-    html += '<div class="iv-opts">' + st.opts.map((o) => '<button class="iv-opt" data-v="' + o.v + '"><span class="lbl"><b>' + o.b + '</b><span>' + o.s + '</span></span><span class="pick">→</span></button>').join('') + '</div>';
-  }
-  html += '</div>';
-  $('ivBody').innerHTML = html;
-  if (st.type === 'chips') {
-    document.querySelectorAll('.iv-chip').forEach((c) => c.onclick = () => { c.classList.toggle('on'); const s = c.dataset.sym; state.focus.has(s) ? state.focus.delete(s) : state.focus.add(s); });
-    $('ivGo').onclick = () => { step++; renderStep(); };
-    $('ivSkip').onclick = () => { state.focus.clear(); step++; renderStep(); };
-  } else {
-    document.querySelectorAll('.iv-opt').forEach((o) => o.onclick = () => { state[st.set] = o.dataset.v; step++; renderStep(); });
-  }
+/* ---------- shared sparkline ---------- */
+function sparkD(sym, chg, n) { n = n || 30; let seed = 0; for (let k = 0; k < sym.length; k++) seed = (seed * 31 + sym.charCodeAt(k)) % 99991;
+  const vals = []; let v = 0; const drift = chg / n;
+  for (let i = 0; i < n; i++) { seed = (seed * 1103515245 + 12345) & 0x7fffffff; const noise = ((seed / 0x7fffffff) - 0.5) * (Math.abs(chg) * 0.5 + 0.4); v += drift + noise; vals.push(v); }
+  const mn = Math.min.apply(null, vals), mx = Math.max.apply(null, vals), rng = (mx - mn) || 1; let d = '';
+  for (let j = 0; j < n; j++) { const x = (j / (n - 1)) * 100, y = 42 - ((vals[j] - mn) / rng) * 38; d += (j ? ' L' : 'M') + x.toFixed(1) + ',' + y.toFixed(1); }
+  return d; }
+function sparkSVG(sym, chg) { const d = sparkD(sym, chg), col = chg >= 0 ? 'var(--positive)' : 'var(--danger)';
+  return '<svg class="spark" viewBox="0 0 100 46" preserveAspectRatio="none"><path class="area" style="fill:' + col + '" d="' + d + ' L100,46 L0,46 Z"></path><path class="line" pathLength="1" style="stroke:' + col + '" d="' + d + '"></path></svg>'; }
+function miniSVG(sym, chg) { const d = sparkD(sym, chg, 20), col = chg >= 0 ? 'var(--positive)' : 'var(--danger)';
+  return '<svg class="msp" viewBox="0 0 100 46" preserveAspectRatio="none"><path d="' + d + '" style="fill:none;stroke:' + col + ';stroke-width:2.6"></path></svg>'; }
+function tagEl(m) { return '<span class="tag ' + (m.direction === 'long' ? 'long' : m.direction === 'short' ? 'short' : 'none') + '">' + (m.isCall ? (m.direction === 'short' ? 'short call' : m.direction === 'long' ? 'long call' : 'call') : m.direction) + '</span>'; }
+
+/* ---------- briefing: the book first ---------- */
+function bookHero(p) {
+  return '<div class="lab">' + (p.symbol === B.portfolio.winner ? 'Top gainer in your book' : 'Position detail') + '</div>' +
+    '<div class="h"><span class="sym">' + p.symbol + '</span><span class="mv ' + cls(p.changePct) + '">' + pct(p.changePct) + '</span></div>' +
+    '<div class="nm">' + escc(p.name) + ' · ' + p.shares.toLocaleString() + ' sh · ' + (p.value != null ? money(p.value) : '—') + '</div>' +
+    '<div class="sparkwrap"><div class="sl"><span>synthetic overnight path</span><span class="' + cls(p.changePct) + '">' + pct(p.changePct) + '</span></div>' + sparkSVG(p.symbol, p.changePct) + '</div>' +
+    '<div class="rd">' + escc(p.note || 'Quiet overnight — no catalyst on the desk\'s radar. Drift, not news.') + '</div>' +
+    ((p.news && p.news.length) ? '<div class="news">' + p.news.map((n) => '<span><span class="src">' + escc(n.source || 'news') + '</span><span>' + escc(n.title) + '</span></span>').join('') + '</div>' : '');
 }
-function finishInterview() {
-  // layout-only personalization (never biases the read)
-  if (state.lead === 'calls') state.filter = 'calls';
-  else if (state.lead === 'movers') state.sort = 'move';
-  const ticks = ['Scanning ' + B.funnel.scanned + ' coverage names…', B.funnel.moved + ' moved overnight…', 'Reading ' + B.funnel.agents + ' movers…', 'Assembling your desk…'];
-  $('ivBody').innerHTML = '<div class="iv-load"><div class="iv-q">Reading the tape</div><div class="bar"><i></i></div><div class="tick" id="tick"></div></div>';
-  let i = 0; const t = setInterval(() => { $('tick').textContent = ticks[i] || ''; if (++i >= ticks.length) clearInterval(t); }, 430);
-  setTimeout(() => { $('interview').classList.add('gone'); buildDash(); }, 1800);
+function renderBriefing() {
+  if (!B.portfolio) { enterBoard(true); return; }
+  const t = B.portfolio.totals;
+  $('briefInner').innerHTML =
+    '<div class="bc-head"><span class="chip">JW</span><h1>Good morning, JW.</h1><span class="pl ' + cls(t.dayPL) + '" id="plBig">' + signed(0) + '</span><span class="sub">overnight · ' + money(t.mktVal) + '</span></div>' +
+    '<div class="bc-greet">The desk worked the tape overnight — ' + B.funnel.scanned + ' names swept, ' + B.funnel.agents + ' analyzed. Your book first, then the market read.</div>' +
+    '<div class="bc-split"><div class="bc-hero" id="bfHero"></div>' +
+    '<div class="bc-list"><span class="lab">Your book · ' + t.positions + ' positions, ranked by move</span><div id="bfList"></div>' +
+    '<div class="bc-enter-row"><button class="enterBtn" id="enter">See what the desk found →</button></div></div></div>';
+  const H = $('bfHero'), L = $('bfList');
+  H.innerHTML = bookHero(B.portfolio.positions[0]);
+  L.innerHTML = B.portfolio.positions.map((p, i) => '<div class="bc-row' + (i === 0 ? ' active' : '') + '" data-i="' + i + '"><span class="sym">' + p.symbol + '</span><span class="n">' + escc(p.name) + '</span>' + miniSVG(p.symbol, p.changePct) + '<span class="mv ' + cls(p.changePct) + '">' + pct(p.changePct) + '</span></div>').join('');
+  L.querySelectorAll('.bc-row').forEach((row) => row.onclick = () => {
+    L.querySelectorAll('.bc-row.active').forEach((r) => r.classList.remove('active'));
+    row.classList.add('active');
+    H.innerHTML = bookHero(B.portfolio.positions[+row.dataset.i]);
+    requestAnimationFrame(() => { const ln = H.querySelector('.line'); if (ln) ln.classList.add('draw'); });
+  });
+  requestAnimationFrame(() => { const ln = H.querySelector('.line'); if (ln) ln.classList.add('draw'); });
+  // count up net P&L
+  const el = $('plBig'); const tgt = t.dayPL; let n = 0; const stepN = tgt / 26;
+  const iv = setInterval(() => { n += stepN; if (Math.abs(n) >= Math.abs(tgt)) { n = tgt; clearInterval(iv); } el.textContent = signed(n); }, 26);
+  $('enter').onclick = () => enterBoard(false);
+}
+function enterBoard(skip) {
+  const b = $('brief'); b.classList.add('gone'); $('board').classList.add('show');
+  setTimeout(() => { b.style.display = 'none'; }, skip ? 0 : 520);
+  initBoard();
 }
 
-/* ---------- dashboard ---------- */
-function bandMini(b) {
-  const order = ['lean', 'tilt', 'strong'];
-  if (b === 'none' || !b) return '<span class="band-mini"><span class="seg none on">None</span></span>';
-  return '<span class="band-mini">' + order.map((x) => '<span class="seg ' + x + ' ' + (order.indexOf(b) >= order.indexOf(x) ? 'on' : '') + '">' + x[0].toUpperCase() + x.slice(1) + '</span>').join('') + '</span>';
+/* ---------- live board ---------- */
+let boardInit = false;
+function heroCard(m) {
+  const g = { strong: 100, tilt: 66, lean: 33, none: 8 }[m.band] || 8, gc = m.direction === 'short' ? 'var(--danger)' : 'var(--positive)';
+  return '<div class="lab">' + (m.isCall ? 'Conviction call · spotlight' : 'In focus') + '</div>' +
+    '<div class="hero-h"><span class="hsym">' + m.symbol + '</span>' + tagEl(m) + '<span class="hmv ' + cls(m.changePct) + '">' + pct(m.changePct) + '</span></div>' +
+    '<div class="hname">' + escc(m.name) + (m.marketCapB ? ' · $' + m.marketCapB + 'B' : '') + '</div>' +
+    '<div class="sparkwrap"><div class="sl"><span>synthetic overnight path</span><span class="' + cls(m.changePct) + '">' + pct(m.changePct) + '</span></div>' + sparkSVG(m.symbol, m.changePct) + '</div>' +
+    '<div class="hread">' + escc(m.callThesis || m.read) + '</div>' +
+    '<div class="gauge"><span class="gl">conviction · ' + m.band + '</span><span class="seg"><i data-w="' + g + '" style="width:0;background:' + gc + '"></i></span></div>' +
+    '<div class="hgrid"><div><div class="lab">Setup</div><p>' + escc(m.setup) + '</p></div><div><div class="lab">Risk</div><p>' + escc(m.risk) + '</p></div><div><div class="lab">Catalyst</div><p>' + escc(m.catalyst) + '</p></div><div><div class="lab">Conviction</div><p>' + m.band + ' · ' + m.direction + '</p></div></div>' +
+    '<div class="hinv">✕ invalidation — ' + escc(m.callInvalid || m.invalidation) + '</div>';
 }
-function kpi(k, o) { return o ? '<div class="kpi"><span class="k">' + k + '</span><div class="v ' + cls(o.changePct) + '">' + (o.price ?? '—') + '</div><div class="ch ' + cls(o.changePct) + '">' + pct(o.changePct) + '</div></div>' : ''; }
-
-function buildDash() {
-  $('dash').classList.add('show');
-  $('tbDate').textContent = B.dateStr;
-  $('hHead').textContent = '“' + B.headline + '”';
-  $('hRegime').textContent = B.regime;
-  const c = B.context;
-  $('hCtx').innerHTML = kpi('SPY · S&P', c.spx) + kpi('QQQ · Nasdaq', c.ndx) + kpi('IWM · R2K', c.rut) + kpi('VIX', c.vix);
-  $('hFunnel').innerHTML = [
-    ['Scanned', B.funnel.scanned, 'coverage universe', '→'],
-    ['Moved', B.funnel.moved, 'overnight ≥1%', '→'],
-    ['Agents', B.funnel.agents, 'analyst fan-out', '→'],
-    ['Calls', B.funnel.calls, 'made the brief', ''],
-  ].map(([k, v, s, a]) => '<div class="fstep"><span class="k">' + k + '</span><div class="v" data-target="' + v + '">0</div><span class="s">' + s + '</span>' + (a ? '<span class="arrow">' + a + '</span>' : '') + '</div>').join('');
-  countUp();
-  $('moverCount').textContent = B.movers.length;
-  $('pRisk').innerHTML = B.topRisk;
-  $('pRisk').className = 'risk-body danger';
-  $('pNoise').textContent = B.noiseNote || '';
-  $('pWatch').innerHTML = (B.watch.length ? B.watch : [{ symbol: '—', why: 'Nothing secondary worth flagging.' }]).map((w) => '<div class="w"><span class="t">' + w.symbol + '</span><span class="d">' + w.why + '</span></div>').join('');
+function initBoard() {
+  if (boardInit) return; boardInit = true;
+  const MOV = B.movers;
+  // ticker
+  const tk = B.ticker.map((t) => '<span class="ti"><b>' + t.s + '</b><span class="' + (t.p >= 0 ? 'u' : 'd') + '">' + (t.p >= 0 ? '+' : '') + t.p.toFixed(2) + '%</span></span>').join('');
+  $('tickTrack').innerHTML = tk + tk;
+  // header / regime / index
+  $('regimeT').textContent = B.regime;
+  $('moverCount').textContent = MOV.length;
+  $('feedCount').textContent = B.funnel.agents + ' agents';
+  const ix = [['S&P', B.context.spx], ['Nasdaq', B.context.ndx], ['Russell', B.context.rut]];
+  $('cIdx').innerHTML = ix.map(([l, o]) => o ? '<div class="i"><b>' + l + '</b><span class="' + cls(o.changePct) + '" data-pct="' + (+o.changePct).toFixed(2) + '">+0.00%</span></div>' : '<div class="i"><b>' + l + '</b><span>n/a</span></div>').join('');
+  // funnel
+  $('funnelRow').innerHTML = [['Scanned', B.funnel.scanned], ['Moved', B.funnel.moved], ['Analyzed', B.funnel.agents], ['Calls', B.funnel.calls]].map(([k, v]) => '<div class="st"><div class="k">' + k + '</div><div class="v" data-target="' + v + '">0</div></div>').join('');
+  // risk / watch / provenance
+  $('pRisk').innerHTML = B.topRisk; $('pNoise').textContent = B.noiseNote || '';
+  $('pWatch').innerHTML = (B.watch.length ? B.watch : [{ symbol: '—', why: 'Nothing secondary worth flagging.' }]).map((w) => '<div class="w"><span class="t">' + w.symbol + '</span><span class="d">' + escc(w.why) + '</span></div>').join('');
   const p = B.prov;
   $('pProv').innerHTML = [['Analyst', p.analyst], ['CIO', p.cio], ['Agent calls', p.calls], ['Tokens', Math.round(p.inTok / 1000) + 'k/' + Math.round(p.outTok / 1000) + 'k'], ['Run cost', '$' + p.cost.toFixed(3)]].map(([k, v]) => '<div class="pi"><div class="k">' + k + '</div><div class="v">' + v + '</div></div>').join('');
-  buildFilters();
-  renderGrid();
+  // list + spotlight
+  const listEl = $('list'), hero = $('hero'), badge = $('autoBadge');
+  listEl.innerHTML = MOV.map((m, i) => '<div class="lrow" data-i="' + i + '"><span class="sym">' + m.symbol + '</span><span class="cat">' + (m.isCall ? '<span class="callflag"></span> ' : '') + escc(m.catalyst) + '</span>' + miniSVG(m.symbol, m.changePct) + '<span class="mv ' + cls(m.changePct) + '">' + pct(m.changePct) + '</span></div>').join('');
+  const rows = [].slice.call(listEl.querySelectorAll('.lrow')); let cur = 0;
+  function renderHero(i) { cur = i; const m = MOV[i]; hero.innerHTML = heroCard(m); rows.forEach((r) => r.classList.toggle('active', +r.dataset.i === i)); requestAnimationFrame(() => { const ln = hero.querySelector('.line'); if (ln) ln.classList.add('draw'); const gi = hero.querySelector('.gauge i'); if (gi) gi.style.width = gi.dataset.w + '%'; }); }
+  let auto = true, timer = null;
+  const tick = () => renderHero((cur + 1) % MOV.length);
+  const start = () => { if (timer) clearInterval(timer); timer = setInterval(tick, 4500); auto = true; badge.classList.add('on'); };
+  const stop = () => { if (timer) clearInterval(timer); timer = null; auto = false; badge.classList.remove('on'); };
+  badge.onclick = () => auto ? stop() : start();
+  hero.onmouseenter = () => { if (auto && timer) { clearInterval(timer); timer = null; } };
+  hero.onmouseleave = () => { if (auto && !timer) timer = setInterval(tick, 4500); };
+  rows.forEach((r) => r.onclick = () => { stop(); renderHero(+r.dataset.i); });
+  renderHero(0); start();
+  // index count-up
+  document.querySelectorAll('[data-pct]').forEach((el) => { const t = +el.dataset.pct; let n = 0; const sp = t / 24; const iv = setInterval(() => { n += sp; if (Math.abs(n) >= Math.abs(t)) { n = t; clearInterval(iv); } el.textContent = (n > 0 ? '+' : '') + n.toFixed(2) + '%'; }, 26); });
+  // funnel count-up
+  document.querySelectorAll('.fstep2 .v').forEach((el) => { const t = +el.dataset.target; let n = 0; const st = Math.max(1, Math.ceil(t / 22)); const iv = setInterval(() => { n += st; if (n >= t) { n = t; clearInterval(iv); } el.textContent = n; }, 34); });
+  // breadth
+  setTimeout(() => { const tot = B.breadth.adv + B.breadth.dec || 1; $('brLab').textContent = B.breadth.adv + ' / ' + B.breadth.dec; $('brA').style.width = (B.breadth.adv / tot * 100) + '%'; $('brD').style.width = (B.breadth.dec / tot * 100) + '%'; }, 250);
+  // streaming desk activity
+  const feed = $('feed'); let fi = 0;
+  function pushLine() { if (fi >= B.activity.length) return; const d = document.createElement('div'); d.className = 'fline'; const tm = nowET(); d.innerHTML = '<span class="tm">' + tm + '</span><span class="ok">✓</span><span>' + escc(B.activity[fi]) + '</span>'; feed.appendChild(d); feed.scrollTop = feed.scrollHeight; fi++; setTimeout(pushLine, 620 + Math.random() * 520); }
+  setTimeout(pushLine, 400);
 }
-function countUp() {
-  document.querySelectorAll('.fstep .v').forEach((el) => {
-    const tgt = +el.dataset.target; let n = 0; const step = Math.max(1, Math.ceil(tgt / 22));
-    const t = setInterval(() => { n += step; if (n >= tgt) { n = tgt; clearInterval(t); } el.textContent = n; }, 28);
-  });
-}
-function counts() {
-  return {
-    all: B.movers.length,
-    calls: B.movers.filter((m) => m.isCall).length,
-    long: B.movers.filter((m) => m.direction === 'long').length,
-    short: B.movers.filter((m) => m.direction === 'short').length,
-  };
-}
-function buildFilters() {
-  const ct = counts();
-  const defs = [['all', 'All'], ['calls', 'Calls'], ['long', 'Long'], ['short', 'Short']];
-  $('filters').innerHTML = defs.map(([v, l]) => '<button class="pill ' + (state.filter === v ? 'on' : '') + '" data-f="' + v + '">' + l + '<span class="ct">' + ct[v] + '</span></button>').join('') +
-    '<button class="sort" id="sortBtn">sort: ' + (state.sort === 'rel' ? 'relevance' : 'move') + '</button>';
-  document.querySelectorAll('.pill').forEach((b) => b.onclick = () => { state.filter = b.dataset.f; buildFilters(); renderGrid(); });
-  $('sortBtn').onclick = () => { state.sort = state.sort === 'rel' ? 'move' : 'rel'; buildFilters(); renderGrid(); };
-}
-function visibleMovers() {
-  let m = B.movers.slice();
-  if (state.filter === 'calls') m = m.filter((x) => x.isCall);
-  else if (state.filter === 'long') m = m.filter((x) => x.direction === 'long');
-  else if (state.filter === 'short') m = m.filter((x) => x.direction === 'short');
-  m.sort((a, b) => state.sort === 'rel' ? b.relevance - a.relevance : Math.abs(b.changePct) - Math.abs(a.changePct));
-  // pin focus names
-  if (state.focus.size) m.sort((a, b) => (state.focus.has(b.symbol) ? 1 : 0) - (state.focus.has(a.symbol) ? 1 : 0));
-  return m;
-}
-function renderGrid() {
-  const m = visibleMovers();
-  if (!m.length) { $('grid').innerHTML = '<div class="empty-note">No names in this filter. <b>“Nothing to chase” is a valid morning.</b></div>'; return; }
-  $('grid').innerHTML = m.map((x) => {
-    const dirCls = x.direction === 'short' ? 'short' : x.direction === 'long' ? 'long' : '';
-    const badge = x.isCall ? '<span class="badge ' + dirCls + '">' + (x.direction === 'short' ? 'short call' : x.direction === 'long' ? 'long call' : 'call') + '</span>' : (state.focus.has(x.symbol) ? '<span class="badge">★ watch</span>' : '');
-    return '<div class="card ' + (x.isCall ? 'call ' + dirCls : '') + '" data-sym="' + x.symbol + '">' +
-      '<div class="c-top"><div class="c-sym"><span class="t">' + x.symbol + '</span>' + badge + '</div><span class="c-move ' + cls(x.changePct) + '">' + pct(x.changePct) + '</span></div>' +
-      '<div class="c-name">' + x.name + (x.marketCapB ? ' · $' + x.marketCapB + 'B' : '') + '</div>' +
-      '<div class="c-mid">' + bandMini(x.band) + '<span class="rel">rel<span class="track"><i style="width:' + x.relevance + '%"></i></span>' + x.relevance + '</span></div>' +
-      '<div class="c-cat">' + x.catalyst + '</div>' +
-      '<div class="c-detail"><div class="det-grid">' +
-        '<div class="det-block read"><dt>Analyst read</dt><dd>' + x.read + '</dd></div>' +
-        '<div class="det-block"><dt>Setup</dt><dd>' + x.setup + '</dd></div>' +
-        '<div class="det-block"><dt>Risk</dt><dd>' + x.risk + '</dd></div>' +
-        '</div>' +
-        '<div class="invalid"><span class="x">✕</span><div><dt>Invalidation</dt><dd>' + (x.callInvalid || x.invalidation) + '</dd></div></div>' +
-        '<div class="det-tags">' +
-          '<span class="tg">vs 50d <b class="' + cls(x.vs50) + '">' + (x.vs50 != null ? pct(x.vs50) : '—') + '</b></span>' +
-          '<span class="tg">vs 200d <b class="' + cls(x.vs200) + '">' + (x.vs200 != null ? pct(x.vs200) : '—') + '</b></span>' +
-          '<span class="tg">direction <b>' + x.direction + '</b></span>' +
-          '<span class="tg">conviction <b>' + x.band + '</b></span>' +
-        '</div></div></div>';
-  }).join('');
-  document.querySelectorAll('.card').forEach((card) => card.onclick = (e) => {
-    const wasOpen = card.classList.contains('open');
-    document.querySelectorAll('.card.open').forEach((c) => c.classList.remove('open'));
-    if (!wasOpen) { card.classList.add('open'); $('grid').classList.add('dim'); }
-    else $('grid').classList.remove('dim');
-  });
-}
+function nowET() { try { return new Date().toLocaleTimeString('en-US', { hour12: false, timeZone: 'America/New_York' }); } catch (e) { return new Date().toLocaleTimeString(); } }
+function clk() { $('cClock').textContent = nowET() + ' ET'; }
+clk(); setInterval(clk, 1000);
+
 /* ---------- chat: ask the desk ---------- */
 const chat = { history: [], busy: false, served: location.protocol !== 'file:', greeted: false };
-function fmtBot(t) {
-  return t.replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]))
-    .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\n/g, '<br>');
-}
-function chatAppend(role, text, cls) {
-  const log = $('chatLog');
-  const d = document.createElement('div');
-  d.className = 'msg ' + (cls || (role === 'user' ? 'user' : 'bot'));
-  d.innerHTML = role === 'user' ? text.replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c])) : fmtBot(text);
-  log.appendChild(d); log.scrollTop = log.scrollHeight; return d;
-}
-function chatSuggest() {
-  if (SHARED) return QA.map((x) => x.q);
-  const qs = [];
-  if (B.movers[0]) qs.push('Why is ' + B.movers[0].symbol + ' moving?');
-  qs.push('Anything actually worth trading today?');
-  qs.push('What should I worry about?');
-  qs.push('Rank the movers by what matters most');
-  return qs;
-}
-function qaMatch(q) {
-  const norm = (t) => t.toLowerCase().replace(/[^a-z0-9 ]/g, '').replace(/\s+/g, ' ').trim();
-  const n = norm(q);
-  for (const item of QA) if (norm(item.q) === n) return item.a;
-  for (const item of QA) { const qq = norm(item.q); if (n.includes(qq) || qq.includes(n)) return item.a; }
-  return null;
-}
-function renderSugg() {
-  $('chatSugg').innerHTML = chatSuggest().map((q) => '<button class="sugg">' + q + '</button>').join('');
-  document.querySelectorAll('.sugg').forEach((b) => b.onclick = () => { $('chatTa').value = b.textContent; sendChat(); });
-}
-function chatGreet() {
-  if (chat.greeted) return; chat.greeted = true;
-  if (SHARED) {
-    chatAppend('bot', 'Morning, JW. I\'m the desk — I read all ' + B.funnel.agents + ' movers this morning. This is a shared preview, so I\'ve pre-answered the key questions below. Tap one.');
-    renderSugg(); return;
-  }
-  chatAppend('bot', 'Morning, JW. I have every analyst note from today\'s run — ' + B.funnel.agents + ' names, the full desk read and CIO synthesis. Ask me anything.');
-  if (!chat.served) chatAppend('bot', 'Live chat needs the backend. In the **jw-brief** folder run **npm run serve**, then open **localhost:3007** — I\'ll answer there with the full desk context.', 'note');
-  renderSugg();
-}
+function fmtBot(t) { return t.replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c])).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\n/g, '<br>'); }
+function chatAppend(role, text, c) { const log = $('chatLog'); const d = document.createElement('div'); d.className = 'msg ' + (c || (role === 'user' ? 'user' : 'bot')); d.innerHTML = role === 'user' ? text.replace(/[&<>]/g, (x) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[x])) : fmtBot(text); log.appendChild(d); log.scrollTop = log.scrollHeight; return d; }
+function chatSuggest() { if (SHARED) return QA.map((x) => x.q); const qs = []; if (B.portfolio) qs.push('How did my book do overnight?'); if (B.movers[0]) qs.push('Why is ' + B.movers[0].symbol + ' moving?'); qs.push('Anything actually worth trading today?'); qs.push('What should I worry about?'); return qs; }
+function qaMatch(q) { const norm = (t) => t.toLowerCase().replace(/[^a-z0-9 ]/g, '').replace(/\s+/g, ' ').trim(); const n = norm(q); for (const item of QA) if (norm(item.q) === n) return item.a; for (const item of QA) { const qq = norm(item.q); if (n.includes(qq) || qq.includes(n)) return item.a; } return null; }
+function renderSugg() { $('chatSugg').innerHTML = chatSuggest().map((q) => '<button class="sugg">' + q + '</button>').join(''); document.querySelectorAll('.sugg').forEach((b) => b.onclick = () => { $('chatTa').value = b.textContent; sendChat(); }); }
+function chatGreet() { if (chat.greeted) return; chat.greeted = true;
+  if (SHARED) { chatAppend('bot', 'Morning, JW. I\'m the desk — I read all ' + B.funnel.agents + ' movers and your book this morning. This is a shared preview, so I\'ve pre-answered the key questions below. Tap one.'); renderSugg(); return; }
+  chatAppend('bot', 'Morning, JW. I have your book plus every analyst note from today\'s run — ' + B.funnel.agents + ' names, the full desk read and CIO synthesis. Ask me anything.');
+  if (!chat.served) chatAppend('bot', 'Live chat needs the backend. In the **jw-brief** folder run **npm run serve**, then open **localhost:3007**.', 'note');
+  renderSugg(); }
 async function sendChat() {
-  if (chat.busy) return;
-  const ta = $('chatTa'); const q = ta.value.trim(); if (!q) return;
-  ta.value = ''; ta.style.height = 'auto';
-  chatAppend('user', q); chat.history.push({ role: 'user', content: q });
-  $('chatSugg').innerHTML = '';
-  if (SHARED) {
-    const a = qaMatch(q);
-    if (a) chatAppend('bot', a);
-    else {
-      chatAppend('bot', 'This is a shared preview — I\'ve got in-depth answers to the desk\'s key questions ready (tap one below). The **live desk** answers anything you ask in real time.', 'note');
-      setTimeout(renderSugg, 100);
-    }
-    return;
-  }
+  if (chat.busy) return; const ta = $('chatTa'); const q = ta.value.trim(); if (!q) return;
+  ta.value = ''; ta.style.height = 'auto'; chatAppend('user', q); chat.history.push({ role: 'user', content: q }); $('chatSugg').innerHTML = '';
+  if (SHARED) { const a = qaMatch(q); if (a) chatAppend('bot', a); else { chatAppend('bot', 'This is a shared preview — I\'ve got in-depth answers to the desk\'s key questions ready (tap one below). The **live desk** answers anything in real time.', 'note'); setTimeout(renderSugg, 100); } return; }
   if (!chat.served) { chatAppend('bot', 'I can\'t answer live from a file:// page — run **npm run serve** and open **localhost:3007**.', 'note'); return; }
-  chat.busy = true; $('chatSend').disabled = true;
-  const log = $('chatLog'); const typ = document.createElement('div');
-  typ.className = 'msg bot'; typ.innerHTML = '<span class="typing"><i></i><i></i><i></i></span>';
-  log.appendChild(typ); log.scrollTop = log.scrollHeight;
-  try {
-    const r = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ messages: chat.history }) });
-    const j = await r.json();
-    typ.remove();
-    if (j.error) chatAppend('bot', 'Desk error: ' + j.error, 'note');
-    else { chatAppend('bot', j.answer); chat.history.push({ role: 'assistant', content: j.answer }); }
-  } catch (e) { typ.remove(); chatAppend('bot', 'Could not reach the desk: ' + e.message, 'note'); }
+  chat.busy = true; $('chatSend').disabled = true; const log = $('chatLog'); const typ = document.createElement('div'); typ.className = 'msg bot'; typ.innerHTML = '<span class="typing"><i></i><i></i><i></i></span>'; log.appendChild(typ); log.scrollTop = log.scrollHeight;
+  try { const r = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ messages: chat.history }) }); const j = await r.json(); typ.remove(); if (j.error) chatAppend('bot', 'Desk error: ' + j.error, 'note'); else { chatAppend('bot', j.answer); chat.history.push({ role: 'assistant', content: j.answer }); } }
+  catch (e) { typ.remove(); chatAppend('bot', 'Could not reach the desk: ' + e.message, 'note'); }
   chat.busy = false; $('chatSend').disabled = false; $('chatTa').focus();
 }
 function chatInit() {
@@ -473,6 +397,6 @@ function chatInit() {
   ta.addEventListener('input', () => { ta.style.height = 'auto'; ta.style.height = Math.min(ta.scrollHeight, 96) + 'px'; });
 }
 chatInit();
-renderStep();
+renderBriefing();
 </script>
 </body></html>
