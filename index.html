@@ -153,7 +153,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 
 /* ===== chat — Ask the desk ===== */
 #chatDock{position:fixed;right:22px;bottom:22px;z-index:70}
-.chat-fab{display:flex;align-items:center;gap:9px;background:var(--fg);color:var(--bg);border-radius:999px;padding:13px 19px;box-shadow:0 10px 30px rgba(31,30,27,.22);font-size:14px;font-weight:500;transition:transform .2s var(--spring),box-shadow .2s}
+.chat-fab{display:inline-flex;align-items:center;gap:9px;white-space:nowrap;background:var(--fg);color:var(--bg);border-radius:999px;padding:13px 19px;box-shadow:0 10px 30px rgba(31,30,27,.22);font-size:14px;font-weight:500;line-height:1;transition:transform .2s var(--spring),box-shadow .2s}
+.chat-fab .spark{flex:none}
 .chat-fab:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 14px 38px rgba(31,30,27,.28)}
 .chat-fab .spark{color:var(--accent)}
 .chat-panel{display:none;flex-direction:column;width:392px;max-width:calc(100vw - 36px);height:min(640px,80vh);background:var(--bg);border:1px solid var(--line-2);border-radius:18px;box-shadow:0 24px 70px rgba(31,30,27,.24);overflow:hidden;animation:rise .3s var(--ease)}
