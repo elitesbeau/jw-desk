@@ -448,17 +448,25 @@ function enterBoard(skip) {
 function renderHCM() {
   const hcm = B.hcm; if (!hcm) return;
   const b = hcm.buy;
-  const buyHTML = '<div class="hcm-card hcm-buy">' +
-    '<div class="hcm-hd"><span class="hcm-dot"></span><span class="lab">Buy today · 1 conviction pick</span></div>' +
-    '<div class="hcm-top"><span class="hcm-sym">' + b.symbol + '</span><span class="tag long">long</span><span class="hcm-chg ' + cls(b.changePct) + '">' + pct(b.changePct) + '</span></div>' +
-    '<div class="hcm-name">' + escc(b.name) + '</div>' +
-    '<div class="hcm-thesis">' + escc(b.catalyst) + '</div>' +
+  // Always sync identity to the #1 ranked mover
+  const m1 = B.movers && B.movers[0];
+  const sym = m1 ? m1.symbol : b.symbol;
+  const name = m1 ? m1.name : b.name;
+  const chg = m1 ? m1.changePct : b.changePct;
+  const thesis = m1 ? (m1.read || m1.catalyst) : b.catalyst;
+  const statsHTML = b.entryZone ? (
     '<div class="hcm-stats">' +
     '<div class="hcm-stat"><span class="hcm-sk">Entry</span><span class="hcm-sv">' + escc(b.entryZone) + '</span></div>' +
     '<div class="hcm-stat"><span class="hcm-sk">Target</span><span class="hcm-sv up">' + escc(b.target) + '</span></div>' +
     '<div class="hcm-stat"><span class="hcm-sk">Stop</span><span class="hcm-sv dn">' + escc(b.stop) + '</span></div>' +
     '<div class="hcm-stat"><span class="hcm-sk">R / R</span><span class="hcm-sv">' + escc(b.rr) + '</span></div>' +
-    '</div></div>';
+    '</div>') : '';
+  const buyHTML = '<div class="hcm-card hcm-buy">' +
+    '<div class="hcm-hd"><span class="hcm-dot"></span><span class="lab">Buy today · #1 ranked</span></div>' +
+    '<div class="hcm-top"><span class="hcm-sym">' + sym + '</span><span class="tag long">long</span><span class="hcm-chg ' + cls(chg) + '">' + pct(chg) + '</span></div>' +
+    '<div class="hcm-name">' + escc(name) + '</div>' +
+    '<div class="hcm-thesis">' + escc(thesis) + '</div>' +
+    statsHTML + '</div>';
   const playHTML = (p) => '<div class="hcm-play">' +
     '<div class="hcm-play-top"><span class="hcm-psym">' + p.symbol + '</span><span class="hcm-popt">' + escc(p.play) + '</span><span class="hcm-pchg ' + cls(p.changePct) + '">' + pct(p.changePct) + '</span></div>' +
     '<div class="hcm-pname">' + escc(p.name) + '</div>' +
