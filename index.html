@@ -142,12 +142,30 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .autobadge{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-mute);display:inline-flex;align-items:center;gap:5px;cursor:pointer;border:1px solid var(--line);border-radius:999px;padding:4px 9px}
 .autobadge.on{color:var(--positive);border-color:rgba(74,135,98,.35)}
 .autobadge .pd{width:5px;height:5px;border-radius:999px;background:currentColor}
-.lrow{display:grid;grid-template-columns:auto 1fr auto auto;gap:11px;align-items:center;padding:11px 14px;border:1px solid var(--line);border-radius:11px;background:var(--bg);margin-bottom:7px;cursor:pointer;transition:all .16s var(--ease)}
+.lrow{display:grid;grid-template-columns:20px auto 1fr auto auto;gap:11px;align-items:center;padding:11px 14px;border:1px solid var(--line);border-radius:11px;background:var(--bg);margin-bottom:7px;cursor:pointer;transition:all .16s var(--ease)}
 .lrow:hover{border-color:var(--line-2);transform:translateX(2px)}
 .lrow.active{border-color:var(--fg);background:var(--bg-2)}
+.lrow .rk{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--fg-mute);text-align:right;line-height:1;flex:none}
+.lrow.r1{background:rgba(212,175,55,.09);border-color:rgba(212,175,55,.28)}
+.lrow.r2{background:rgba(180,180,185,.09);border-color:rgba(180,180,185,.26)}
+.lrow.r3{background:rgba(176,111,56,.09);border-color:rgba(176,111,56,.26)}
+.lrow.r1 .rk{color:rgba(168,132,18,.9)}
+.lrow.r2 .rk{color:rgba(120,120,125,.9)}
+.lrow.r3 .rk{color:rgba(148,86,36,.9)}
+.lrow.r1.active{border-color:rgba(212,175,55,.5);background:rgba(212,175,55,.16)}
+.lrow.r2.active{border-color:rgba(180,180,185,.45);background:rgba(180,180,185,.16)}
+.lrow.r3.active{border-color:rgba(176,111,56,.45);background:rgba(176,111,56,.15)}
 .lrow .sym{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:500;min-width:50px}
 .lrow .cat{font-size:12.5px;color:var(--fg-mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .lrow .mv{font-family:'IBM Plex Mono',monospace;font-size:12.5px}
+.hero.r1{background:rgba(212,175,55,.06);border-color:rgba(212,175,55,.30)}
+.hero.r2{background:rgba(180,180,185,.07);border-color:rgba(180,180,185,.28)}
+.hero.r3{background:rgba(176,111,56,.06);border-color:rgba(176,111,56,.28)}
+.hero-toprow{display:flex;align-items:center;justify-content:space-between;margin-bottom:0}
+.hero-rankbadge{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:3px 8px;border-radius:5px;background:var(--bg-3);color:var(--fg-mute)}
+.hero.r1 .hero-rankbadge{background:rgba(212,175,55,.15);color:rgba(148,110,12,1)}
+.hero.r2 .hero-rankbadge{background:rgba(180,180,185,.18);color:rgba(100,100,108,1)}
+.hero.r3 .hero-rankbadge{background:rgba(176,111,56,.14);color:rgba(140,78,28,1)}
 .callflag{width:6px;height:6px;border-radius:999px;background:var(--positive);display:inline-block;flex:none}
 .cLower{display:grid;grid-template-columns:1.3fr 1fr;gap:22px;margin-top:26px}
 @media(max-width:900px){.cLower{grid-template-columns:1fr}}
@@ -466,9 +484,10 @@ function renderHCM() {
 
 /* ---------- live board ---------- */
 let boardInit = false;
-function heroCard(m) {
+function heroCard(m, rank) {
   const g = { strong: 100, tilt: 66, lean: 33, none: 8 }[m.band] || 8, gc = m.direction === 'short' ? 'var(--danger)' : 'var(--positive)';
-  return '<div class="lab">' + (m.isCall ? 'Conviction call · spotlight' : 'In focus') + '</div>' +
+  const rankBadge = rank ? '<span class="hero-rankbadge">Rank #' + rank + '</span>' : '';
+  return '<div class="hero-toprow"><div class="lab">' + (m.isCall ? 'Conviction call · spotlight' : 'In focus') + '</div>' + rankBadge + '</div>' +
     '<div class="hero-h"><span class="hsym">' + m.symbol + '</span>' + tagEl(m) + '<span class="hmv ' + cls(m.changePct) + '">' + pct(m.changePct) + '</span></div>' +
     '<div class="hname">' + escc(m.name) + (m.marketCapB ? ' · $' + m.marketCapB + 'B' : '') + '</div>' +
     '<div class="sparkwrap"><div class="sl"><span>synthetic overnight path</span><span class="' + cls(m.changePct) + '">' + pct(m.changePct) + '</span></div>' + sparkSVG(m.symbol, m.changePct) + '</div>' +
@@ -494,14 +513,14 @@ function initBoard() {
   $('funnelRow').innerHTML = [['Scanned', B.funnel.scanned], ['Moved', B.funnel.moved], ['Analyzed', B.funnel.agents], ['Calls', B.funnel.calls]].map(([k, v]) => '<div class="st"><div class="k">' + k + '</div><div class="v" data-target="' + v + '">0</div></div>').join('');
   // risk / watch / provenance
   $('pRisk').innerHTML = B.topRisk; $('pNoise').textContent = B.noiseNote || '';
-  $('pWatch').innerHTML = (B.watch.length ? B.watch : [{ symbol: '—', why: 'Nothing secondary worth flagging.' }]).map((w) => '<div class="w"><span class="t">' + w.symbol + '</span><span class="d">' + escc(w.why) + '</span></div>').join('');
   const p = B.prov;
   $('pProv').innerHTML = [['Analyst', p.analyst], ['CIO', p.cio], ['Agent calls', p.calls], ['Tokens', Math.round(p.inTok / 1000) + 'k/' + Math.round(p.outTok / 1000) + 'k'], ['Run cost', '$' + p.cost.toFixed(3)]].map(([k, v]) => '<div class="pi"><div class="k">' + k + '</div><div class="v">' + v + '</div></div>').join('');
   // list + spotlight
   const listEl = $('list'), hero = $('hero'), badge = $('autoBadge');
-  listEl.innerHTML = MOV.map((m, i) => '<div class="lrow" data-i="' + i + '"><span class="sym">' + m.symbol + '</span><span class="cat">' + (m.isCall ? '<span class="callflag"></span> ' : '') + escc(m.catalyst) + '</span>' + miniSVG(m.symbol, m.changePct) + '<span class="mv ' + cls(m.changePct) + '">' + pct(m.changePct) + '</span></div>').join('');
+  const rankCls = (i) => i === 0 ? ' r1' : i === 1 ? ' r2' : i === 2 ? ' r3' : '';
+  listEl.innerHTML = MOV.map((m, i) => '<div class="lrow' + rankCls(i) + '" data-i="' + i + '"><span class="rk">' + (i + 1) + '</span><span class="sym">' + m.symbol + '</span><span class="cat">' + (m.isCall ? '<span class="callflag"></span> ' : '') + escc(m.catalyst) + '</span>' + miniSVG(m.symbol, m.changePct) + '<span class="mv ' + cls(m.changePct) + '">' + pct(m.changePct) + '</span></div>').join('');
   const rows = [].slice.call(listEl.querySelectorAll('.lrow')); let cur = 0;
-  function renderHero(i) { cur = i; const m = MOV[i]; hero.innerHTML = heroCard(m); rows.forEach((r) => r.classList.toggle('active', +r.dataset.i === i)); requestAnimationFrame(() => { const ln = hero.querySelector('.line'); if (ln) ln.classList.add('draw'); const gi = hero.querySelector('.gauge i'); if (gi) gi.style.width = gi.dataset.w + '%'; }); }
+  function renderHero(i) { cur = i; const m = MOV[i]; const rank = i + 1; hero.className = 'hero' + rankCls(i); hero.innerHTML = heroCard(m, rank); rows.forEach((r) => r.classList.toggle('active', +r.dataset.i === i)); requestAnimationFrame(() => { const ln = hero.querySelector('.line'); if (ln) ln.classList.add('draw'); const gi = hero.querySelector('.gauge i'); if (gi) gi.style.width = gi.dataset.w + '%'; }); }
   let auto = true, timer = null;
   const tick = () => renderHero((cur + 1) % MOV.length);
   const start = () => { if (timer) clearInterval(timer); timer = setInterval(tick, 4500); auto = true; badge.classList.add('on'); };
