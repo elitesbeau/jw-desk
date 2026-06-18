@@ -15,7 +15,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 @keyframes ping{75%,100%{transform:scale(2.8);opacity:0}}
 
 /* ===== briefing overlay mechanics ===== */
-#brief{position:fixed;inset:0;z-index:60;background:var(--bg);overflow:hidden;transition:opacity .5s var(--ease)}
+#brief{position:fixed;inset:0;z-index:60;background:var(--bg);overflow-y:auto;transition:opacity .5s var(--ease)}
 #brief.gone{opacity:0;pointer-events:none}
 #board{opacity:0;transition:opacity .6s var(--ease)}
 #board.show{opacity:1}
@@ -72,6 +72,13 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .reportbar .rb-go{display:flex;align-items:center;gap:11px;font-weight:500;font-size:16px;white-space:nowrap;flex:none}
 .reportbar .arr{display:inline-flex;width:30px;height:30px;border-radius:999px;background:rgba(250,249,245,.14);align-items:center;justify-content:center}
 .reportbar .arr span{display:inline-block;animation:nudge 1.4s var(--ease) infinite}
+@media(max-width:1024px){
+  .hm-wrap{height:auto;min-height:100vh;overflow:visible;padding:14px 18px 22px}
+  .trow{flex-wrap:wrap;gap:8px}
+  .tile{flex:1 1 calc(50% - 4px)!important;min-width:calc(50% - 4px)!important;min-height:120px}
+  .reportbar{flex-direction:column;align-items:flex-start;gap:12px}
+  .reportbar .tease{white-space:normal}
+}
 @media(max-width:760px){
   .hm-wrap{height:auto;min-height:100vh;overflow:visible;padding:14px 16px 22px}
   .brandbar .brand .wm{font-size:18px}
