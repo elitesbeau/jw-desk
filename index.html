@@ -549,14 +549,15 @@ function renderHCM() {
   });
 }
 
+let heroDetailOpen = false;
 function toggleHeroDetail(btn) {
   const hero = btn.closest('.hero');
   const grid = hero.querySelector('.hgrid');
   const inv = hero.querySelector('.hinv');
-  const show = grid.style.display !== 'grid';
-  grid.style.display = show ? 'grid' : 'none';
-  inv.style.display = show ? 'block' : 'none';
-  btn.textContent = show ? 'Less ↑' : 'Full analysis ↓';
+  heroDetailOpen = grid.style.display !== 'grid';
+  grid.style.display = heroDetailOpen ? 'grid' : 'none';
+  inv.style.display = heroDetailOpen ? 'block' : 'none';
+  btn.textContent = heroDetailOpen ? 'Less ↑' : 'Full analysis ↓';
 }
 
 /* ---------- live board ---------- */
@@ -598,7 +599,7 @@ function initBoard() {
   const rankCls = (i) => i === 0 ? ' r1' : i === 1 ? ' r2' : i === 2 ? ' r3' : '';
   listEl.innerHTML = MOV.map((m, i) => '<div class="lrow' + rankCls(i) + '" data-i="' + i + '"><span class="rk">' + (i + 1) + '</span><span class="sym">' + m.symbol + '</span><span class="cat">' + (m.isCall ? '<span class="callflag"></span> ' : '') + escc(m.catalyst) + '</span>' + miniSVG(m.symbol, m.changePct) + '<span class="mv ' + cls(m.changePct) + '">' + pct(m.changePct) + '</span></div>').join('');
   const rows = [].slice.call(listEl.querySelectorAll('.lrow')); let cur = 0;
-  function renderHero(i) { cur = i; const m = MOV[i]; const rank = i + 1; hero.className = 'hero' + rankCls(i); hero.innerHTML = heroCard(m, rank); rows.forEach((r) => r.classList.toggle('active', +r.dataset.i === i)); requestAnimationFrame(() => { const ln = hero.querySelector('.line'); if (ln) ln.classList.add('draw'); const gi = hero.querySelector('.gauge i'); if (gi) gi.style.width = gi.dataset.w + '%'; }); }
+  function renderHero(i) { cur = i; const m = MOV[i]; const rank = i + 1; hero.className = 'hero' + rankCls(i); hero.innerHTML = heroCard(m, rank); rows.forEach((r) => r.classList.toggle('active', +r.dataset.i === i)); requestAnimationFrame(() => { const ln = hero.querySelector('.line'); if (ln) ln.classList.add('draw'); const gi = hero.querySelector('.gauge i'); if (gi) gi.style.width = gi.dataset.w + '%'; if (heroDetailOpen) { const g = hero.querySelector('.hgrid'), v = hero.querySelector('.hinv'), b = hero.querySelector('.htoggle'); if (g) g.style.display = 'grid'; if (v) v.style.display = 'block'; if (b) b.textContent = 'Less ↑'; } }); }
   let auto = true, timer = null;
   const tick = () => renderHero((cur + 1) % MOV.length);
   const start = () => { if (timer) clearInterval(timer); timer = setInterval(tick, 4500); auto = true; badge.classList.add('on'); };
