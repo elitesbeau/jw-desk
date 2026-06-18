@@ -486,7 +486,7 @@ function renderHCM() {
     '</div>' : '';
 
   const buyHTML = '<div class="hcm-card hcm-buy hcm-r1" id="hcmBuyCard">' +
-    '<div class="hcm-hd"><span class="hcm-dot"></span><span class="lab">Buy today · ' + buys.length + ' conviction picks</span>' + dotsHTML + '</div>' +
+    '<div class="hcm-hd"><span class="hcm-dot"></span><span class="lab" id="hcmBuyLab">Buy today · #1 Highest Conviction Pick</span>' + dotsHTML + '</div>' +
     '<div class="hcm-buy-slides" id="hcmBuySlides">' + buildBuySlide(buys[0]) + '</div>' +
     '</div>';
   const playHTML = (p) => '<div class="hcm-play">' +
@@ -512,6 +512,7 @@ function renderHCM() {
       setTimeout(function() {
         slides.innerHTML = buildBuySlide(buys[buyIdx]);
         $('hcmBuyCard').className = 'hcm-card hcm-buy hcm-r' + (buyIdx + 1);
+        $('hcmBuyLab').textContent = 'Buy today · #' + (buyIdx + 1) + ' Highest Conviction Pick';
         $('hcmDots').querySelectorAll('.hcm-pip').forEach(function(p, j) {
           p.classList.toggle('active', j === buyIdx);
         });
