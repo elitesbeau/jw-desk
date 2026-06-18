@@ -505,6 +505,12 @@ function renderHCM() {
     hcm.breakdown.map(playHTML).join('') + '</div>';
   $('hcmBand').innerHTML = '<div class="hcm-grid">' + buyHTML + boHTML + bdHTML + '</div>';
 
+  // Lock buy card height after first paint so carousel switches never resize the card
+  requestAnimationFrame(function() {
+    var card = $('hcmBuyCard');
+    if (card) card.style.minHeight = card.offsetHeight + 'px';
+  });
+
   // Buy carousel
   if (buys.length > 1) {
     function goToBuy(i) {
