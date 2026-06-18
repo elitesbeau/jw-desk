@@ -225,6 +225,20 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .hcm-plevel{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--fg-dim);margin-bottom:3px}
 .hcm-piv{font-size:11px;color:var(--fg-dim);margin-bottom:5px}
 .hcm-pconf{font-size:11px;color:var(--fg-mute);border-left:2px solid var(--line-2);padding-left:8px;line-height:1.45}
+@media(max-width:640px){
+  .hcm-band{padding:14px 16px 0}
+  .cHead{padding:14px 16px 0}
+  .cHead2{padding:12px 0}
+  .cHead2 .hl{font-size:16px;min-width:0}
+  .wrapC{padding:18px 16px 36px}
+  .foot{padding:24px 16px 90px}
+  .hcm-card{padding:16px}
+  .hcm-sym{font-size:23px}
+  .hcm-stats{grid-template-columns:repeat(2,1fr)}
+  .hcm-stat{border-bottom:1px solid var(--line)}
+  .hcm-stat:nth-child(2n){border-right:none}
+  .hcm-stat:nth-child(n+3){border-bottom:none}
+}
 
 /* ===== chat — Ask the desk ===== */
 #chatDock{position:fixed;right:22px;bottom:22px;z-index:70}
