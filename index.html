@@ -235,8 +235,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .hcm-buy.hcm-r1 .hcm-pip.active{background:rgba(148,110,12,1);width:16px}
 .hcm-buy.hcm-r2 .hcm-pip.active{background:rgba(120,120,125,.9);width:16px}
 .hcm-buy.hcm-r3 .hcm-pip.active{background:rgba(148,86,36,.5);width:16px}
-.hcm-buy-slides{transition:opacity .14s ease,transform .14s ease}
-.hcm-buy-slides.hcm-slide-out{opacity:0;transform:translateY(5px)}
+.hcm-buy-vp{overflow:hidden}
 .hcm-bo{border-color:rgba(74,135,98,.24)}
 .hcm-bd{border-color:rgba(168,68,44,.24)}
 .hcm-hd{display:flex;align-items:center;gap:7px;margin-bottom:13px}
@@ -495,7 +494,7 @@ function renderHCM() {
 
   const buyHTML = '<div class="hcm-card hcm-buy hcm-r1" id="hcmBuyCard">' +
     '<div class="hcm-hd"><span class="hcm-dot"></span><span class="lab" id="hcmBuyLab">Buy today · #1 Highest Conviction Pick</span>' + dotsHTML + '</div>' +
-    '<div class="hcm-buy-slides" id="hcmBuySlides">' + buildBuySlide(buys[0]) + '</div>' +
+    '<div class="hcm-buy-vp" id="hcmBuySlides">' + buildBuySlide(buys[0]) + '</div>' +
     '</div>';
   const playHTML = (p) => '<div class="hcm-play">' +
     '<div class="hcm-play-top"><span class="hcm-psym">' + p.symbol + '</span><span class="hcm-popt">' + escc(p.play) + '</span><span class="hcm-pchg ' + cls(p.changePct) + '">' + pct(p.changePct) + '</span></div>' +
@@ -517,31 +516,64 @@ function renderHCM() {
     if (card) card.style.minHeight = card.offsetHeight + 'px';
   });
 
-  // Buy carousel
+  // Buy carousel — real horizontal slide
   if (buys.length > 1) {
-    function goToBuy(i) {
-      buyIdx = ((i % buys.length) + buys.length) % buys.length;
-      const slides = $('hcmBuySlides');
-      slides.classList.add('hcm-slide-out');
+    var buyAnimating = false;
+    function goToBuy(targetIdx, forward) {
+      if (buyAnimating) return;
+      var newIdx = ((targetIdx % buys.length) + buys.length) % buys.length;
+      if (newIdx === buyIdx) return;
+      if (forward === undefined) forward = newIdx > buyIdx;
+      buyAnimating = true;
+
+      var vp = $('hcmBuySlides');
+      var oldHTML = vp.innerHTML;
+      var newHTML = buildBuySlide(buys[newIdx]);
+
+      var track = document.createElement('div');
+      track.style.cssText = 'display:flex;width:200%;will-change:transform';
+      if (forward) {
+        track.innerHTML = '<div style="width:50%">' + oldHTML + '</div><div style="width:50%">' + newHTML + '</div>';
+        vp.innerHTML = '';
+        vp.appendChild(track);
+        track.offsetHeight;
+        track.style.transition = 'transform .32s cubic-bezier(.4,0,.2,1)';
+        track.style.transform = 'translateX(-50%)';
+      } else {
+        track.innerHTML = '<div style="width:50%">' + newHTML + '</div><div style="width:50%">' + oldHTML + '</div>';
+        track.style.transform = 'translateX(-50%)';
+        vp.innerHTML = '';
+        vp.appendChild(track);
+        track.offsetHeight;
+        track.style.transition = 'transform .32s cubic-bezier(.4,0,.2,1)';
+        track.style.transform = 'translateX(0)';
+      }
+
+      buyIdx = newIdx;
+      $('hcmBuyCard').className = 'hcm-card hcm-buy hcm-r' + (buyIdx + 1);
+      $('hcmBuyLab').textContent = 'Buy today · #' + (buyIdx + 1) + ' Highest Conviction Pick';
+      $('hcmDots').querySelectorAll('.hcm-pip').forEach(function(p, j) {
+        p.classList.toggle('active', j === buyIdx);
+      });
+
       setTimeout(function() {
-        slides.innerHTML = buildBuySlide(buys[buyIdx]);
-        $('hcmBuyCard').className = 'hcm-card hcm-buy hcm-r' + (buyIdx + 1);
-        $('hcmBuyLab').textContent = 'Buy today · #' + (buyIdx + 1) + ' Highest Conviction Pick';
-        $('hcmDots').querySelectorAll('.hcm-pip').forEach(function(p, j) {
-          p.classList.toggle('active', j === buyIdx);
-        });
-        slides.classList.remove('hcm-slide-out');
-      }, 140);
+        var v = $('hcmBuySlides');
+        if (v) v.innerHTML = buildBuySlide(buys[buyIdx]);
+        buyAnimating = false;
+      }, 340);
     }
     $('hcmDots').querySelectorAll('.hcm-pip').forEach(function(pip) {
-      pip.onclick = function() { goToBuy(parseInt(this.dataset.i)); };
+      pip.onclick = function() {
+        var t = parseInt(this.dataset.i);
+        goToBuy(t, t > buyIdx);
+      };
     });
     var touchX = null;
     $('hcmBuyCard').addEventListener('touchstart', function(e) { touchX = e.touches[0].clientX; }, { passive: true });
     $('hcmBuyCard').addEventListener('touchend', function(e) {
       if (touchX === null) return;
       var dx = e.changedTouches[0].clientX - touchX; touchX = null;
-      if (Math.abs(dx) > 40) goToBuy(buyIdx + (dx < 0 ? 1 : -1));
+      if (Math.abs(dx) > 40) goToBuy(buyIdx + (dx < 0 ? 1 : -1), dx < 0);
     });
   }
 
