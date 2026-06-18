@@ -648,6 +648,11 @@ function initBoard() {
   hero.onmouseleave = () => { if (auto && !timer) timer = setInterval(tick, 4500); };
   rows.forEach((r) => r.onclick = () => { stop(); renderHero(+r.dataset.i); if (window.innerWidth <= 640) { setTimeout(() => hero.scrollIntoView({ behavior: 'smooth', block: 'start' }), 30); } });
   renderHero(0); start();
+  if (window.innerWidth <= 640) {
+    new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting && auto) { renderHero(0); start(); }
+    }, { threshold: 0.4 }).observe(hero);
+  }
   // index count-up
   document.querySelectorAll('[data-pct]').forEach((el) => { const t = +el.dataset.pct; let n = 0; const sp = t / 24; const iv = setInterval(() => { n += sp; if (Math.abs(n) >= Math.abs(t)) { n = t; clearInterval(iv); } el.textContent = (n > 0 ? '+' : '') + n.toFixed(2) + '%'; }, 26); });
   // funnel count-up
