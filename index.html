@@ -646,7 +646,7 @@ function initBoard() {
   badge.onclick = () => auto ? stop() : start();
   hero.onmouseenter = () => { if (auto && timer) { clearInterval(timer); timer = null; } };
   hero.onmouseleave = () => { if (auto && !timer) timer = setInterval(tick, 4500); };
-  rows.forEach((r) => r.onclick = () => { stop(); renderHero(+r.dataset.i); if (window.innerWidth <= 640) { setTimeout(() => { var top = hero.getBoundingClientRect().top + window.pageYOffset - 20; window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' }); }, 30); } });
+  rows.forEach((r) => r.onclick = () => { stop(); renderHero(+r.dataset.i); if (window.innerWidth <= 640) { setTimeout(() => { var top = hero.getBoundingClientRect().top + window.pageYOffset - 72; window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' }); }, 30); } });
   renderHero(0); start();
   if (window.innerWidth <= 640) {
     new IntersectionObserver(function(entries) {
