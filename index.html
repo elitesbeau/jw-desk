@@ -15,7 +15,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 @keyframes ping{75%,100%{transform:scale(2.8);opacity:0}}
 
 /* ===== briefing overlay mechanics ===== */
-#brief{position:fixed;inset:0;z-index:60;background:var(--bg);overflow-y:auto;transition:opacity .5s var(--ease)}
+#brief{position:fixed;inset:0;z-index:60;background:var(--bg);overflow:hidden;display:flex;flex-direction:column;transition:opacity .5s var(--ease)}
 #brief.gone{opacity:0;pointer-events:none}
 #board{opacity:0;transition:opacity .6s var(--ease)}
 #board.show{opacity:1}
@@ -26,7 +26,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 @keyframes tin{to{opacity:1;transform:none}}
 @keyframes pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
 @keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(4px)}}
-.hm-wrap{height:100vh;display:flex;flex-direction:column;padding:14px 24px 14px;max-width:1280px;margin:0 auto;overflow:hidden}
+.hm-wrap{flex:1;min-height:0;display:flex;flex-direction:column;padding:14px 24px 14px;max-width:1280px;width:100%;margin:0 auto;overflow-y:auto}
+.brief-foot{flex:none;width:100%;background:var(--bg);border-top:1px solid var(--line);padding:10px 24px calc(10px + env(safe-area-inset-bottom,0px))}
 .brandbar{display:flex;align-items:center;gap:14px;padding-bottom:11px;margin-bottom:11px;border-bottom:1px solid var(--line)}
 .brand{display:flex;align-items:center;gap:12px}
 .seal{width:42px;height:42px;border-radius:11px;background:var(--fg);color:var(--bg);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:600;font-size:19px;letter-spacing:.02em}
@@ -73,21 +74,24 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .reportbar .arr{display:inline-flex;width:30px;height:30px;border-radius:999px;background:rgba(250,249,245,.14);align-items:center;justify-content:center}
 .reportbar .arr span{display:inline-block;animation:nudge 1.4s var(--ease) infinite}
 @media(max-width:1024px){
-  .hm-wrap{height:auto;min-height:100vh;overflow:visible;padding:14px 18px 22px}
+  .hm-wrap{padding:14px 18px 16px}
+  .brief-foot{padding:10px 18px calc(10px + env(safe-area-inset-bottom,0px))}
   .trow{flex-wrap:wrap;gap:8px}
   .tile{flex:1 1 calc(50% - 4px)!important;min-width:calc(50% - 4px)!important;min-height:120px}
   .reportbar{flex-direction:column;align-items:flex-start;gap:12px}
   .reportbar .tease{white-space:normal}
 }
 @media(max-width:760px){
-  .hm-wrap{height:auto;min-height:100vh;overflow:visible;padding:14px 16px 22px}
+  .hm-wrap{padding:14px 16px 14px}
+  .brief-foot{padding:8px 16px calc(8px + env(safe-area-inset-bottom,0px))}
+  .brief-foot .reportbar .rb-l{display:none}
+  .brief-foot .reportbar{justify-content:center;border-radius:12px}
   .brandbar .brand .wm{font-size:18px}
   .hm-top{gap:10px}.hm-top h1{font-size:18px}
   .hm-pl{margin-left:auto}.hm-pl .v{font-size:21px}
   .tmap{min-height:auto;gap:8px}
   .trow{flex-wrap:wrap;gap:8px}
   .tile{flex:1 1 calc(50% - 4px)!important;min-width:calc(50% - 4px)!important;min-height:118px}
-  .reportbar{flex-direction:column;align-items:flex-start;gap:12px}
   .reportbar .tease{white-space:normal}
   .reportbar .rb-go{font-size:15px}
 }
@@ -315,6 +319,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
     </div>
     <div class="tmap" id="tmap"></div>
     <div class="hm-leg">your book · tile size = position value · color = overnight move · tap any name to read the desk's note</div>
+  </div>
+  <div class="brief-foot">
     <button class="reportbar" id="enter">
       <div class="rb-l"><div class="lab2">That's your book — now the desk's market read</div><div class="tease" id="rbTease"></div></div>
       <div class="rb-go">Open the morning report <span class="arr"><span>→</span></span></div>
