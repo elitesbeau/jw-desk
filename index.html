@@ -225,6 +225,11 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .hcm-plevel{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--fg-dim);margin-bottom:3px}
 .hcm-piv{font-size:11px;color:var(--fg-dim);margin-bottom:5px}
 .hcm-pconf{font-size:11px;color:var(--fg-mute);border-left:2px solid var(--line-2);padding-left:8px;line-height:1.45}
+.hcm-plevel-row{display:flex;align-items:center;gap:8px;margin-bottom:0}
+.hcm-info{width:18px;height:18px;border-radius:999px;border:1px solid var(--line-2);font-family:'IBM Plex Mono',monospace;font-size:10px;font-style:italic;font-weight:500;color:var(--fg-mute);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;flex:none;transition:all .15s var(--ease);background:none;padding:0;user-select:none}
+.hcm-info:hover,.hcm-info.on{border-color:var(--fg-dim);color:var(--fg);background:var(--bg-2)}
+.hcm-pdetail{display:none;margin-top:6px}
+.hcm-pdetail.show{display:block;animation:rise .2s var(--ease)}
 @media(max-width:640px){
   .hcm-band{padding:14px 16px 0}
   .cHead{padding:14px 16px 0}
@@ -440,9 +445,8 @@ function renderHCM() {
   const playHTML = (p) => '<div class="hcm-play">' +
     '<div class="hcm-play-top"><span class="hcm-psym">' + p.symbol + '</span><span class="hcm-popt">' + escc(p.play) + '</span><span class="hcm-pchg ' + cls(p.changePct) + '">' + pct(p.changePct) + '</span></div>' +
     '<div class="hcm-pname">' + escc(p.name) + '</div>' +
-    '<div class="hcm-plevel">Key level → ' + escc(p.keyLevel) + '</div>' +
-    '<div class="hcm-piv">' + escc(p.iv) + '</div>' +
-    '<div class="hcm-pconf">' + escc(p.confirms) + '</div>' +
+    '<div class="hcm-plevel-row"><span class="hcm-plevel">Key level → ' + escc(p.keyLevel) + '</span><button class="hcm-info" title="Show detail">i</button></div>' +
+    '<div class="hcm-pdetail"><div class="hcm-piv">' + escc(p.iv) + '</div><div class="hcm-pconf">' + escc(p.confirms) + '</div></div>' +
     '</div>';
   const boHTML = '<div class="hcm-card hcm-bo">' +
     '<div class="hcm-hd"><span class="hcm-dot"></span><span class="lab">Breakout option plays · 2 watches</span></div>' +
@@ -451,6 +455,14 @@ function renderHCM() {
     '<div class="hcm-hd"><span class="hcm-dot"></span><span class="lab">Breakdown option plays · 2 watches</span></div>' +
     hcm.breakdown.map(playHTML).join('') + '</div>';
   $('hcmBand').innerHTML = '<div class="hcm-grid">' + buyHTML + boHTML + bdHTML + '</div>';
+  $('hcmBand').querySelectorAll('.hcm-info').forEach(function(btn) {
+    btn.onclick = function() {
+      var detail = this.closest('.hcm-play').querySelector('.hcm-pdetail');
+      var on = detail.classList.toggle('show');
+      this.classList.toggle('on', on);
+      this.title = on ? 'Hide detail' : 'Show detail';
+    };
+  });
 }
 
 /* ---------- live board ---------- */
