@@ -33,10 +33,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .brand .wm{font-weight:600;font-size:21px;letter-spacing:-.01em;line-height:1}
 .brandbar .when{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--fg-dim);text-align:right;line-height:1.35}
 .brandbar .when .d{color:var(--fg-mute);font-size:10px;letter-spacing:.04em}
-.hm-top{display:flex;align-items:center;gap:18px;margin-bottom:10px}
+.hm-top{display:flex;align-items:flex-start;gap:18px;margin-bottom:10px}
 .hm-top h1{font-size:20px;font-weight:500;letter-spacing:-.02em}
 .page-nav{display:flex;align-items:center;justify-content:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px}
-.page-step{color:var(--fg-mute);display:inline-flex;align-items:center;gap:6px;background:none;border:none;font-family:inherit;font-size:inherit;letter-spacing:inherit;text-transform:inherit;cursor:pointer;padding:4px 8px;border-radius:6px;transition:color .15s var(--ease)}
+.page-step{color:var(--fg-mute);display:inline-flex;align-items:center;gap:6px;background:none;border:none;font-family:inherit;font-size:inherit;letter-spacing:inherit;text-transform:inherit;cursor:pointer;padding:4px 8px;border-radius:6px;transition:color .15s var(--ease);touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .page-step:not(.on):hover{color:var(--fg-dim)}
 .page-step.on{color:var(--fg);cursor:default;pointer-events:none}
 .page-step .dot{width:7px;height:7px;border-radius:999px;background:var(--line-2);flex:none}
@@ -579,6 +579,25 @@ function enterBoard(skip) {
   window.scrollTo(0, 0);
   if (!boardInitialized) { boardInitialized = true; initBoard(); }
 }
+// Right swipe on market report → go back to portfolio
+(function() {
+  var tx = null, ty = null, swiping = false;
+  document.addEventListener('touchstart', function(e) {
+    if (!$('brief').classList.contains('gone')) return;
+    if (e.target.closest('#hcmBuyCard')) return; // don't steal from carousel
+    tx = e.touches[0].clientX; ty = e.touches[0].clientY; swiping = false;
+  }, { passive: true });
+  document.addEventListener('touchmove', function(e) {
+    if (tx === null) return;
+    var dx = e.touches[0].clientX - tx, dy = e.touches[0].clientY - ty;
+    if (!swiping && Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 10) swiping = true;
+  }, { passive: true });
+  document.addEventListener('touchend', function(e) {
+    if (!swiping || tx === null) { tx = null; swiping = false; return; }
+    var dx = e.changedTouches[0].clientX - tx; tx = null; swiping = false;
+    if (dx > 50) goToBrief();
+  });
+}());
 
 /* ---------- 3 high conviction moves ---------- */
 function renderHCM() {
