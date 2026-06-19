@@ -807,26 +807,31 @@ function heroCard(m, rank) {
   const whyNowHTML = m.whyNow ? '<div class="why-now-pill"><span class="why-icon">Why now</span>' + escc(m.whyNow) + '</div>' : '';
   // options flow badge
   const ofSig = m.optionsFlow ? m.optionsFlow.signal : null;
-  const ofBadge = ofSig ? '<span class="of-badge ' + ofSig + '">Options Flow · ' + ofSig.toUpperCase() + (m.optionsFlow.flowScore ? ' · ' + m.optionsFlow.flowScore : '') + '</span>' : '';
-  // expires tag & hit rate
-  const expTag = m.expiresOn ? '<span class="exp-tag">Expires · ' + escc(m.expiresOn) + '</span>' : '';
-  const accLine = m.hitRate ? '<div class="acc-line">Past accuracy · ' + m.hitRate.rate + '% on ' + m.hitRate.sample + ' calls</div>' : '';
-  // gauge row
-  const gaugeRow = '<div class="gauge"><span class="gl">conviction · ' + m.band + '</span><span class="seg"><i data-w="' + g + '" style="width:0;background:' + gc + '"></i></span>' + expTag + '</div>' + accLine;
-  // bell button
-  var alertKey = 'jw_' + m.symbol;
-  var alActive = window._jwAlerts && window._jwAlerts[alertKey] ? 'active' : '';
-  var bellBtn = '<button class="bell-btn ' + alActive + '" id="bell_' + m.symbol + '" title="Set key level alert" onclick="toggleAlert(\'' + m.symbol + '\', this)">🔔</button>';
-  // score breakdown (in full analysis)
-  var scoreHTML = '';
+  const ofBadge = ofSig ? '<div style="margin-top:8px"><span class="of-badge ' + ofSig + '">Options Flow · ' + ofSig.toUpperCase() + (m.optionsFlow.flowScore ? ' · ' + m.optionsFlow.flowScore : '') + '</span></div>' : '';
+  // past accuracy + expires pills (same row, like buy card)
+  var hrColor = m.hitRate ? (m.hitRate.rate >= 65 ? 'var(--positive)' : m.hitRate.rate >= 50 ? 'var(--amber)' : 'var(--danger)') : '';
+  var accPill = m.hitRate ? '<span class="exp-tag" style="flex:1">Past accuracy · <span style="color:' + hrColor + '">' + m.hitRate.rate + '%</span> on ' + m.hitRate.sample + ' calls</span>' : '';
+  var expTagPill = m.expiresOn ? '<span class="exp-tag" style="flex:1">Expires · ' + escc(m.expiresOn) + '</span>' : '';
+  var pillsRow = (accPill || expTagPill) ? '<div style="display:flex;align-items:center;gap:8px;margin-top:8px">' + accPill + expTagPill + '</div>' : '';
+  // conviction: band label + numeric score (expandable, like buy card)
+  var convHTML = '';
   if (m.scoreBreakdown) {
     var sb = m.scoreBreakdown;
     var total = sb.catalyst + sb.optionsFlow + sb.priceAction + sb.sectorAlign;
     var scoreColor = function(v) { return v >= 20 ? 'var(--positive)' : v >= 13 ? 'var(--amber)' : 'var(--danger)'; };
-    scoreHTML = '<div class="score-grid expanded" style="grid-column:1/-1"><div class="score-total" style="cursor:default"><span class="st-label">Conviction Score</span><span class="st-val">' + total + ' / 100</span></div>' +
-      '<div class="score-bars">' + [['Catalyst', sb.catalyst], ['Options Flow', sb.optionsFlow], ['Price Action', sb.priceAction], ['Sector Align', sb.sectorAlign]].map(function(pair) {
-        return '<div class="score-row"><span class="sr-label">' + pair[0] + '</span><div class="score-bar"><i style="width:' + (pair[1]/25*100).toFixed(0) + '%;background:' + scoreColor(pair[1]) + '"></i></div><span class="sr-num">' + pair[1] + '/25</span></div>';
-      }).join('') + '</div></div>';
+    var bars = [['Catalyst', sb.catalyst], ['Options Flow', sb.optionsFlow], ['Price Action', sb.priceAction], ['Sector Align', sb.sectorAlign]].map(function(pair) {
+      return '<div class="score-row"><span class="sr-label">' + pair[0] + '</span><div class="score-bar"><i style="width:' + (pair[1]/25*100).toFixed(0) + '%;background:' + scoreColor(pair[1]) + '"></i></div><span class="sr-num">' + pair[1] + '/25</span></div>';
+    }).join('');
+    convHTML = '<div class="score-grid" style="margin-top:8px" onclick="this.classList.toggle(\'expanded\')">' +
+      '<div class="score-total">' +
+        '<span class="st-label">Conviction · ' + m.band + '</span>' +
+        '<span class="st-val">' + total + '<span style="font-size:12px;color:var(--fg-mute)"> / 100</span></span>' +
+        '<span class="score-expand-arrow">▾</span>' +
+      '</div>' +
+      '<div class="score-bars">' + bars + '</div>' +
+      '</div>';
+  } else {
+    convHTML = '<div class="gauge" style="margin-top:8px"><span class="gl">conviction · ' + m.band + '</span><span class="seg"><i data-w="' + g + '" style="width:0;background:' + gc + '"></i></span></div>';
   }
   // model consensus
   var consensusHTML = '';
@@ -848,10 +853,11 @@ function heroCard(m, rank) {
     '<div class="sparkwrap"><div class="sl"><span>synthetic overnight path</span><span class="' + cls(m.changePct) + '">' + pct(m.changePct) + '</span></div>' + sparkSVG(m.symbol, m.changePct) + '</div>' +
     '<div class="hread">' + escc(m.callThesis || m.read) + '</div>' +
     whyNowHTML +
+    pillsRow +
     ofBadge +
-    gaugeRow +
+    convHTML +
     '<button class="htoggle" onclick="toggleHeroDetail(this)">Full analysis ↓</button>' +
-    '<div class="hgrid"><div><div class="lab">Setup</div><p>' + escc(m.setup) + '</p></div><div><div class="lab">Risk</div><p>' + escc(m.risk) + '</p></div><div><div class="lab">Catalyst</div><p>' + escc(m.catalyst) + '</p></div><div><div class="lab">Key Level' + bellBtn + '</div><p>' + escc(keyLevelInvalid) + '</p></div>' + scoreHTML + consensusHTML + ofNoteHTML + '</div>' +
+    '<div class="hgrid"><div><div class="lab">Setup</div><p>' + escc(m.setup) + '</p></div><div><div class="lab">Risk</div><p>' + escc(m.risk) + '</p></div><div><div class="lab">Catalyst</div><p>' + escc(m.catalyst) + '</p></div><div><div class="lab">Key Level' + bellBtn + '</div><p>' + escc(keyLevelInvalid) + '</p></div>' + consensusHTML + ofNoteHTML + '</div>' +
     '<div class="hinv">✕ invalidation — ' + escc(keyLevelInvalid) + '</div>';
 }
 function initBoard() {
