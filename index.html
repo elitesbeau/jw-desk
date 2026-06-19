@@ -42,8 +42,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .page-step .dot{width:7px;height:7px;border-radius:999px;background:var(--line-2);flex:none}
 .page-step.on .dot{background:var(--fg)}
 .nav-sep{color:var(--line-2)}
-#boardNav{padding:26px 28px 0;max-width:1180px;margin:0 auto}
-@media(max-width:760px){#boardNav{padding:26px 16px 0}}
+#boardNav{padding:0 28px 0;max-width:1180px;margin:0 auto}
+@media(max-width:760px){#boardNav{padding:0 16px 0}}
 .hm-pl{margin-left:auto;text-align:right}
 .hm-pl .v{font-family:'IBM Plex Mono',monospace;font-size:24px;font-weight:500;line-height:1}
 .hm-pl .s{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--fg-mute);margin-top:2px}
@@ -985,5 +985,17 @@ renderBriefing();
   track.style.animation = '';
 }());
 if (sessionStorage.getItem('jwPage') === 'board') enterBoard(true);
+// Measure the actual briefNav Y position and set boardNav padding to match exactly.
+// CSS approximations vary by device/font-rendering; JS measurement is always pixel-perfect.
+function syncNavY() {
+  var briefNav = $('briefNav');
+  var ticker = document.querySelector('.ticker');
+  var boardNav = $('boardNav');
+  if (!briefNav || !ticker || !boardNav) return;
+  var pad = Math.round(briefNav.getBoundingClientRect().top - ticker.getBoundingClientRect().bottom);
+  boardNav.style.paddingTop = Math.max(0, pad) + 'px';
+}
+requestAnimationFrame(syncNavY);
+window.addEventListener('resize', syncNavY);
 </script>
 </body></html>
