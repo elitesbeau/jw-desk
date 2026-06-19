@@ -563,11 +563,13 @@ var boardInitialized = false;
 function swipeToBoard() {
   $('brief').classList.add('gone');
   window.scrollTo(0, 0);
+  sessionStorage.setItem('jwPage', 'board');
   if (!boardInitialized) { boardInitialized = true; setTimeout(initBoard, 50); }
 }
 function goToBrief() {
   $('brief').classList.remove('gone');
   window.scrollTo(0, 0);
+  sessionStorage.setItem('jwPage', 'brief');
 }
 function enterBoard(skip) {
   var b = $('brief');
@@ -982,5 +984,6 @@ renderBriefing();
   track.getBoundingClientRect(); // force reflow so browser measures full width before animating
   track.style.animation = '';
 }());
+if (sessionStorage.getItem('jwPage') === 'board') enterBoard(true);
 </script>
 </body></html>
