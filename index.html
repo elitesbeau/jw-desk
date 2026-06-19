@@ -532,6 +532,7 @@ function renderBriefing() {
 function enterBoard(skip) {
   const b = $('brief'); b.classList.add('gone'); $('board').classList.add('show');
   setTimeout(() => { b.style.display = 'none'; }, skip ? 0 : 520);
+  window.scrollTo(0, 0);
   initBoard();
 }
 
