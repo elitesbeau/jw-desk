@@ -34,14 +34,17 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .brand .wm{font-weight:600;font-size:21px;letter-spacing:-.01em;line-height:1}
 .brandbar .when{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--fg-dim);text-align:right;line-height:1.35}
 .brandbar .when .d{color:var(--fg-mute);font-size:10px;letter-spacing:.04em}
-.hm-top{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:10px}
+.hm-top{display:flex;align-items:center;gap:18px;margin-bottom:10px}
 .hm-top h1{font-size:20px;font-weight:500;letter-spacing:-.02em}
-.stepper{display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase}
-.stepper .step{color:var(--fg-mute);display:flex;align-items:center;gap:6px}
-.stepper .step.on{color:var(--fg)}
-.stepper .step .dot{width:7px;height:7px;border-radius:999px;background:var(--line-2)}
-.stepper .step.on .dot{background:var(--fg)}
-.stepper .sep{color:var(--line-2)}
+.page-nav{display:flex;align-items:center;justify-content:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px}
+.page-step{color:var(--fg-mute);display:inline-flex;align-items:center;gap:6px;background:none;border:none;font-family:inherit;font-size:inherit;letter-spacing:inherit;text-transform:inherit;cursor:pointer;padding:4px 8px;border-radius:6px;transition:color .15s var(--ease)}
+.page-step:not(.on):hover{color:var(--fg-dim)}
+.page-step.on{color:var(--fg);cursor:default;pointer-events:none}
+.page-step .dot{width:7px;height:7px;border-radius:999px;background:var(--line-2);flex:none}
+.page-step.on .dot{background:var(--fg)}
+.nav-sep{color:var(--line-2)}
+#boardNav{padding:10px 28px 0;max-width:1180px;margin:0 auto}
+@media(max-width:760px){#boardNav{padding:8px 16px 0}}
 .hm-pl{margin-left:auto;text-align:right}
 .hm-pl .v{font-family:'IBM Plex Mono',monospace;font-size:24px;font-weight:500;line-height:1}
 .hm-pl .s{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--fg-mute);margin-top:2px}
@@ -396,9 +399,13 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
       <div class="brand"><span class="seal">JW</span><span class="wm">JW Private Wealth</span></div>
       <div class="when"><span id="clk">--:--:-- ET</span><div class="d" id="dt"></div></div>
     </div>
+    <div class="page-nav" id="briefNav">
+      <button class="page-step on"><span class="dot"></span>Your book</button>
+      <span class="nav-sep">→</span>
+      <button class="page-step" id="goToBoardBtn"><span class="dot"></span>Market report</button>
+    </div>
     <div class="hm-top">
       <h1>Good morning, JW.</h1>
-      <div class="stepper"><span class="step on"><span class="dot"></span>Your book</span><span class="sep">→</span><span class="step"><span class="dot"></span>Market report</span></div>
       <div class="hm-pl"><div class="v" id="hmPl">$0</div><div class="s" id="hmPlSub"></div></div>
     </div>
     <div class="tmap" id="tmap"></div>
@@ -416,6 +423,11 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 <!-- ===== live board ===== -->
 <div id="board">
   <div class="ticker"><div class="track" id="tickTrack"></div></div>
+  <div class="page-nav" id="boardNav">
+    <button class="page-step" id="goToBriefBtn"><span class="dot"></span>Your book</button>
+    <span class="nav-sep">→</span>
+    <button class="page-step on"><span class="dot"></span>Market report</button>
+  </div>
   <div class="hcm-band" id="hcmBand"></div>
   <div class="cHead">
     <div class="brandbar">
@@ -527,7 +539,8 @@ function renderBriefing() {
   const closeT = () => { if (openTile) { openTile.classList.remove('exp'); openTile = null; } scrim.classList.remove('on'); };
   tmap.querySelectorAll('.tile').forEach((tl) => tl.onclick = () => { if (openTile === tl) { closeT(); return; } closeT(); tl.classList.add('exp'); openTile = tl; scrim.classList.add('on'); });
   scrim.onclick = closeT;
-  $('enter').onclick = () => enterBoard(false);
+  $('enter').onclick = () => swipeToBoard();
+  $('goToBoardBtn').onclick = () => swipeToBoard();
   // Left swipe on portfolio page → slide into market report
   var pgTouchX = null, pgTouchY = null, pgSwiping = false;
   var briefEl = $('brief');
@@ -547,6 +560,7 @@ function renderBriefing() {
     if (dx < -50) swipeToBoard();
   });
 }
+var boardInitialized = false;
 function swipeToBoard() {
   var brief = $('brief'), board = $('board');
   var ease = '.32s cubic-bezier(.4,0,.2,1)';
@@ -562,14 +576,38 @@ function swipeToBoard() {
     brief.classList.add('gone'); brief.style.display = 'none';
     brief.style.transition = ''; brief.style.transform = '';
     board.style.transform = ''; board.style.transition = '';
-    window.scrollTo(0, 0); initBoard();
+    window.scrollTo(0, 0);
+    if (!boardInitialized) { boardInitialized = true; initBoard(); }
+    $('goToBriefBtn').onclick = goToBrief;
+  }, 340);
+}
+function goToBrief() {
+  var brief = $('brief'), board = $('board');
+  var ease = '.32s cubic-bezier(.4,0,.2,1)';
+  brief.style.display = '';
+  brief.style.opacity = '1';
+  brief.style.transition = 'none';
+  brief.style.transform = 'translateX(-100%)';
+  brief.classList.remove('gone');
+  brief.offsetHeight;
+  brief.style.transition = 'transform ' + ease;
+  brief.style.transform = 'translateX(0)';
+  board.style.transition = 'transform ' + ease;
+  board.style.transform = 'translateX(40px)';
+  setTimeout(function() {
+    board.classList.remove('show');
+    board.style.transform = ''; board.style.transition = '';
+    board.style.opacity = '0';
+    brief.style.transform = ''; brief.style.transition = ''; brief.style.opacity = '';
+    window.scrollTo(0, 0);
   }, 340);
 }
 function enterBoard(skip) {
   const b = $('brief'); b.classList.add('gone'); $('board').classList.add('show');
   setTimeout(() => { b.style.display = 'none'; }, skip ? 0 : 520);
   window.scrollTo(0, 0);
-  initBoard();
+  if (!boardInitialized) { boardInitialized = true; initBoard(); }
+  $('goToBriefBtn').onclick = goToBrief;
 }
 
 /* ---------- 3 high conviction moves ---------- */
