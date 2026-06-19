@@ -5,7 +5,7 @@
 <style>
 :root{--bg:#FAF9F5;--bg-2:#F4F1EA;--bg-3:#EBE7DC;--fg:#1F1E1B;--fg-dim:rgba(31,30,27,.66);--fg-mute:rgba(31,30,27,.42);--line:rgba(31,30,27,.08);--line-2:rgba(31,30,27,.18);--accent:#E5E9E0;--amber:#B07A2E;--positive:#4A8762;--danger:#A8442C;--r:14px;--ease:cubic-bezier(.4,0,.2,1);--spring:cubic-bezier(.34,1.56,.64,1)}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--fg);font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--fg);font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .mono{font-family:'IBM Plex Mono',monospace}
 .lab{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-mute)}
 .up{color:var(--positive)}.dn{color:var(--danger)}
@@ -656,7 +656,10 @@ function renderHCM() {
       if (forward === undefined) forward = newIdx > buyIdx;
       buyAnimating = true;
 
+      var card = $('hcmBuyCard');
       var vp = $('hcmBuySlides');
+      // Pin card width so the 200%-wide track never causes a layout reflow
+      card.style.width = card.offsetWidth + 'px';
       var oldHTML = vp.innerHTML;
       var newHTML = buildBuySlide(buys[newIdx]);
 
@@ -689,6 +692,7 @@ function renderHCM() {
       setTimeout(function() {
         var v = $('hcmBuySlides');
         if (v) v.innerHTML = buildBuySlide(buys[buyIdx]);
+        card.style.width = '';
         buyAnimating = false;
       }, 340);
     }
