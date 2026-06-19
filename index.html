@@ -15,10 +15,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 @keyframes ping{75%,100%{transform:scale(2.8);opacity:0}}
 
 /* ===== briefing overlay mechanics ===== */
-#brief{position:fixed;inset:0;z-index:60;background:var(--bg);overflow:hidden;display:flex;flex-direction:column;transition:opacity .5s var(--ease)}
-#brief.gone{opacity:0;pointer-events:none}
-#board{opacity:0;transition:opacity .6s var(--ease)}
-#board.show{opacity:1}
+#brief{position:fixed;inset:0;z-index:60;background:var(--bg);overflow:hidden;display:flex;flex-direction:column;transition:transform .38s cubic-bezier(.4,0,.2,1)}
+#brief.gone{transform:translateX(-100%);pointer-events:none}
+#board{opacity:1}
 .enterBtn{background:var(--fg);color:var(--bg);border-radius:13px;padding:14px 26px;font-size:15px;font-weight:500;transition:all .2s var(--ease)}
 .enterBtn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(31,30,27,.2)}
 
@@ -402,7 +401,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
     <div class="page-nav" id="briefNav">
       <button class="page-step on"><span class="dot"></span>Your book</button>
       <span class="nav-sep">→</span>
-      <button class="page-step" id="goToBoardBtn"><span class="dot"></span>Market report</button>
+      <button class="page-step" id="goToBoardBtn" onclick="swipeToBoard()"><span class="dot"></span>Market report</button>
     </div>
     <div class="hm-top">
       <h1>Good morning, JW.</h1>
@@ -424,7 +423,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 <div id="board">
   <div class="ticker"><div class="track" id="tickTrack"></div></div>
   <div class="page-nav" id="boardNav">
-    <button class="page-step" id="goToBriefBtn"><span class="dot"></span>Your book</button>
+    <button class="page-step" id="goToBriefBtn" onclick="goToBrief()"><span class="dot"></span>Your book</button>
     <span class="nav-sep">→</span>
     <button class="page-step on"><span class="dot"></span>Market report</button>
   </div>
@@ -540,7 +539,6 @@ function renderBriefing() {
   tmap.querySelectorAll('.tile').forEach((tl) => tl.onclick = () => { if (openTile === tl) { closeT(); return; } closeT(); tl.classList.add('exp'); openTile = tl; scrim.classList.add('on'); });
   scrim.onclick = closeT;
   $('enter').onclick = () => swipeToBoard();
-  $('goToBoardBtn').onclick = () => swipeToBoard();
   // Left swipe on portfolio page → slide into market report
   var pgTouchX = null, pgTouchY = null, pgSwiping = false;
   var briefEl = $('brief');
@@ -562,52 +560,21 @@ function renderBriefing() {
 }
 var boardInitialized = false;
 function swipeToBoard() {
-  var brief = $('brief'), board = $('board');
-  var ease = '.32s cubic-bezier(.4,0,.2,1)';
-  board.classList.add('show');
-  board.style.transition = 'none';
-  board.style.transform = 'translateX(40px)';
-  board.offsetHeight;
-  brief.style.transition = 'transform ' + ease;
-  brief.style.transform = 'translateX(-100%)';
-  board.style.transition = 'transform ' + ease;
-  board.style.transform = 'translateX(0)';
-  setTimeout(function() {
-    brief.classList.add('gone'); brief.style.display = 'none';
-    brief.style.transition = ''; brief.style.transform = '';
-    board.style.transform = ''; board.style.transition = '';
-    window.scrollTo(0, 0);
-    if (!boardInitialized) { boardInitialized = true; initBoard(); }
-    $('goToBriefBtn').onclick = goToBrief;
-  }, 340);
+  $('brief').classList.add('gone');
+  window.scrollTo(0, 0);
+  if (!boardInitialized) { boardInitialized = true; setTimeout(initBoard, 50); }
 }
 function goToBrief() {
-  var brief = $('brief'), board = $('board');
-  var ease = '.32s cubic-bezier(.4,0,.2,1)';
-  brief.style.display = '';
-  brief.style.opacity = '1';
-  brief.style.transition = 'none';
-  brief.style.transform = 'translateX(-100%)';
-  brief.classList.remove('gone');
-  brief.offsetHeight;
-  brief.style.transition = 'transform ' + ease;
-  brief.style.transform = 'translateX(0)';
-  board.style.transition = 'transform ' + ease;
-  board.style.transform = 'translateX(40px)';
-  setTimeout(function() {
-    board.classList.remove('show');
-    board.style.transform = ''; board.style.transition = '';
-    board.style.opacity = '0';
-    brief.style.transform = ''; brief.style.transition = ''; brief.style.opacity = '';
-    window.scrollTo(0, 0);
-  }, 340);
+  $('brief').classList.remove('gone');
+  window.scrollTo(0, 0);
 }
 function enterBoard(skip) {
-  const b = $('brief'); b.classList.add('gone'); $('board').classList.add('show');
-  setTimeout(() => { b.style.display = 'none'; }, skip ? 0 : 520);
+  var b = $('brief');
+  if (skip) { b.style.transition = 'none'; b.offsetHeight; }
+  b.classList.add('gone');
+  if (skip) { setTimeout(function(){ b.style.transition = ''; }, 0); }
   window.scrollTo(0, 0);
   if (!boardInitialized) { boardInitialized = true; initBoard(); }
-  $('goToBriefBtn').onclick = goToBrief;
 }
 
 /* ---------- 3 high conviction moves ---------- */
