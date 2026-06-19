@@ -55,7 +55,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .tile .tv{font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.9vw,11px);color:var(--fg-mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tile .tspark{position:absolute;right:0;bottom:0;width:62%;height:34px;opacity:.32}
 .tile .tspark path{fill:none;stroke-width:2}
-.tile.exp{position:fixed;inset:8vh 9vw;z-index:64;animation:pop .35s var(--spring) forwards;box-shadow:0 30px 80px rgba(31,30,27,.25);opacity:1}
+.tile.exp{position:fixed;inset:6vh 9vw 16vh;z-index:64;animation:pop .35s var(--spring) forwards;box-shadow:0 30px 80px rgba(31,30,27,.25);opacity:1;justify-content:flex-start;gap:14px;overflow-y:auto}
 .tile.exp .ts{font-size:30px}.tile.exp .tm{font-size:46px}
 .tile .more{display:none;margin-top:14px;font-size:15px;line-height:1.6;color:var(--fg)}
 .tile.exp .more{display:block;animation:rise .4s var(--ease) .1s both}
@@ -335,8 +335,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .of-badge.mixed{background:rgba(176,122,46,.10);color:var(--amber);border:1px solid rgba(176,122,46,.22)}
 /* ===== feature: conviction score breakdown ===== */
 .score-grid{margin-top:10px;padding:6px 10px;background:var(--bg-2);border:1px solid var(--line);border-radius:11px}
-.score-grid.score-compact{margin-top:0;padding:4px 10px;display:inline-flex;flex-direction:column;min-width:0}
-.score-grid.score-compact .st-val{font-size:13px;line-height:1.2}
 .score-total{display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none;gap:8px}
 .score-bars{display:none;flex-direction:column;gap:6px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
 .score-grid.expanded .score-bars{display:flex}
@@ -516,7 +514,7 @@ function renderBriefing() {
   const pos = B.portfolio.positions.slice().sort((a, b) => (b.value || 0) - (a.value || 0));
   const rows = [[], [], []], sums = [0, 0, 0];
   pos.forEach((p) => { const i = sums.indexOf(Math.min.apply(null, sums)); rows[i].push(p); sums[i] += (p.value || 1); });
-  const shade = (chg) => { const a = Math.min(.9, .12 + Math.abs(chg) / 4 * .55); return chg >= 0 ? 'rgba(74,135,98,' + a + ')' : 'rgba(168,68,44,' + a + ')'; };
+  const shade = (chg) => { const a = Math.min(.55, .12 + Math.abs(chg) / 4 * .55); return chg >= 0 ? 'rgba(74,135,98,' + a + ')' : 'rgba(168,68,44,' + a + ')'; };
   const tileHTML = (p, i) => {
     const fg = Math.abs(p.changePct) > 1.6 ? '#fff' : 'var(--fg)';
     const dim = Math.abs(p.changePct) > 1.6 ? 'rgba(255,255,255,.7)' : 'var(--fg-mute)';
@@ -565,14 +563,14 @@ function renderHCM() {
         var barColor = v >= 20 ? 'var(--positive)' : v >= 13 ? 'var(--amber)' : 'var(--danger)';
         return '<div class="score-row"><span class="sr-label">' + col[0] + '</span><div class="score-bar"><i style="width:' + (v/25*100) + '%;background:' + barColor + '"></i></div><span class="sr-num">' + v + '</span></div>';
       }).join('');
-      scoreHTML = '<div style="display:flex;margin-top:8px"><div class="score-grid score-compact" onclick="this.classList.toggle(\'expanded\')">' +
+      scoreHTML = '<div class="score-grid" onclick="this.classList.toggle(\'expanded\')">' +
         '<div class="score-total">' +
           '<span class="st-label">Conviction Score</span>' +
-          '<span class="st-val">' + total + '<span style="font-size:11px;color:var(--fg-mute)"> / 100</span></span>' +
+          '<span class="st-val">' + total + '<span style="font-size:12px;color:var(--fg-mute)"> / 100</span></span>' +
           '<span class="score-expand-arrow">▾</span>' +
         '</div>' +
         '<div class="score-bars">' + bars + '</div>' +
-        '</div></div>';
+        '</div>';
     }
     return '<div class="hcm-top"><span class="hcm-sym">' + escc(b.symbol) + '</span><span class="tag long">long</span><span class="hcm-chg ' + cls(chg) + '">' + pct(chg) + '</span></div>' +
       '<div class="hcm-name">' + escc(b.name) + '</div>' +
