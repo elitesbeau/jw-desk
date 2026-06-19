@@ -813,6 +813,10 @@ function heroCard(m, rank) {
   var accPill = m.hitRate ? '<span class="exp-tag" style="flex:1">Past accuracy · <span style="color:' + hrColor + '">' + m.hitRate.rate + '%</span> on ' + m.hitRate.sample + ' calls</span>' : '';
   var expTagPill = m.expiresOn ? '<span class="exp-tag" style="flex:1">Expires · ' + escc(m.expiresOn) + '</span>' : '';
   var pillsRow = (accPill || expTagPill) ? '<div style="display:flex;align-items:center;gap:8px;margin-top:8px">' + accPill + expTagPill + '</div>' : '';
+  // bell button (used in Full Analysis key level cell)
+  var alertKey = 'jw_' + m.symbol;
+  var alActive = window._jwAlerts && window._jwAlerts[alertKey] ? 'active' : '';
+  var bellBtn = '<button class="bell-btn ' + alActive + '" id="bell_' + m.symbol + '" title="Set key level alert" onclick="toggleAlert(\'' + m.symbol + '\', this)">🔔</button>';
   // conviction: band label + numeric score (expandable, like buy card)
   var convHTML = '';
   if (m.scoreBreakdown) {
