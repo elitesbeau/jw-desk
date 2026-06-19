@@ -528,6 +528,42 @@ function renderBriefing() {
   tmap.querySelectorAll('.tile').forEach((tl) => tl.onclick = () => { if (openTile === tl) { closeT(); return; } closeT(); tl.classList.add('exp'); openTile = tl; scrim.classList.add('on'); });
   scrim.onclick = closeT;
   $('enter').onclick = () => enterBoard(false);
+  // Left swipe on portfolio page → slide into market report
+  var pgTouchX = null, pgTouchY = null, pgSwiping = false;
+  var briefEl = $('brief');
+  briefEl.addEventListener('touchstart', function(e) {
+    if (scrim.classList.contains('on')) return;
+    pgTouchX = e.touches[0].clientX; pgTouchY = e.touches[0].clientY; pgSwiping = false;
+  }, { passive: true });
+  briefEl.addEventListener('touchmove', function(e) {
+    if (pgTouchX === null) return;
+    var dx = e.touches[0].clientX - pgTouchX, dy = e.touches[0].clientY - pgTouchY;
+    if (!pgSwiping && Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 10) pgSwiping = true;
+  }, { passive: true });
+  briefEl.addEventListener('touchend', function(e) {
+    if (!pgSwiping || pgTouchX === null) { pgTouchX = null; pgSwiping = false; return; }
+    var dx = e.changedTouches[0].clientX - pgTouchX;
+    pgTouchX = null; pgSwiping = false;
+    if (dx < -50) swipeToBoard();
+  });
+}
+function swipeToBoard() {
+  var brief = $('brief'), board = $('board');
+  var ease = '.32s cubic-bezier(.4,0,.2,1)';
+  board.classList.add('show');
+  board.style.transition = 'none';
+  board.style.transform = 'translateX(40px)';
+  board.offsetHeight;
+  brief.style.transition = 'transform ' + ease;
+  brief.style.transform = 'translateX(-100%)';
+  board.style.transition = 'transform ' + ease;
+  board.style.transform = 'translateX(0)';
+  setTimeout(function() {
+    brief.classList.add('gone'); brief.style.display = 'none';
+    brief.style.transition = ''; brief.style.transform = '';
+    board.style.transform = ''; board.style.transition = '';
+    window.scrollTo(0, 0); initBoard();
+  }, 340);
 }
 function enterBoard(skip) {
   const b = $('brief'); b.classList.add('gone'); $('board').classList.add('show');
