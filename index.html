@@ -150,7 +150,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .hero .hgrid{display:none;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
 .hero .hgrid p{font-size:13px;color:var(--fg-dim);margin-top:4px;line-height:1.5}
 .hero .hinv{display:none;margin-top:16px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--amber);background:rgba(176,122,46,.07);padding:10px 13px;border-radius:9px}
-.htoggle{display:inline-flex;align-items:center;gap:5px;margin-top:11px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-mute);background:none;border:1px solid var(--line);border-radius:6px;padding:4px 9px;cursor:pointer;transition:all .14s ease}
+.htoggle{display:inline-flex;align-items:center;gap:5px;margin-top:8px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-mute);background:none;border:1px solid var(--line);border-radius:6px;padding:4px 9px;cursor:pointer;transition:all .14s ease}
 .htoggle:hover{color:var(--fg-dim);border-color:var(--line-2)}
 .tag{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:4px 11px;border-radius:5px;background:var(--accent)}
 .tag.long{background:rgba(74,135,98,.14);color:var(--positive)}.tag.short{background:rgba(168,68,44,.14);color:var(--danger)}.tag.none{background:var(--bg-3);color:var(--fg-mute)}
@@ -774,7 +774,7 @@ function heroCard(m, rank) {
   const whyNowHTML = m.whyNow ? '<div class="why-now-pill"><span class="why-icon">Why now</span>' + escc(m.whyNow) + '</div>' : '';
   // options flow badge
   const ofSig = m.optionsFlow ? m.optionsFlow.signal : null;
-  const ofBadge = ofSig ? '<div style="margin-top:8px"><span class="of-badge ' + ofSig + '">Options Flow · ' + ofSig.toUpperCase() + (m.optionsFlow.flowScore ? ' · ' + m.optionsFlow.flowScore : '') + '</span></div>' : '';
+  const ofBadge = ofSig ? '<span class="of-badge ' + ofSig + '">Options Flow · ' + ofSig.toUpperCase() + (m.optionsFlow.flowScore ? ' · ' + m.optionsFlow.flowScore : '') + '</span>' : '';
   // past accuracy + expires pills (same row, like buy card)
   var hrColor = m.hitRate ? (m.hitRate.rate >= 65 ? 'var(--positive)' : m.hitRate.rate >= 50 ? 'var(--amber)' : 'var(--danger)') : '';
   var accPill = m.hitRate ? '<span class="exp-tag" style="flex:1">Past accuracy · <span style="color:' + hrColor + '">' + m.hitRate.rate + '%</span> on ' + m.hitRate.sample + ' calls</span>' : '';
