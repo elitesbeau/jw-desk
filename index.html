@@ -332,7 +332,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .of-badge.neutral{background:var(--bg-3);color:var(--fg-mute);border:1px solid var(--line)}
 .of-badge.mixed{background:rgba(176,122,46,.10);color:var(--amber);border:1px solid rgba(176,122,46,.22)}
 /* ===== feature: conviction score breakdown ===== */
-.score-grid{margin-top:10px;padding:10px 12px;background:var(--bg-2);border:1px solid var(--line);border-radius:11px}
+.score-grid{margin-top:10px;padding:6px 10px;background:var(--bg-2);border:1px solid var(--line);border-radius:11px}
 .score-total{display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none;gap:8px}
 .score-bars{display:none;flex-direction:column;gap:6px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
 .score-grid.expanded .score-bars{display:flex}
@@ -550,7 +550,7 @@ function renderHCM() {
       '</div>') : '';
     const whyNow = b.whyNow ? '<div class="why-now-pill"><span class="why-icon">Why now</span><span>' + escc(b.whyNow) + '</span></div>' : '';
     const expTag = b.expiresOn ? '<span class="exp-tag" style="margin-top:8px;display:inline-block">Expires · ' + escc(b.expiresOn) + '</span>' : '';
-    const accLine = b.hitRate ? '<span class="acc-line" style="margin-top:8px">Past accuracy · ' + b.hitRate.rate + '% on ' + b.hitRate.sample + ' calls</span>' : '';
+    const accLine = b.hitRate ? '<span class="exp-tag">Past accuracy · ' + b.hitRate.rate + '% on ' + b.hitRate.sample + ' calls</span>' : '';
     var scoreHTML = '';
     if (b.scoreBreakdown) {
       var sb = b.scoreBreakdown;
@@ -574,7 +574,7 @@ function renderHCM() {
       whyNow +
       '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px">' + expTag + accLine + '</div>' +
       scoreHTML +
-      stats;
+      '<div style="margin-top:10px">' + stats + '</div>';
   }
 
   const dotsHTML = buys.length > 1 ?
