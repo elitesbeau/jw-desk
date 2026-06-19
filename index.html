@@ -25,9 +25,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 @keyframes tin{to{opacity:1;transform:none}}
 @keyframes pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
 @keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(4px)}}
-.hm-wrap{flex:1;min-height:0;display:flex;flex-direction:column;padding:14px 24px 14px;max-width:1280px;width:100%;margin:0 auto;overflow-y:auto}
+.hm-wrap{flex:1;min-height:0;display:flex;flex-direction:column;padding:6px 24px 14px;max-width:1280px;width:100%;margin:0 auto;overflow-y:auto}
 .brief-foot{flex:none;width:100%;background:var(--bg);border-top:1px solid var(--line);padding:10px 24px calc(10px + env(safe-area-inset-bottom,0px))}
-.brandbar{display:flex;align-items:center;gap:14px;padding-bottom:11px;margin-bottom:11px;border-bottom:1px solid var(--line)}
+.brandbar{display:flex;align-items:center;gap:14px;padding-bottom:4px;margin-bottom:4px;border-bottom:1px solid var(--line)}
 .brand{display:flex;align-items:center;gap:12px}
 .seal{width:42px;height:42px;border-radius:11px;background:var(--fg);color:var(--bg);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:600;font-size:19px;letter-spacing:.02em}
 .brand .wm{font-weight:600;font-size:21px;letter-spacing:-.01em;line-height:1}
@@ -42,8 +42,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .page-step .dot{width:7px;height:7px;border-radius:999px;background:var(--line-2);flex:none}
 .page-step.on .dot{background:var(--fg)}
 .nav-sep{color:var(--line-2)}
-#boardNav{padding:10px 28px 0;max-width:1180px;margin:0 auto}
-@media(max-width:760px){#boardNav{padding:8px 16px 0}}
+#boardNav{padding:0 28px 0;max-width:1180px;margin:0 auto}
+@media(max-width:760px){#boardNav{padding:0 16px 0}}
 .hm-pl{margin-left:auto;text-align:right}
 .hm-pl .v{font-family:'IBM Plex Mono',monospace;font-size:24px;font-weight:500;line-height:1}
 .hm-pl .s{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--fg-mute);margin-top:2px}
@@ -76,7 +76,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .reportbar .arr{display:inline-flex;width:30px;height:30px;border-radius:999px;background:rgba(250,249,245,.14);align-items:center;justify-content:center}
 .reportbar .arr span{display:inline-block;animation:nudge 1.4s var(--ease) infinite}
 @media(max-width:1024px){
-  .hm-wrap{padding:14px 18px 16px}
+  .hm-wrap{padding:6px 18px 16px}
   .brief-foot{padding:10px 18px calc(10px + env(safe-area-inset-bottom,0px))}
   .trow{flex-wrap:wrap;gap:8px}
   .tile{min-height:120px}
@@ -84,7 +84,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   .reportbar .tease{white-space:normal}
 }
 @media(max-width:760px){
-  .hm-wrap{padding:14px 16px 14px}
+  .hm-wrap{padding:6px 16px 14px}
   .brief-foot{padding:8px 16px calc(8px + env(safe-area-inset-bottom,0px))}
   .brief-foot .reportbar .rb-l{display:none}
   .brief-foot .reportbar{justify-content:center;border-radius:12px}
@@ -117,15 +117,16 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 
 /* ===== live board ===== */
 .ticker{position:sticky;top:0;z-index:25;background:var(--fg);overflow:hidden;white-space:nowrap;border-bottom:1px solid var(--line-2)}
-.ticker .track{display:inline-block;padding:8px 0;animation:scrollX 80s linear infinite}
+.ticker .track{display:inline-block;padding:8px 0;will-change:transform;animation:scrollX 80s linear infinite}
 .ticker:hover .track{animation-play-state:paused}
 .ticker .ti{display:inline-flex;align-items:center;gap:7px;margin:0 18px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:rgba(250,249,245,.55)}
 .ticker .ti b{color:var(--bg);font-weight:500}
 .ticker .ti .u{color:#7FC9A0}.ticker .ti .d{color:#E08B76}
 @keyframes scrollX{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.cHead{background:var(--fg);max-width:none;padding:0;border-radius:18px}
-.cHead .brandbar{max-width:1180px;margin:0 auto;padding:14px 28px 0;border-bottom:none}
-.cHead2{max-width:1180px;margin:13px auto 0;display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:13px 28px 14px;border-top:1px solid rgba(250,249,245,.10)}
+.cHead{background:var(--fg);margin:16px 28px 0;padding:0;border-radius:18px}
+@media(min-width:1236px){.cHead{max-width:1124px;margin-left:auto;margin-right:auto}}
+.cHead .brandbar{padding:14px 28px 0;border-bottom:none}
+.cHead2{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:13px 28px 14px;border-top:1px solid rgba(250,249,245,.10)}
 .cHead2 .hl{font-size:18px;font-weight:500;letter-spacing:-.015em;flex:1;min-width:220px;color:rgba(250,249,245,.95)}
 .cHead .brand .seal{background:rgba(250,249,245,.12);color:rgba(250,249,245,.9)}
 .cHead .brand .wm{color:rgba(250,249,245,.92)}
@@ -275,9 +276,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .hcm-pdetail.show{display:block;animation:rise .2s var(--ease)}
 @media(max-width:640px){
   .hcm-band{padding:14px 16px}
-  .cHead{padding:14px 16px 0}
-  .cHead .brandbar{padding-left:0;padding-right:0}
-  .cHead2{padding:12px 0}
+  .cHead{margin:8px 16px 0}
+  .cHead .brandbar{padding:14px 16px 0}
+  .cHead2{padding:12px 16px}
   .cHead2 .hl{font-size:16px;min-width:0}
   .wrapC{padding:18px 16px 36px}
   .foot{padding:24px 16px 90px}
@@ -562,11 +563,13 @@ var boardInitialized = false;
 function swipeToBoard() {
   $('brief').classList.add('gone');
   window.scrollTo(0, 0);
+  sessionStorage.setItem('jwPage', 'board');
   if (!boardInitialized) { boardInitialized = true; setTimeout(initBoard, 50); }
 }
 function goToBrief() {
   $('brief').classList.remove('gone');
   window.scrollTo(0, 0);
+  sessionStorage.setItem('jwPage', 'brief');
 }
 function enterBoard(skip) {
   var b = $('brief');
@@ -835,9 +838,6 @@ function initBoard() {
   if (boardInit) return; boardInit = true;
   renderHCM();
   const MOV = B.movers;
-  // ticker
-  const tk = B.ticker.map((t) => '<span class="ti"><b>' + t.s + '</b><span class="' + (t.p >= 0 ? 'u' : 'd') + '">' + (t.p >= 0 ? '+' : '') + t.p.toFixed(2) + '%</span></span>').join('');
-  $('tickTrack').innerHTML = tk + tk;
   // header / regime / index
   $('regimeT').textContent = B.regime;
   $('moverCount').textContent = MOV.length;
@@ -971,5 +971,31 @@ function chatInit() {
 }
 chatInit();
 renderBriefing();
+// Populate ticker immediately so animation starts with content already laid out.
+// Doing this at page load (not on first board navigation) avoids the reflow-restart
+// glitch where the animation runs on an empty element then jerks when content is added.
+(function() {
+  var track = $('tickTrack');
+  var html = B.ticker.map(function(t) {
+    return '<span class="ti"><b>' + t.s + '</b><span class="' + (t.p >= 0 ? 'u' : 'd') + '">' + (t.p >= 0 ? '+' : '') + t.p.toFixed(2) + '%</span></span>';
+  }).join('');
+  track.innerHTML = html + html;
+  track.style.animation = 'none';
+  track.getBoundingClientRect(); // force reflow so browser measures full width before animating
+  track.style.animation = '';
+}());
+if (sessionStorage.getItem('jwPage') === 'board') enterBoard(true);
+// Measure the actual briefNav Y position and set boardNav padding to match exactly.
+// CSS approximations vary by device/font-rendering; JS measurement is always pixel-perfect.
+function syncNavY() {
+  var briefNav = $('briefNav');
+  var ticker = document.querySelector('.ticker');
+  var boardNav = $('boardNav');
+  if (!briefNav || !ticker || !boardNav) return;
+  var pad = Math.round(briefNav.getBoundingClientRect().top - ticker.getBoundingClientRect().bottom);
+  boardNav.style.paddingTop = Math.max(0, pad) + 'px';
+}
+requestAnimationFrame(syncNavY);
+window.addEventListener('resize', syncNavY);
 </script>
 </body></html>
