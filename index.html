@@ -516,7 +516,7 @@ function renderBriefing() {
   const tileHTML = (p, i) => {
     const fg = Math.abs(p.changePct) > 1.6 ? '#fff' : 'var(--fg)';
     const dim = Math.abs(p.changePct) > 1.6 ? 'rgba(255,255,255,.7)' : 'var(--fg-mute)';
-    const wt = Math.sqrt(p.value || 1);
+    const wt = (p.value || 1);
     return '<div class="tile" style="flex:' + wt.toFixed(2) + ' 1 0;min-width:128px;background:' + shade(p.changePct) + ';animation-delay:' + (80 + i * 45) + 'ms;color:' + fg + '"><svg class="tspark" viewBox="0 0 100 46" preserveAspectRatio="none"><path style="stroke:' + fg + ';opacity:.6" d="' + sparkD(p.symbol, p.changePct, 28) + '"></path></svg><div><div class="ts" style="color:' + fg + '">' + p.symbol + '</div><div class="tn" style="color:' + dim + '">' + escc(p.name) + '</div></div><div class="tm">' + pct(p.changePct) + '</div><div class="tv" style="color:' + dim + '">' + money(p.value) + ' · ' + signed(p.dayChg) + '</div><div class="more">' + escc(p.note || 'Quiet overnight — drift, not news.') + ((p.news && p.news.length) ? '<br><br><span class="src">' + escc(p.news[0].source || 'wire') + '</span> ' + escc(p.news[0].title) : '') + '</div></div>';
   };
   const tmap = $('tmap'); let idx = 0;
