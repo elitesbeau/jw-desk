@@ -56,7 +56,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .tile .tspark{position:absolute;right:0;bottom:0;width:62%;height:34px;opacity:.32}
 .tile .tspark path{fill:none;stroke-width:2}
 .tile.exp{position:fixed;inset:6vh 9vw 16vh;z-index:64;animation:pop .35s var(--spring) forwards;box-shadow:0 30px 80px rgba(31,30,27,.25);opacity:1;justify-content:flex-start;gap:14px;overflow-y:auto}
-.tile.exp .ts{font-size:30px}.tile.exp .tm{font-size:46px}
+.tile.exp .ts{font-size:30px}.tile.exp .tm{font-size:46px}.tile.exp .tn{font-size:13px;white-space:normal;overflow:visible;text-overflow:unset}.tile.exp .tv{font-size:13px;white-space:normal}
 .tile .more{display:none;margin-top:14px;font-size:15px;line-height:1.6;color:var(--fg)}
 .tile.exp .more{display:block;animation:rise .4s var(--ease) .1s both}
 .tile.exp .tspark{height:60px;width:50%}
@@ -516,8 +516,8 @@ function renderBriefing() {
   pos.forEach((p) => { const i = sums.indexOf(Math.min.apply(null, sums)); rows[i].push(p); sums[i] += (p.value || 1); });
   const shade = (chg) => { const a = Math.min(.55, .12 + Math.abs(chg) / 4 * .55); return chg >= 0 ? 'rgba(74,135,98,' + a + ')' : 'rgba(168,68,44,' + a + ')'; };
   const tileHTML = (p, i) => {
-    const fg = Math.abs(p.changePct) > 1.6 ? '#fff' : 'var(--fg)';
-    const dim = Math.abs(p.changePct) > 1.6 ? 'rgba(255,255,255,.7)' : 'var(--fg-mute)';
+    const fg = '#fff';
+    const dim = 'rgba(255,255,255,.72)';
     const wt = (p.value || 1);
     return '<div class="tile" style="flex:' + wt.toFixed(2) + ' 1 0;min-width:128px;background:' + shade(p.changePct) + ';animation-delay:' + (80 + i * 45) + 'ms;color:' + fg + '"><svg class="tspark" viewBox="0 0 100 46" preserveAspectRatio="none"><path style="stroke:' + fg + ';opacity:.6" d="' + sparkD(p.symbol, p.changePct, 28) + '"></path></svg><div><div class="ts" style="color:' + fg + '">' + p.symbol + '</div><div class="tn" style="color:' + dim + '">' + escc(p.name) + '</div></div><div class="tm">' + pct(p.changePct) + '</div><div class="tv" style="color:' + dim + '">' + money(p.value) + ' · ' + signed(p.dayChg) + '</div><div class="more">' + escc(p.note || 'Quiet overnight — drift, not news.') + ((p.news && p.news.length) ? '<br><br><span class="src">' + escc(p.news[0].source || 'wire') + '</span> ' + escc(p.news[0].title) : '') + '</div></div>';
   };
