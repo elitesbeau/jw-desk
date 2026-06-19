@@ -55,7 +55,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .tile .tv{font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.9vw,11px);color:var(--fg-mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tile .tspark{position:absolute;right:0;bottom:0;width:62%;height:34px;opacity:.32}
 .tile .tspark path{fill:none;stroke-width:2}
-.tile.exp{position:fixed;inset:8vh 9vw;z-index:64;animation:pop .35s var(--spring) forwards;box-shadow:0 30px 80px rgba(31,30,27,.25);opacity:1}
+.tile.exp{position:fixed;inset:6vh 9vw 16vh;z-index:64;animation:pop .35s var(--spring) forwards;box-shadow:0 30px 80px rgba(31,30,27,.25);opacity:1;justify-content:flex-start;gap:14px;overflow-y:auto}
 .tile.exp .ts{font-size:30px}.tile.exp .tm{font-size:46px}
 .tile .more{display:none;margin-top:14px;font-size:15px;line-height:1.6;color:var(--fg)}
 .tile.exp .more{display:block;animation:rise .4s var(--ease) .1s both}
@@ -514,7 +514,7 @@ function renderBriefing() {
   const pos = B.portfolio.positions.slice().sort((a, b) => (b.value || 0) - (a.value || 0));
   const rows = [[], [], []], sums = [0, 0, 0];
   pos.forEach((p) => { const i = sums.indexOf(Math.min.apply(null, sums)); rows[i].push(p); sums[i] += (p.value || 1); });
-  const shade = (chg) => { const a = Math.min(.9, .12 + Math.abs(chg) / 4 * .55); return chg >= 0 ? 'rgba(74,135,98,' + a + ')' : 'rgba(168,68,44,' + a + ')'; };
+  const shade = (chg) => { const a = Math.min(.55, .12 + Math.abs(chg) / 4 * .55); return chg >= 0 ? 'rgba(74,135,98,' + a + ')' : 'rgba(168,68,44,' + a + ')'; };
   const tileHTML = (p, i) => {
     const fg = Math.abs(p.changePct) > 1.6 ? '#fff' : 'var(--fg)';
     const dim = Math.abs(p.changePct) > 1.6 ? 'rgba(255,255,255,.7)' : 'var(--fg-mute)';
