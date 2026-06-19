@@ -267,8 +267,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .hcm-piv{font-size:11px;color:var(--fg-dim);margin-bottom:5px}
 .hcm-pconf{font-size:11px;color:var(--fg-mute);border-left:2px solid var(--line-2);padding-left:8px;line-height:1.45}
 .hcm-plevel-row{display:flex;align-items:center;gap:8px;margin-bottom:0}
-.hcm-info{width:18px;height:18px;border-radius:999px;border:1px solid var(--line-2);font-family:'IBM Plex Mono',monospace;font-size:10px;font-style:italic;font-weight:500;color:var(--fg-mute);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;flex:none;transition:all .15s var(--ease);background:none;padding:0;user-select:none}
-.hcm-info:hover,.hcm-info.on{border-color:var(--fg-dim);color:var(--fg);background:var(--bg-2)}
+.hcm-info{font-size:20px;color:var(--fg-mute);display:inline-flex;align-items:center;cursor:pointer;flex:none;transition:transform .18s var(--ease),color .15s var(--ease);background:none;border:none;padding:0;user-select:none;line-height:1}
+.hcm-info:hover{color:var(--fg-dim)}.hcm-info.on{transform:rotate(180deg);color:var(--fg-dim)}
 .hcm-pdetail{display:none;margin-top:6px}
 .hcm-pdetail.show{display:block;animation:rise .2s var(--ease)}
 @media(max-width:640px){
@@ -338,7 +338,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .score-total{display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none;gap:8px}
 .score-bars{display:none;flex-direction:column;gap:6px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
 .score-grid.expanded .score-bars{display:flex}
-.score-expand-arrow{font-size:10px;color:var(--fg-mute);flex:none;transition:transform .18s var(--ease)}
+.score-expand-arrow{font-size:20px;color:var(--fg-mute);flex:none;transition:transform .18s var(--ease)}
 .score-grid.expanded .score-expand-arrow{transform:rotate(180deg)}
 .score-total .st-label{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-mute)}
 .score-total .st-val{font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:500}
@@ -592,7 +592,7 @@ function renderHCM() {
   const playHTML = (p) => '<div class="hcm-play">' +
     '<div class="hcm-play-top"><span class="hcm-psym">' + p.symbol + '</span><span class="hcm-popt">' + escc(p.play) + '</span><span class="hcm-pchg ' + cls(p.changePct) + '">' + pct(p.changePct) + '</span></div>' +
     '<div class="hcm-pname">' + escc(p.name) + '</div>' +
-    '<div class="hcm-plevel-row"><span class="hcm-plevel">Key level → ' + escc(p.keyLevel) + '</span><button class="hcm-info" title="Show detail">i</button></div>' +
+    '<div class="hcm-plevel-row"><span class="hcm-plevel">Key level → ' + escc(p.keyLevel) + '</span><button class="hcm-info" title="Show detail">▾</button></div>' +
     '<div class="hcm-pdetail"><div class="hcm-piv">' + escc(p.iv) + '</div><div class="hcm-pconf">' + escc(p.confirms) + '</div></div>' +
     '</div>';
   const boHTML = '<div class="hcm-card hcm-bo">' +
