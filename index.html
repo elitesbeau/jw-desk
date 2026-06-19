@@ -55,7 +55,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .tile .tv{font-family:'IBM Plex Mono',monospace;font-size:clamp(9px,.9vw,11px);color:var(--fg-mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tile .tspark{position:absolute;right:0;bottom:0;width:62%;height:34px;opacity:.32}
 .tile .tspark path{fill:none;stroke-width:2}
-.tile.exp{position:fixed;inset:8vh 9vw;z-index:64;animation:pop .35s var(--spring);box-shadow:0 30px 80px rgba(31,30,27,.25)}
+.tile.exp{position:fixed;inset:8vh 9vw;z-index:64;animation:pop .35s var(--spring) forwards;box-shadow:0 30px 80px rgba(31,30,27,.25);opacity:1}
 .tile.exp .ts{font-size:30px}.tile.exp .tm{font-size:46px}
 .tile .more{display:none;margin-top:14px;font-size:15px;line-height:1.6;color:var(--fg)}
 .tile.exp .more{display:block;animation:rise .4s var(--ease) .1s both}
