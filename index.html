@@ -163,13 +163,13 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .lrow:hover{border-color:var(--line-2);transform:translateX(2px)}
 .lrow.active{border-color:var(--fg);background:var(--bg-2)}
 .lrow .rk{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--fg-mute);text-align:right;line-height:1;flex:none}
-.lrow.r1{background:rgba(212,175,55,.20);border-color:rgba(212,175,55,.48)}
+.lrow.r1{background:rgba(212,175,55,.15);border-color:rgba(212,175,55,.44)}
 .lrow.r2{background:rgba(180,180,185,.16);border-color:rgba(180,180,185,.42)}
 .lrow.r3{background:rgba(155,82,28,.13);border-color:rgba(155,82,28,.34)}
 .lrow.r1 .rk{color:rgba(148,110,12,.75)}
 .lrow.r2 .rk{color:rgba(120,120,125,.9)}
 .lrow.r3 .rk{color:rgba(140,70,20,.75)}
-.lrow.r1.active{border-color:rgba(212,175,55,.58);background:rgba(212,175,55,.28)}
+.lrow.r1.active{border-color:rgba(212,175,55,.52);background:rgba(212,175,55,.22)}
 .lrow.r2.active{border-color:rgba(180,180,185,.58);background:rgba(180,180,185,.24)}
 .lrow.r3.active{border-color:rgba(155,82,28,.48);background:rgba(155,82,28,.20)}
 .lrow .sym{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:500;min-width:50px}
@@ -379,10 +379,11 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .sector-bar-wrap{height:6px;border-radius:999px;background:var(--bg-3);overflow:hidden}
 .sector-bar{height:100%;border-radius:999px}
 .sector-pct{font-family:'IBM Plex Mono',monospace;font-size:10.5px;text-align:right;white-space:nowrap}
+.sw-read{font-size:11.5px;color:var(--fg-mute);margin-top:10px;padding-top:8px;border-top:1px solid var(--line);line-height:1.4}
 /* ===== feature: regime history timeline ===== */
 .regime-timeline{margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
-.rh-toggle{display:none;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-mute);border:1px solid var(--line);border-radius:6px;padding:4px 9px;cursor:pointer;background:none;margin-bottom:8px}
-@media(max-width:640px){.rh-toggle{display:inline-flex;align-items:center;gap:5px}.regime-timeline-body{display:none}.regime-timeline-body.open{display:block}}
+.rh-toggle{display:inline-flex;align-items:center;gap:5px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-mute);border:1px solid var(--line);border-radius:6px;padding:4px 9px;cursor:pointer;background:none;margin-bottom:8px}
+.regime-timeline-body{display:none}.regime-timeline-body.open{display:block}
 .rh-entry{display:flex;gap:12px;align-items:flex-start;padding:5px 0}
 .rh-entry:not(:last-child){border-bottom:1px solid var(--line)}
 .rh-time{font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--fg-mute);white-space:nowrap;flex:none;min-width:80px;padding-top:2px}
@@ -441,7 +442,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   </div>
   <div class="wrapC">
     <div class="regimeBand"><span class="lab">Regime read</span><div class="t" id="regimeT"></div><div class="regime-timeline" id="regimeTimeline"><button class="rh-toggle" id="rhToggle">▸ Updates</button><div class="regime-timeline-body" id="rhBody"></div></div></div>
-    <div class="sector-widget" id="sectorWidget"><div class="sw-lab">Sector Rotation</div><div class="sector-rows" id="sectorRows"></div></div>
+    <div class="sector-widget" id="sectorWidget"><div class="sw-lab">Sector Rotation</div><div class="sector-rows" id="sectorRows"></div><div class="sw-read" id="sectorRead"></div></div>
     <div class="split">
       <div class="hero" id="hero"></div>
       <div class="listcol">
@@ -894,6 +895,26 @@ function initBoard() {
       const col = s.changePct >= 0 ? 'var(--positive)' : 'var(--danger)';
       return '<div class="sector-row"><span class="sn">' + s.name + '</span><div class="sector-bar-wrap"><div class="sector-bar" style="width:' + w + '%;background:' + col + '"></div></div><span class="sector-pct ' + cls(s.changePct) + '">' + pct(s.changePct) + '</span></div>';
     }).join('');
+    if ($('sectorRead')) $('sectorRead').textContent = (function(secs) {
+      var m = {}; secs.forEach(function(s){ m[s.sym] = s.changePct; });
+      var gavg = function(syms){ var f = secs.filter(function(s){ return syms.indexOf(s.sym) > -1; }); return f.length ? f.reduce(function(a,s){ return a+s.changePct; },0)/f.length : null; };
+      var pos = secs.filter(function(s){ return s.changePct > 0; }).length;
+      var neg = secs.filter(function(s){ return s.changePct < 0; }).length;
+      var n = secs.length;
+      var def = gavg(['XLP','XLU','XLV','XLRE']);
+      var gro = gavg(['XLK','XLY']);
+      var cyc = gavg(['XLI','XLB','XLE']);
+      var fin = m['XLF'] != null ? m['XLF'] : null;
+      var en  = m['XLE'] != null ? m['XLE'] : null;
+      if (neg >= Math.round(n * 0.85)) return 'Broad selloff — no sector catching a bid today.';
+      if (pos >= Math.round(n * 0.85)) return 'Broad rally — sector participation is wide, risk is on across the board.';
+      if (def != null && gro != null && def > 0 && gro < -0.4) return 'Defensive rotation — money leaving growth and risk, moving into safety names.';
+      if (def != null && gro != null && gro > 0.4 && def < 0) return 'Risk-on rotation — growth and tech leading, defensives lagging.';
+      if (en != null && cyc != null && en > 0.5 && cyc > (gro || 0)) return 'Commodity rotation — energy and materials leading the tape today.';
+      if (fin != null && fin > 0.3 && pos > neg) return 'Reflation bias — financials and cyclicals catching bids as rates reprice.';
+      var top = sorted[0].name, bot = sorted[sorted.length-1].name;
+      return top + ' leading, ' + bot + ' lagging — rotation without a clear directional read.';
+    })(B.sectors);
   }
   // regime history timeline
   if (B.regimeHistory && $('rhBody')) {
