@@ -272,7 +272,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .hcm-pname{display:none}
 .hcm-plevel{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--fg-dim);margin-bottom:3px}
 .hcm-plevel-row{display:flex;align-items:center;gap:8px;margin-bottom:0}
-.hcm-info{display:inline-flex;align-items:center;gap:5px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-mute);border:1px solid var(--line);border-radius:6px;padding:4px 9px;cursor:pointer;background:none;margin-top:7px;transition:color .15s var(--ease),border-color .15s var(--ease);user-select:none}
+.hcm-info{display:inline-flex;align-items:center;gap:5px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-mute);border:1px solid var(--line);border-radius:6px;padding:4px 9px;cursor:pointer;background:none;margin-left:auto;transition:color .15s var(--ease),border-color .15s var(--ease);user-select:none;flex:none}
 .hcm-info:hover{color:var(--fg-dim);border-color:var(--line-2)}
 .hcm-info.on{color:var(--fg-dim)}
 .hcm-pdetail{display:none;margin-top:8px}
@@ -673,8 +673,7 @@ function renderHCM() {
   const playHTML = (p) => '<div class="hcm-play">' +
     '<div class="hcm-play-top"><span class="hcm-psym">' + p.symbol + '</span><span class="hcm-popt">' + escc(p.play) + '</span><span class="hcm-pchg ' + cls(p.changePct) + '">' + pct(p.changePct) + '</span></div>' +
     '<div class="hcm-pname">' + escc(p.name) + '</div>' +
-    '<div class="hcm-plevel-row"><span class="hcm-plevel">Key level → ' + escc(p.keyLevel) + '</span></div>' +
-    '<button class="hcm-info">▸ Details</button>' +
+    '<div class="hcm-plevel-row"><span class="hcm-plevel">Key level → ' + escc(p.keyLevel) + '</span><button class="hcm-info">▸ Details</button></div>' +
     '<div class="hcm-pdetail"><div class="hcm-ppill"><span class="pp-lab">IV</span><span>' + escc(p.iv) + '</span></div><div class="hcm-ppill"><span class="pp-lab">Confirms</span><span>' + escc(p.confirms) + '</span></div></div>' +
     '</div>';
   const boHTML = '<div class="hcm-card hcm-bo">' +
