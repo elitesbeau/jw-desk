@@ -568,13 +568,20 @@ function renderBriefing() {
   });
 }
 var boardInitialized = false;
+var boardScrollY = 0;
 function swipeToBoard() {
   $('brief').classList.add('gone');
-  window.scrollTo(0, 0);
   sessionStorage.setItem('jwPage', 'board');
-  if (!boardInitialized) { boardInitialized = true; setTimeout(initBoard, 50); }
+  if (!boardInitialized) {
+    window.scrollTo(0, 0);
+    boardInitialized = true;
+    setTimeout(initBoard, 50);
+  } else {
+    window.scrollTo(0, boardScrollY);
+  }
 }
 function goToBrief() {
+  boardScrollY = window.scrollY;
   $('brief').classList.remove('gone');
   window.scrollTo(0, 0);
   sessionStorage.setItem('jwPage', 'brief');
@@ -592,7 +599,8 @@ function enterBoard(skip) {
   var tx = null, ty = null, swiping = false;
   document.addEventListener('touchstart', function(e) {
     if (!$('brief').classList.contains('gone')) return;
-    if (e.target.closest('#hcmBuyCard')) return; // don't steal from carousel
+    if (e.target.closest('#hcmBuyCard')) return;
+    if (e.target.closest('#hero')) return;
     tx = e.touches[0].clientX; ty = e.touches[0].clientY; swiping = false;
   }, { passive: true });
   document.addEventListener('touchmove', function(e) {
