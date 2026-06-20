@@ -142,6 +142,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .regimeBand .t{color:var(--fg-dim);font-size:14px;margin-top:6px;line-height:1.5}
 .split{display:grid;grid-template-columns:1.4fr 1fr;gap:22px}
 @media(max-width:900px){.split{grid-template-columns:1fr}}
+.hero-col{display:flex;flex-direction:column;gap:0;min-width:0}
+.hero-pip-row{display:flex;gap:5px;align-items:center;padding:0 4px;margin-bottom:8px;min-height:10px}
+.hero-pip{width:6px;height:6px;border-radius:999px;background:var(--line-2);cursor:pointer;transition:width .2s var(--ease),background .2s var(--ease);flex:none}
+.hero-pip.active{width:16px;background:var(--fg-mute)}
 .hero{border:1px solid var(--line-2);border-radius:18px;background:var(--bg);padding:26px 28px;box-shadow:0 10px 30px rgba(31,30,27,.06)}
 .hero .hero-h{display:flex;align-items:center;gap:12px;margin:14px 0 4px}
 .hero .hsym{font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:500}
@@ -447,7 +451,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
     <div class="regimeBand"><span class="lab">Regime read</span><div class="t" id="regimeT"></div><div class="regime-timeline" id="regimeTimeline"><button class="rh-toggle" id="rhToggle">▸ Updates</button><div class="regime-timeline-body" id="rhBody"></div></div></div>
     <div class="sector-widget" id="sectorWidget"><div class="sw-header"><div class="sw-lab">Sector Rotation</div><div class="sw-read" id="sectorRead"></div></div><div class="sector-rows" id="sectorRows"></div></div>
     <div class="split">
-      <div class="hero" id="hero"></div>
+      <div class="hero-col"><div class="hero-pip-row" id="heroDots"></div><div class="hero" id="hero"></div></div>
       <div class="listcol">
         <div class="topline"><span class="lab">The board · <span id="moverCount"></span> movers, ranked</span><span class="autobadge on" id="autoBadge"><span class="pd"></span>auto-rotate</span></div>
         <div id="list"></div>
@@ -880,7 +884,12 @@ function initBoard() {
   const hrDotHTML = (m) => m.hitRate ? '<span class="hr-dot ' + hrDotCls(m.hitRate.rate) + '" title="Past accuracy: ' + m.hitRate.rate + '% on ' + m.hitRate.sample + ' calls"></span>' : '';
   listEl.innerHTML = '<div class="list-legend"><span style="display:flex;gap:4px;align-items:center"><span class="hr-dot hi"></span><span class="hr-dot mid"></span><span class="hr-dot lo"></span></span>Past accuracy</div>' + MOV.map((m, i) => '<div class="lrow' + rankCls(i) + '" data-i="' + i + '"><span class="rk">' + (i + 1) + '</span><span class="sym">' + m.symbol + '</span><span class="cat">' + (m.isCall ? '<span class="callflag"></span> ' : '') + escc(m.catalyst) + '</span>' + miniSVG(m.symbol, m.changePct) + '<span class="mv ' + cls(m.changePct) + '">' + pct(m.changePct) + '</span>' + hrDotHTML(m) + '</div>').join('');
   const rows = [].slice.call(listEl.querySelectorAll('.lrow')); let cur = 0;
-  function renderHero(i) { cur = i; const m = MOV[i]; const rank = i + 1; hero.className = 'hero' + rankCls(i); hero.innerHTML = heroCard(m, rank); rows.forEach((r) => r.classList.toggle('active', +r.dataset.i === i)); requestAnimationFrame(() => { const ln = hero.querySelector('.line'); if (ln) ln.classList.add('draw'); const gi = hero.querySelector('.gauge i'); if (gi) gi.style.width = gi.dataset.w + '%'; if (heroDetailOpen) { const g = hero.querySelector('.hgrid'), v = hero.querySelector('.hinv'), b = hero.querySelector('.htoggle'); if (g) g.style.display = 'grid'; if (v) v.style.display = 'block'; if (b) b.textContent = 'Less ↑'; } }); }
+  var heroDots = $('heroDots');
+  if (heroDots && MOV.length > 1) {
+    heroDots.innerHTML = MOV.map((_, i) => '<span class="hero-pip' + (i === 0 ? ' active' : '') + '" data-i="' + i + '"></span>').join('');
+  }
+  function syncHeroDots(i) { if (heroDots) heroDots.querySelectorAll('.hero-pip').forEach(function(p, j) { p.classList.toggle('active', j === i); }); }
+  function renderHero(i) { cur = i; const m = MOV[i]; const rank = i + 1; hero.className = 'hero' + rankCls(i); hero.innerHTML = heroCard(m, rank); syncHeroDots(i); rows.forEach((r) => r.classList.toggle('active', +r.dataset.i === i)); requestAnimationFrame(() => { const ln = hero.querySelector('.line'); if (ln) ln.classList.add('draw'); const gi = hero.querySelector('.gauge i'); if (gi) gi.style.width = gi.dataset.w + '%'; if (heroDetailOpen) { const g = hero.querySelector('.hgrid'), v = hero.querySelector('.hinv'), b = hero.querySelector('.htoggle'); if (g) g.style.display = 'grid'; if (v) v.style.display = 'block'; if (b) b.textContent = 'Less ↑'; } }); }
   let auto = true, timer = null;
   const tick = () => renderHero((cur + 1) % MOV.length);
   const start = () => { if (timer) clearInterval(timer); timer = setInterval(tick, 4500); auto = true; badge.classList.add('on'); };
@@ -889,6 +898,10 @@ function initBoard() {
   hero.onmouseenter = () => { if (auto && timer) { clearInterval(timer); timer = null; } };
   hero.onmouseleave = () => { if (auto && !timer) timer = setInterval(tick, 4500); };
   rows.forEach((r) => r.onclick = () => { stop(); renderHero(+r.dataset.i); if (window.innerWidth <= 640) { setTimeout(() => { var top = hero.getBoundingClientRect().top + window.pageYOffset - 72; window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' }); }, 30); } });
+  if (heroDots) heroDots.querySelectorAll('.hero-pip').forEach(function(pip) { pip.onclick = function() { stop(); renderHero(parseInt(this.dataset.i)); }; });
+  var heroTouchX = null;
+  hero.addEventListener('touchstart', function(e) { heroTouchX = e.touches[0].clientX; }, { passive: true });
+  hero.addEventListener('touchend', function(e) { if (heroTouchX === null) return; var dx = e.changedTouches[0].clientX - heroTouchX; heroTouchX = null; if (Math.abs(dx) > 40) { stop(); renderHero((cur + (dx < 0 ? 1 : -1) + MOV.length) % MOV.length); } });
   // sector rotation
   if (B.sectors && $('sectorRows')) {
     const sorted = B.sectors.slice().sort((a,b) => b.changePct - a.changePct);
