@@ -142,11 +142,11 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .regimeBand .t{color:var(--fg-dim);font-size:14px;margin-top:6px;line-height:1.5}
 .split{display:grid;grid-template-columns:1.4fr 1fr;gap:22px}
 @media(max-width:900px){.split{grid-template-columns:1fr}}
-.hero-col{display:flex;flex-direction:column;gap:0;min-width:0}
-.hero-pip-row{display:flex;gap:5px;align-items:center;padding:0 4px;margin-bottom:8px;min-height:10px}
-.hero-pip{width:6px;height:6px;border-radius:999px;background:var(--line-2);cursor:pointer;transition:width .2s var(--ease),background .2s var(--ease);flex:none}
+.hero-col{display:flex;flex-direction:column;gap:0;min-width:0;position:relative}
+.hero-pip-row{position:absolute;top:16px;left:0;right:0;display:flex;justify-content:center;gap:5px;align-items:center;z-index:2;pointer-events:none}
+.hero-pip{width:6px;height:6px;border-radius:999px;background:rgba(180,180,185,.45);cursor:pointer;transition:width .2s var(--ease),background .2s var(--ease);flex:none;pointer-events:auto}
 .hero-pip.active{width:16px;background:var(--fg-mute)}
-.hero{border:1px solid var(--line-2);border-radius:18px;background:var(--bg);padding:26px 28px;box-shadow:0 10px 30px rgba(31,30,27,.06)}
+.hero{border:1px solid var(--line-2);border-radius:18px;background:var(--bg);padding:42px 28px 26px;box-shadow:0 10px 30px rgba(31,30,27,.06);overflow:hidden}
 .hero .hero-h{display:flex;align-items:center;gap:12px;margin:14px 0 4px}
 .hero .hsym{font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:500}
 .hero .hmv{font-family:'IBM Plex Mono',monospace;font-size:18px;margin-left:auto}
@@ -889,7 +889,39 @@ function initBoard() {
     heroDots.innerHTML = MOV.map((_, i) => '<span class="hero-pip' + (i === 0 ? ' active' : '') + '" data-i="' + i + '"></span>').join('');
   }
   function syncHeroDots(i) { if (heroDots) heroDots.querySelectorAll('.hero-pip').forEach(function(p, j) { p.classList.toggle('active', j === i); }); }
-  function renderHero(i) { cur = i; const m = MOV[i]; const rank = i + 1; hero.className = 'hero' + rankCls(i); hero.innerHTML = heroCard(m, rank); syncHeroDots(i); rows.forEach((r) => r.classList.toggle('active', +r.dataset.i === i)); requestAnimationFrame(() => { const ln = hero.querySelector('.line'); if (ln) ln.classList.add('draw'); const gi = hero.querySelector('.gauge i'); if (gi) gi.style.width = gi.dataset.w + '%'; if (heroDetailOpen) { const g = hero.querySelector('.hgrid'), v = hero.querySelector('.hinv'), b = hero.querySelector('.htoggle'); if (g) g.style.display = 'grid'; if (v) v.style.display = 'block'; if (b) b.textContent = 'Less ↑'; } }); }
+  function afterRender() { requestAnimationFrame(function() { const ln = hero.querySelector('.line'); if (ln) ln.classList.add('draw'); const gi = hero.querySelector('.gauge i'); if (gi) gi.style.width = gi.dataset.w + '%'; if (heroDetailOpen) { const g = hero.querySelector('.hgrid'), v = hero.querySelector('.hinv'), b = hero.querySelector('.htoggle'); if (g) g.style.display = 'grid'; if (v) v.style.display = 'block'; if (b) b.textContent = 'Less ↑'; } }); }
+  var heroAnimating = false;
+  function renderHero(i, skipAnim) {
+    var prevI = cur; cur = i;
+    var m = MOV[i]; var rank = i + 1;
+    syncHeroDots(i);
+    rows.forEach(function(r) { r.classList.toggle('active', +r.dataset.i === i); });
+    var newHTML = heroCard(m, rank);
+    if (skipAnim || prevI === i || heroAnimating) {
+      hero.className = 'hero' + rankCls(i); hero.innerHTML = newHTML; afterRender(); return;
+    }
+    heroAnimating = true;
+    var stepsForward = ((i - prevI) + MOV.length) % MOV.length;
+    var forward = stepsForward <= MOV.length / 2;
+    var oldHTML = hero.innerHTML;
+    hero.className = 'hero' + rankCls(i);
+    hero.style.height = hero.offsetHeight + 'px';
+    var track = document.createElement('div');
+    track.style.cssText = 'display:flex;width:200%;will-change:transform';
+    if (forward) {
+      track.innerHTML = '<div style="width:50%;flex:none;overflow:hidden">' + oldHTML + '</div><div style="width:50%;flex:none;overflow:hidden">' + newHTML + '</div>';
+      hero.innerHTML = ''; hero.appendChild(track); track.offsetHeight;
+      track.style.transition = 'transform .32s cubic-bezier(.4,0,.2,1)';
+      track.style.transform = 'translateX(-50%)';
+    } else {
+      track.innerHTML = '<div style="width:50%;flex:none;overflow:hidden">' + newHTML + '</div><div style="width:50%;flex:none;overflow:hidden">' + oldHTML + '</div>';
+      track.style.transform = 'translateX(-50%)';
+      hero.innerHTML = ''; hero.appendChild(track); track.offsetHeight;
+      track.style.transition = 'transform .32s cubic-bezier(.4,0,.2,1)';
+      track.style.transform = 'translateX(0)';
+    }
+    setTimeout(function() { hero.innerHTML = newHTML; hero.style.height = ''; heroAnimating = false; afterRender(); }, 340);
+  }
   let auto = true, timer = null;
   const tick = () => renderHero((cur + 1) % MOV.length);
   const start = () => { if (timer) clearInterval(timer); timer = setInterval(tick, 4500); auto = true; badge.classList.add('on'); };
@@ -971,7 +1003,7 @@ function initBoard() {
     window._jwCheckAlerts = checkAlerts;
     setInterval(checkAlerts, 60000);
   })();
-  renderHero(0); start();
+  renderHero(0, true); start();
   if (window.innerWidth <= 640) {
     new IntersectionObserver(function(entries) {
       if (entries[0].isIntersecting && auto) { renderHero(0); start(); }
