@@ -139,7 +139,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .idx .i b{display:block;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-mute);font-weight:400;margin-bottom:2px}
 .wrapC{max-width:1180px;margin:0 auto;padding:22px 28px 40px}
 .regimeBand{border:1px solid var(--line);border-radius:var(--r);background:var(--bg);padding:16px 20px;margin-bottom:22px}
-.regimeBand .t{color:var(--fg-dim);font-size:14px;margin-top:6px;max-width:760px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+.regimeBand .t{color:var(--fg-dim);font-size:14px;margin-top:6px;max-width:760px;line-height:1.5}
 .split{display:grid;grid-template-columns:1.4fr 1fr;gap:22px}
 @media(max-width:900px){.split{grid-template-columns:1fr}}
 .hero{border:1px solid var(--line-2);border-radius:18px;background:var(--bg);padding:26px 28px;box-shadow:0 10px 30px rgba(31,30,27,.06)}
@@ -372,14 +372,15 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .bell-btn.active{border-color:var(--amber);color:var(--amber);background:rgba(176,122,46,.10)}
 /* ===== feature: sector rotation widget ===== */
 .sector-widget{border:1px solid var(--line);border-radius:var(--r);background:var(--bg);padding:16px 20px;margin-bottom:22px}
-.sector-widget .sw-lab{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-mute);margin-bottom:12px}
+.sw-header{display:flex;align-items:baseline;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.sector-widget .sw-lab{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-mute);flex:none}
 .sector-rows{display:flex;flex-direction:column;gap:4px}
 .sector-row{display:grid;grid-template-columns:64px 1fr 48px;align-items:center;gap:8px}
 .sector-row .sn{font-size:11.5px;color:var(--fg-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sector-bar-wrap{height:6px;border-radius:999px;background:var(--bg-3);overflow:hidden}
 .sector-bar{height:100%;border-radius:999px}
 .sector-pct{font-family:'IBM Plex Mono',monospace;font-size:10.5px;text-align:right;white-space:nowrap}
-.sw-read{font-size:11.5px;color:var(--fg-mute);margin-top:10px;padding-top:8px;border-top:1px solid var(--line);line-height:1.4}
+.sw-read{font-size:11px;color:var(--fg-mute);line-height:1.4}
 /* ===== feature: regime history timeline ===== */
 .regime-timeline{margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
 .rh-toggle{display:inline-flex;align-items:center;gap:5px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-mute);border:1px solid var(--line);border-radius:6px;padding:4px 9px;cursor:pointer;background:none;margin-bottom:8px}
@@ -442,7 +443,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   </div>
   <div class="wrapC">
     <div class="regimeBand"><span class="lab">Regime read</span><div class="t" id="regimeT"></div><div class="regime-timeline" id="regimeTimeline"><button class="rh-toggle" id="rhToggle">▸ Updates</button><div class="regime-timeline-body" id="rhBody"></div></div></div>
-    <div class="sector-widget" id="sectorWidget"><div class="sw-lab">Sector Rotation</div><div class="sector-rows" id="sectorRows"></div><div class="sw-read" id="sectorRead"></div></div>
+    <div class="sector-widget" id="sectorWidget"><div class="sw-header"><div class="sw-lab">Sector Rotation</div><div class="sw-read" id="sectorRead"></div></div><div class="sector-rows" id="sectorRows"></div></div>
     <div class="split">
       <div class="hero" id="hero"></div>
       <div class="listcol">
