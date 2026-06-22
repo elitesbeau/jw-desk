@@ -7,7 +7,10 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--fg);font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .mono{font-family:'IBM Plex Mono',monospace}
-.lab{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-mute)}
+.lab{font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:11.5px;font-weight:600;letter-spacing:0;text-transform:none;color:var(--fg-dim)}
+.tile .t-id{display:flex;align-items:center;gap:8px;min-width:0}
+.tile .t-id-tx{min-width:0}
+.tile .tlogo,.tile .tlogo-fb{background:rgba(255,255,255,.82);box-shadow:0 0 0 1px rgba(31,30,27,.06)}
 .up{color:var(--positive)}.dn{color:var(--danger)}
 .tlogo{border-radius:6px;background:var(--bg-3);object-fit:contain;flex:none;vertical-align:middle}
 .tlogo-fb{display:inline-flex;align-items:center;justify-content:center;border-radius:6px;background:var(--bg-3);border:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--fg-mute);letter-spacing:.01em;line-height:1}
@@ -381,7 +384,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 /* ===== feature: sector rotation widget ===== */
 .sector-widget{border:1px solid var(--line);border-radius:var(--r);background:var(--bg);padding:16px 20px;margin-bottom:22px}
 .sw-header{display:flex;align-items:baseline;gap:10px;margin-bottom:12px}
-.sector-widget .sw-lab{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-mute);flex:none}
+.sector-widget .sw-lab{font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:11.5px;font-weight:600;letter-spacing:0;text-transform:none;color:var(--fg-dim);flex:none}
 .sector-rows{display:flex;flex-direction:column;gap:4px}
 .sector-row{display:grid;grid-template-columns:64px 1fr 48px;align-items:center;gap:8px}
 .sector-row .sn{font-size:11.5px;color:var(--fg-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -451,19 +454,19 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   <div class="hcm-band" id="hcmBand"></div>
   <div class="wrapC">
     <div class="regimeBand"><span class="lab">Regime read</span><div class="t" id="regimeT"></div><div class="regime-timeline" id="regimeTimeline"><button class="rh-toggle" id="rhToggle">▸ Updates</button><div class="regime-timeline-body" id="rhBody"></div></div></div>
-    <div class="sector-widget" id="sectorWidget"><div class="sw-header"><div class="sw-lab">Sector Rotation</div><div class="sw-read" id="sectorRead"></div></div><div class="sector-rows" id="sectorRows"></div></div>
+    <div class="sector-widget" id="sectorWidget"><div class="sw-header"><div class="sw-lab">Sector rotation</div><div class="sw-read" id="sectorRead"></div></div><div class="sector-rows" id="sectorRows"></div></div>
     <div class="split">
       <div class="hero-col"><div class="hero-pip-row" id="heroDots"></div><div class="hero" id="hero"></div></div>
       <div class="listcol">
-        <div class="topline"><span class="lab">The board · <span id="moverCount"></span> movers, ranked</span><span class="autobadge on" id="autoBadge">auto-rotate</span></div>
+        <div class="topline"><span class="lab">The board — <span id="moverCount"></span> movers, ranked</span><span class="autobadge on" id="autoBadge">auto-rotate</span></div>
         <div id="list"></div>
       </div>
     </div>
     <div class="cLower">
-      <div class="feed"><div class="fh"><span class="lab">Desk activity · live</span><span class="lab" id="feedCount"></span></div><div class="fbody" id="feed"></div></div>
+      <div class="feed"><div class="fh"><span class="lab">Desk activity</span><span class="lab" id="feedCount"></span></div><div class="fbody" id="feed"></div></div>
       <div class="statcol">
         <div class="fstep2" id="funnelRow"></div>
-        <div class="breadth"><div class="bl"><span>Breadth · adv / dec</span><span id="brLab"></span></div><div class="bar"><div class="a" id="brA"></div><div class="d" id="brD"></div></div></div>
+        <div class="breadth"><div class="bl"><span>Breadth — adv / dec</span><span id="brLab"></span></div><div class="bar"><div class="a" id="brA"></div><div class="d" id="brD"></div></div></div>
       </div>
     </div>
     <div class="panels">
@@ -482,7 +485,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   <button class="chat-fab" id="chatOpen"><span class="fab-spk">✦</span> Ask the desk</button>
   <div class="chat-panel">
     <div class="chat-head">
-      <div class="ttl"><span class="chip">JW</span><div><div class="nm">The Desk</div><div class="sub">500-analyst synthesis · today's run</div></div></div>
+      <div class="ttl"><span class="chip">JW</span><div><div class="nm">The Desk</div><div class="sub">500-analyst synthesis — today's run</div></div></div>
       <button class="chat-close" id="chatClose">✕</button>
     </div>
     <div class="chat-log" id="chatLog"></div>
@@ -543,7 +546,7 @@ function renderBriefing() {
     const fg = '#fff';
     const dim = 'rgba(255,255,255,.72)';
     const wt = (p.value || 1);
-    return '<div class="tile" style="flex:' + wt.toFixed(2) + ' 1 0;min-width:128px;background:' + shade(p.changePct) + ';animation-delay:' + (80 + i * 45) + 'ms;color:' + fg + '"><svg class="tspark" viewBox="0 0 100 46" preserveAspectRatio="none"><path style="stroke:' + fg + ';opacity:.6" d="' + sparkD(p.symbol, p.changePct, 28) + '"></path></svg><div><div class="ts" style="color:' + fg + '">' + p.symbol + '</div><div class="tn" style="color:' + dim + '">' + escc(p.name) + '</div></div><div class="tm">' + pct(p.changePct) + '</div><div class="tv" style="color:' + dim + '">' + money(p.value) + ' · ' + signed(p.dayChg) + '</div><div class="more">' + escc(p.note || 'Quiet overnight — drift, not news.') + ((p.news && p.news.length) ? '<br><br><span class="src">' + escc(p.news[0].source || 'wire') + '</span> ' + escc(p.news[0].title) : '') + '</div></div>';
+    return '<div class="tile" style="flex:' + wt.toFixed(2) + ' 1 0;min-width:128px;background:' + shade(p.changePct) + ';animation-delay:' + (80 + i * 45) + 'ms;color:' + fg + '"><svg class="tspark" viewBox="0 0 100 46" preserveAspectRatio="none"><path style="stroke:' + fg + ';opacity:.6" d="' + sparkD(p.symbol, p.changePct, 28) + '"></path></svg><div class="t-id">' + tlogo(p.symbol, 18) + '<div class="t-id-tx"><div class="ts" style="color:' + fg + '">' + p.symbol + '</div><div class="tn" style="color:' + dim + '">' + escc(p.name) + '</div></div></div><div class="tm">' + pct(p.changePct) + '</div><div class="tv" style="color:' + dim + '">' + money(p.value) + ' · ' + signed(p.dayChg) + '</div><div class="more">' + escc(p.note || 'Quiet overnight — drift, not news.') + ((p.news && p.news.length) ? '<br><br><span class="src">' + escc(p.news[0].source || 'wire') + '</span> ' + escc(p.news[0].title) : '') + '</div></div>';
   };
   const tmap = $('tmap'); let idx = 0;
   tmap.innerHTML = rows.map((r) => '<div class="trow">' + r.map((p) => tileHTML(p, idx++)).join('') + '</div>').join('');
@@ -635,9 +638,9 @@ function renderHCM() {
       '<div class="hcm-stat"><span class="hcm-sk">R / R</span><span class="hcm-sv">' + escc(b.rr) + '</span></div>' +
       '</div>') : '';
     const whyNow = b.whyNow ? '<div class="why-now-pill"><span class="why-icon">Why now</span><span>' + escc(b.whyNow) + '</span></div>' : '';
-    const expTag = b.expiresOn ? '<span class="exp-tag" style="flex:1">Expires · ' + escc(b.expiresOn) + '</span>' : '';
+    const expTag = b.expiresOn ? '<span class="exp-tag" style="flex:1">Expires — ' + escc(b.expiresOn) + '</span>' : '';
     var hrColor = b.hitRate ? (b.hitRate.rate >= 65 ? 'var(--positive)' : b.hitRate.rate >= 50 ? 'var(--amber)' : 'var(--danger)') : '';
-    const accLine = b.hitRate ? '<span class="exp-tag" style="flex:1">Past accuracy · <span style="color:' + hrColor + '">' + b.hitRate.rate + '%</span> on ' + b.hitRate.sample + ' calls</span>' : '';
+    const accLine = b.hitRate ? '<span class="exp-tag" style="flex:1">Past accuracy — <span style="color:' + hrColor + '">' + b.hitRate.rate + '%</span> on ' + b.hitRate.sample + ' calls</span>' : '';
     var scoreHTML = '';
     if (b.scoreBreakdown) {
       var sb = b.scoreBreakdown;
@@ -808,11 +811,11 @@ function heroCard(m, rank) {
   const whyNowHTML = m.whyNow ? '<div class="why-now-pill"><span class="why-icon">Why now</span>' + escc(m.whyNow) + '</div>' : '';
   // options flow badge
   const ofSig = m.optionsFlow ? m.optionsFlow.signal : null;
-  const ofBadge = ofSig ? '<span class="of-badge ' + ofSig + '">Options Flow · ' + ofSig.toUpperCase() + (m.optionsFlow.flowScore ? ' · ' + m.optionsFlow.flowScore : '') + '</span>' : '';
+  const ofBadge = ofSig ? '<span class="of-badge ' + ofSig + '">Options flow — ' + ofSig.toUpperCase() + (m.optionsFlow.flowScore ? ' · ' + m.optionsFlow.flowScore : '') + '</span>' : '';
   // past accuracy + expires pills (same row, like buy card)
   var hrColor = m.hitRate ? (m.hitRate.rate >= 65 ? 'var(--positive)' : m.hitRate.rate >= 50 ? 'var(--amber)' : 'var(--danger)') : '';
-  var accPill = m.hitRate ? '<span class="exp-tag" style="flex:1">Past accuracy · <span style="color:' + hrColor + '">' + m.hitRate.rate + '%</span> on ' + m.hitRate.sample + ' calls</span>' : '';
-  var expTagPill = m.expiresOn ? '<span class="exp-tag" style="flex:1">Expires · ' + escc(m.expiresOn) + '</span>' : '';
+  var accPill = m.hitRate ? '<span class="exp-tag" style="flex:1">Past accuracy — <span style="color:' + hrColor + '">' + m.hitRate.rate + '%</span> on ' + m.hitRate.sample + ' calls</span>' : '';
+  var expTagPill = m.expiresOn ? '<span class="exp-tag" style="flex:1">Expires — ' + escc(m.expiresOn) + '</span>' : '';
   var pillsRow = (accPill || expTagPill) ? '<div style="display:flex;align-items:center;gap:8px;margin-top:8px">' + accPill + expTagPill + '</div>' : '';
   // bell button (used in Full Analysis key level cell)
   var alertKey = 'jw_' + m.symbol;
@@ -829,14 +832,14 @@ function heroCard(m, rank) {
     }).join('');
     convHTML = '<div class="score-grid" style="margin-top:8px" onclick="this.classList.toggle(\'expanded\')">' +
       '<div class="score-total">' +
-        '<span class="st-label">Conviction · ' + m.band + '</span>' +
+        '<span class="st-label">Conviction — ' + m.band + '</span>' +
         '<span class="st-val">' + total + '<span style="font-size:12px;color:var(--fg-mute)"> / 100</span></span>' +
         '<span class="score-expand-arrow">▾</span>' +
       '</div>' +
       '<div class="score-bars">' + bars + '</div>' +
       '</div>';
   } else {
-    convHTML = '<div class="gauge" style="margin-top:8px"><span class="gl">conviction · ' + m.band + '</span><span class="seg"><i data-w="' + g + '" style="width:0;background:' + gc + '"></i></span></div>';
+    convHTML = '<div class="gauge" style="margin-top:8px"><span class="gl">Conviction — ' + m.band + '</span><span class="seg"><i data-w="' + g + '" style="width:0;background:' + gc + '"></i></span></div>';
   }
   // model consensus
   var consensusHTML = '';
@@ -852,7 +855,7 @@ function heroCard(m, rank) {
   var ofNoteHTML = m.optionsFlow && m.optionsFlow.note ? '<div style="grid-column:1/-1"><div class="lab">Options Flow Detail</div><p style="font-size:13px;color:var(--fg-dim);margin-top:4px">' + escc(m.optionsFlow.note) + '</p></div>' : '';
   // key level row with bell
   var keyLevelInvalid = m.callInvalid || m.invalidation || '';
-  return '<div class="hero-toprow"><div class="lab">' + (m.isCall ? 'Conviction call · spotlight' : 'In focus') + '</div>' + rankBadge + '</div>' +
+  return '<div class="hero-toprow"><div class="lab">' + (m.isCall ? 'Conviction call — spotlight' : 'In focus') + '</div>' + rankBadge + '</div>' +
     '<div class="hero-h">' + tlogo(m.symbol, 28) + '<span class="hsym">' + m.symbol + '</span>' + tagEl(m) + '<span class="hmv ' + cls(m.changePct) + '">' + pct(m.changePct) + '</span></div>' +
     '<div class="hname">' + escc(m.name) + (m.marketCapB ? ' · $' + m.marketCapB + 'B' : '') + '</div>' +
     '<div class="sparkwrap"><div class="sl"><span>synthetic overnight path</span><span class="' + cls(m.changePct) + '">' + pct(m.changePct) + '</span></div>' + sparkSVG(m.symbol, m.changePct) + '</div>' +
