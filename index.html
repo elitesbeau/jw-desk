@@ -9,6 +9,8 @@ body{background:var(--bg);color:var(--fg);font-family:'IBM Plex Sans',system-ui,
 .mono{font-family:'IBM Plex Mono',monospace}
 .lab{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-mute)}
 .up{color:var(--positive)}.dn{color:var(--danger)}
+.tlogo{border-radius:6px;background:var(--bg-3);object-fit:contain;flex:none;vertical-align:middle}
+.tlogo-fb{display:inline-flex;align-items:center;justify-content:center;border-radius:6px;background:var(--bg-3);border:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--fg-mute);letter-spacing:.01em;line-height:1}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
 @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @keyframes posIn{to{opacity:1;transform:none}}
@@ -177,7 +179,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .lrow.r1.active{border-color:rgba(212,175,55,.52);background:rgba(212,175,55,.22)}
 .lrow.r2.active{border-color:rgba(180,180,185,.58);background:rgba(180,180,185,.24)}
 .lrow.r3.active{border-color:rgba(155,82,28,.48);background:rgba(155,82,28,.20)}
-.lrow .sym{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:500;min-width:50px}
+.lrow .sym{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:500;min-width:50px;display:flex;align-items:center;gap:7px}
 .lrow .cat{font-size:12.5px;color:var(--fg-mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .lrow .mv{font-family:'IBM Plex Mono',monospace;font-size:12.5px}
 .hero.r1{background:rgba(212,175,55,.15);border-color:rgba(212,175,55,.44)}
@@ -240,20 +242,18 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .hcm-buy.hcm-r1{background:rgba(212,175,55,.18);border-color:rgba(212,175,55,.44)}
 .hcm-buy.hcm-r2{background:rgba(180,180,185,.16);border-color:rgba(180,180,185,.42)}
 .hcm-buy.hcm-r3{background:rgba(155,82,28,.13);border-color:rgba(155,82,28,.33)}
-.hcm-dots{display:flex;align-items:center;gap:5px;margin-left:auto}
-.hcm-pip{width:6px;height:6px;border-radius:999px;background:var(--line-2);cursor:pointer;transition:width .2s var(--ease),background .2s var(--ease)}
-.hcm-buy.hcm-r1 .hcm-pip.active{background:rgba(148,110,12,.75);width:16px}
-.hcm-buy.hcm-r2 .hcm-pip.active{background:rgba(120,120,125,.9);width:16px}
-.hcm-buy.hcm-r3 .hcm-pip.active{background:rgba(140,70,20,.75);width:16px}
 .hcm-buy-vp{overflow:hidden}
 .hcm-bo{border-color:rgba(74,135,98,.24)}
 .hcm-bd{border-color:rgba(168,68,44,.24)}
-.hcm-hd{display:flex;align-items:center;gap:7px;margin-bottom:13px}
-.hcm-hd .lab{margin:0;flex:1}
-.hcm-dot{width:6px;height:6px;border-radius:999px;flex:none}
-.hcm-buy .hcm-dot{background:var(--amber)}
-.hcm-bo .hcm-dot{background:var(--positive)}
-.hcm-bd .hcm-dot{background:var(--danger)}
+.hcm-hd{position:relative;display:flex;align-items:baseline;gap:12px;margin-bottom:14px;padding-bottom:9px}
+.hcm-hd::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--line-2)}
+.hcm-buy .hcm-hd::after{background:rgba(176,122,46,.42)}
+.hcm-bo .hcm-hd::after{background:rgba(74,135,98,.40)}
+.hcm-bd .hcm-hd::after{background:rgba(168,68,44,.40)}
+.hcm-t{font-size:14px;font-weight:600;letter-spacing:-.01em;color:var(--fg)}
+.hcm-count{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--fg-mute);letter-spacing:.02em;flex:none}
+.hcm-count.nav{cursor:pointer;transition:color .15s var(--ease)}
+.hcm-count.nav:hover{color:var(--fg-dim)}
 .hcm-top{display:flex;align-items:center;gap:10px;margin-bottom:2px}
 .hcm-sym{font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:500;line-height:1}
 .hcm-chg{font-family:'IBM Plex Mono',monospace;font-size:14px;margin-left:auto}
@@ -410,9 +410,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
       <div class="when"><span id="clk">--:--:-- ET</span><div class="d" id="dt"></div></div>
     </div>
     <div class="page-nav" id="briefNav">
-      <button class="page-step on"><span class="dot"></span>Your book</button>
+      <button class="page-step on">Your book</button>
       <span class="nav-sep">→</span>
-      <button class="page-step" id="goToBoardBtn" onclick="swipeToBoard()"><span class="dot"></span>Market report</button>
+      <button class="page-step" id="goToBoardBtn" onclick="swipeToBoard()">Market report</button>
     </div>
     <div class="hm-top">
       <h1>Good morning, JW.</h1>
@@ -434,11 +434,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 <div id="board">
   <div class="ticker"><div class="track" id="tickTrack"></div></div>
   <div class="page-nav" id="boardNav">
-    <button class="page-step" id="goToBriefBtn" onclick="goToBrief()"><span class="dot"></span>Your book</button>
+    <button class="page-step" id="goToBriefBtn" onclick="goToBrief()">Your book</button>
     <span class="nav-sep">→</span>
-    <button class="page-step on"><span class="dot"></span>Market report</button>
+    <button class="page-step on">Market report</button>
   </div>
-  <div class="hcm-band" id="hcmBand"></div>
   <div class="cHead">
     <div class="brandbar">
       <div class="brand"><span class="seal">JW</span><span class="wm">JW Private Wealth</span></div>
@@ -449,13 +448,14 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
       <div class="idx" id="cIdx"></div>
     </div>
   </div>
+  <div class="hcm-band" id="hcmBand"></div>
   <div class="wrapC">
     <div class="regimeBand"><span class="lab">Regime read</span><div class="t" id="regimeT"></div><div class="regime-timeline" id="regimeTimeline"><button class="rh-toggle" id="rhToggle">▸ Updates</button><div class="regime-timeline-body" id="rhBody"></div></div></div>
     <div class="sector-widget" id="sectorWidget"><div class="sw-header"><div class="sw-lab">Sector Rotation</div><div class="sw-read" id="sectorRead"></div></div><div class="sector-rows" id="sectorRows"></div></div>
     <div class="split">
       <div class="hero-col"><div class="hero-pip-row" id="heroDots"></div><div class="hero" id="hero"></div></div>
       <div class="listcol">
-        <div class="topline"><span class="lab">The board · <span id="moverCount"></span> movers, ranked</span><span class="autobadge on" id="autoBadge"><span class="pd"></span>auto-rotate</span></div>
+        <div class="topline"><span class="lab">The board · <span id="moverCount"></span> movers, ranked</span><span class="autobadge on" id="autoBadge">auto-rotate</span></div>
         <div id="list"></div>
       </div>
     </div>
@@ -501,6 +501,8 @@ const cls = (x) => x > 0 ? 'up' : x < 0 ? 'dn' : '';
 const money = (x) => (x < 0 ? '-' : '') + '$' + Math.abs(Math.round(x)).toLocaleString();
 const signed = (x) => (x >= 0 ? '+' : '') + money(x);
 const escc = (s) => String(s == null ? '' : s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+const tlogo = (sym, size) => { size = size || 22; var s = escc(sym), fs = Math.round(size * 0.38);
+  return '<img class="tlogo" src="https://assets.parqet.com/logos/symbol/' + encodeURIComponent(sym) + '?format=png" width="' + size + '" height="' + size + '" loading="lazy" alt="" onerror="this.onerror=null;var f=document.createElement(\'span\');f.className=\'tlogo tlogo-fb\';f.style.width=f.style.height=\'' + size + 'px\';f.style.fontSize=\'' + fs + 'px\';f.textContent=\'' + s.slice(0, 2).toUpperCase() + '\';this.replaceWith(f);">'; };
 
 /* ---------- shared sparkline ---------- */
 function sparkD(sym, chg, n) { n = n || 30; let seed = 0; for (let k = 0; k < sym.length; k++) seed = (seed * 31 + sym.charCodeAt(k)) % 99991;
@@ -654,7 +656,7 @@ function renderHCM() {
         '<div class="score-bars">' + bars + '</div>' +
         '</div>';
     }
-    return '<div class="hcm-top"><span class="hcm-sym">' + escc(b.symbol) + '</span><span class="tag long">long</span><span class="hcm-chg ' + cls(chg) + '">' + pct(chg) + '</span></div>' +
+    return '<div class="hcm-top">' + tlogo(b.symbol, 26) + '<span class="hcm-sym">' + escc(b.symbol) + '</span><span class="tag long">long</span><span class="hcm-chg ' + cls(chg) + '">' + pct(chg) + '</span></div>' +
       '<div class="hcm-name">' + escc(b.name) + '</div>' +
       whyNow +
       '<div style="display:flex;align-items:center;gap:8px;margin-top:8px">' + accLine + expTag + '</div>' +
@@ -662,26 +664,24 @@ function renderHCM() {
       '<div style="margin-top:10px">' + stats + '</div>';
   }
 
-  const dotsHTML = buys.length > 1 ?
-    '<div class="hcm-dots" id="hcmDots">' +
-    buys.map((_, i) => '<span class="hcm-pip' + (i === 0 ? ' active' : '') + '" data-i="' + i + '"></span>').join('') +
-    '</div>' : '';
+  const countHTML = buys.length > 1 ?
+    '<span class="hcm-count nav" id="hcmCount" title="Next pick">1 / ' + buys.length + '</span>' : '';
 
   const buyHTML = '<div class="hcm-card hcm-buy hcm-r1" id="hcmBuyCard">' +
-    '<div class="hcm-hd"><span class="hcm-dot"></span><span class="lab" id="hcmBuyLab">Buy today · #1 Highest Conviction Pick</span>' + dotsHTML + '</div>' +
+    '<div class="hcm-hd"><span class="hcm-t" id="hcmBuyLab">Highest conviction</span>' + countHTML + '</div>' +
     '<div class="hcm-buy-vp" id="hcmBuySlides">' + buildBuySlide(buys[0]) + '</div>' +
     '</div>';
   const playHTML = (p) => '<div class="hcm-play">' +
-    '<div class="hcm-play-top"><span class="hcm-psym">' + p.symbol + '</span><span class="hcm-popt">' + escc(p.play) + '</span><span class="hcm-pchg ' + cls(p.changePct) + '">' + pct(p.changePct) + '</span></div>' +
+    '<div class="hcm-play-top">' + tlogo(p.symbol, 20) + '<span class="hcm-psym">' + p.symbol + '</span><span class="hcm-popt">' + escc(p.play) + '</span><span class="hcm-pchg ' + cls(p.changePct) + '">' + pct(p.changePct) + '</span></div>' +
     '<div class="hcm-pname">' + escc(p.name) + '</div>' +
     '<div class="hcm-plevel-row"><span class="hcm-plevel">Key level → ' + escc(p.keyLevel) + '</span><button class="hcm-info">▸ Details</button></div>' +
     '<div class="hcm-pdetail"><div class="hcm-ppill"><span class="pp-lab">IV</span><span>' + escc(p.iv) + '</span></div><div class="hcm-ppill"><span class="pp-lab">Confirms</span><span>' + escc(p.confirms) + '</span></div></div>' +
     '</div>';
   const boHTML = '<div class="hcm-card hcm-bo">' +
-    '<div class="hcm-hd"><span class="hcm-dot"></span><span class="lab">Breakout option plays · 2 watches</span></div>' +
+    '<div class="hcm-hd"><span class="hcm-t">Breakout plays</span><span class="hcm-count">' + hcm.breakout.length + (hcm.breakout.length === 1 ? ' watch' : ' watches') + '</span></div>' +
     hcm.breakout.map(playHTML).join('') + '</div>';
   const bdHTML = '<div class="hcm-card hcm-bd">' +
-    '<div class="hcm-hd"><span class="hcm-dot"></span><span class="lab">Breakdown option plays · 2 watches</span></div>' +
+    '<div class="hcm-hd"><span class="hcm-t">Breakdown plays</span><span class="hcm-count">' + hcm.breakdown.length + (hcm.breakdown.length === 1 ? ' watch' : ' watches') + '</span></div>' +
     hcm.breakdown.map(playHTML).join('') + '</div>';
   $('hcmBand').innerHTML = '<div class="hcm-grid">' + buyHTML + boHTML + bdHTML + '</div>';
 
@@ -729,10 +729,8 @@ function renderHCM() {
 
       buyIdx = newIdx;
       $('hcmBuyCard').className = 'hcm-card hcm-buy hcm-r' + (buyIdx + 1);
-      $('hcmBuyLab').textContent = 'Buy today · #' + (buyIdx + 1) + ' Highest Conviction Pick';
-      $('hcmDots').querySelectorAll('.hcm-pip').forEach(function(p, j) {
-        p.classList.toggle('active', j === buyIdx);
-      });
+      var cnt = $('hcmCount');
+      if (cnt) cnt.textContent = (buyIdx + 1) + ' / ' + buys.length;
 
       setTimeout(function() {
         var v = $('hcmBuySlides');
@@ -741,12 +739,8 @@ function renderHCM() {
         buyAnimating = false;
       }, 340);
     }
-    $('hcmDots').querySelectorAll('.hcm-pip').forEach(function(pip) {
-      pip.onclick = function() {
-        var t = parseInt(this.dataset.i);
-        goToBuy(t, t > buyIdx);
-      };
-    });
+    var cntEl = $('hcmCount');
+    if (cntEl) cntEl.onclick = function() { goToBuy(buyIdx + 1, true); };
     var touchX = null;
     $('hcmBuyCard').addEventListener('touchstart', function(e) { touchX = e.touches[0].clientX; }, { passive: true });
     $('hcmBuyCard').addEventListener('touchend', function(e) {
@@ -859,7 +853,7 @@ function heroCard(m, rank) {
   // key level row with bell
   var keyLevelInvalid = m.callInvalid || m.invalidation || '';
   return '<div class="hero-toprow"><div class="lab">' + (m.isCall ? 'Conviction call · spotlight' : 'In focus') + '</div>' + rankBadge + '</div>' +
-    '<div class="hero-h"><span class="hsym">' + m.symbol + '</span>' + tagEl(m) + '<span class="hmv ' + cls(m.changePct) + '">' + pct(m.changePct) + '</span></div>' +
+    '<div class="hero-h">' + tlogo(m.symbol, 28) + '<span class="hsym">' + m.symbol + '</span>' + tagEl(m) + '<span class="hmv ' + cls(m.changePct) + '">' + pct(m.changePct) + '</span></div>' +
     '<div class="hname">' + escc(m.name) + (m.marketCapB ? ' · $' + m.marketCapB + 'B' : '') + '</div>' +
     '<div class="sparkwrap"><div class="sl"><span>synthetic overnight path</span><span class="' + cls(m.changePct) + '">' + pct(m.changePct) + '</span></div>' + sparkSVG(m.symbol, m.changePct) + '</div>' +
     '<div class="hread">' + escc(m.callThesis || m.read) + '</div>' +
@@ -892,7 +886,7 @@ function initBoard() {
   const rankCls = (i) => i === 0 ? ' r1' : i === 1 ? ' r2' : i === 2 ? ' r3' : '';
   const hrDotCls = (r) => r >= 65 ? 'hi' : r >= 50 ? 'mid' : 'lo';
   const hrDotHTML = (m) => m.hitRate ? '<span class="hr-dot ' + hrDotCls(m.hitRate.rate) + '" title="Past accuracy: ' + m.hitRate.rate + '% on ' + m.hitRate.sample + ' calls"></span>' : '';
-  listEl.innerHTML = '<div class="list-legend"><span style="display:flex;gap:4px;align-items:center"><span class="hr-dot hi"></span><span class="hr-dot mid"></span><span class="hr-dot lo"></span></span>Past accuracy</div>' + MOV.map((m, i) => '<div class="lrow' + rankCls(i) + '" data-i="' + i + '"><span class="rk">' + (i + 1) + '</span><span class="sym">' + m.symbol + '</span><span class="cat">' + (m.isCall ? '<span class="callflag"></span> ' : '') + escc(m.catalyst) + '</span>' + miniSVG(m.symbol, m.changePct) + '<span class="mv ' + cls(m.changePct) + '">' + pct(m.changePct) + '</span>' + hrDotHTML(m) + '</div>').join('');
+  listEl.innerHTML = '<div class="list-legend"><span style="display:flex;gap:4px;align-items:center"><span class="hr-dot hi"></span><span class="hr-dot mid"></span><span class="hr-dot lo"></span></span>Past accuracy</div>' + MOV.map((m, i) => '<div class="lrow' + rankCls(i) + '" data-i="' + i + '"><span class="rk">' + (i + 1) + '</span><span class="sym">' + tlogo(m.symbol, 18) + m.symbol + '</span><span class="cat">' + (m.isCall ? '<span class="callflag"></span> ' : '') + escc(m.catalyst) + '</span>' + miniSVG(m.symbol, m.changePct) + '<span class="mv ' + cls(m.changePct) + '">' + pct(m.changePct) + '</span>' + hrDotHTML(m) + '</div>').join('');
   const rows = [].slice.call(listEl.querySelectorAll('.lrow')); let cur = 0;
   var heroDots = $('heroDots');
   if (heroDots && MOV.length > 1) {
