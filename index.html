@@ -403,6 +403,106 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .rh-entry.latest .rh-time{color:var(--amber)}.rh-entry.latest .rh-read{color:var(--fg)}
 /* ===== hgrid 3-col on wide screens ===== */
 @media(min-width:640px){.hgrid{grid-template-columns:1fr 1fr!important}}
+
+/* ===== the firm — org chart ===== */
+#org{position:fixed;inset:0;z-index:61;background:var(--bg);overflow:hidden;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .38s cubic-bezier(.4,0,.2,1)}
+#org.shown{transform:none}
+#org.shown ~ #chatDock{display:none}
+.org-wrap{flex:1;min-height:0;display:flex;flex-direction:column;padding:6px 24px 28px;max-width:1280px;width:100%;margin:0 auto;overflow-y:auto}
+.org-head{margin:6px 0 12px}
+.org-head h1{font-size:20px;font-weight:500;letter-spacing:-.02em}
+.org-sub{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.04em;color:var(--fg-mute);margin-top:5px}
+.org-banner{display:flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--fg-mute);margin-bottom:16px;letter-spacing:.03em}
+.org-banner .od{width:6px;height:6px;border-radius:999px;background:var(--amber);flex:none}
+/* flow diagram */
+.org-flow{display:flex;flex-direction:column;align-items:center;margin:2px 0 24px}
+.org-flow.hidden{display:none}
+.org-node{border:1px solid var(--line-2);border-radius:11px;background:var(--bg);padding:9px 16px;text-align:center;min-width:122px;transition:all .16s var(--ease)}
+.org-node .nt{font-size:13px;font-weight:600;letter-spacing:-.01em;line-height:1.2}
+.org-node .nr{font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-mute);margin-top:3px}
+.org-node.principal{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.org-node.principal .nr{color:rgba(250,249,245,.55)}
+.org-node.chief{background:var(--bg-3);border-color:var(--line-2)}
+.org-link{width:2px;height:18px;background:var(--line-2)}
+.org-tier{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.org-tier.divs{position:relative;padding-top:18px}
+.org-tier.divs::before{content:"";position:absolute;top:0;left:12%;right:12%;height:2px;background:var(--line-2)}
+.org-node.divc{position:relative;cursor:pointer;min-width:98px;padding:8px 12px}
+.org-node.divc::before{content:"";position:absolute;top:-18px;left:50%;width:2px;height:18px;background:var(--line-2)}
+.org-node.divc .nt{font-size:11.5px;font-weight:600}
+.org-node.divc:hover{border-color:var(--fg)}
+.org-node.divc.sel{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.org-node.divc .ndot{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px;vertical-align:middle}
+/* controls */
+.org-controls{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.org-search{flex:1;min-width:160px;border:1px solid var(--line-2);border-radius:10px;padding:9px 13px;font-family:'IBM Plex Mono',monospace;font-size:12px;background:var(--bg);color:var(--fg)}
+.org-search:focus{outline:none;box-shadow:0 0 0 4px rgba(45,42,36,.06)}
+.org-vtog{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;flex:none}
+.org-vtog button{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-mute);padding:7px 14px;transition:all .15s}
+.org-vtog button.on{background:var(--fg);color:var(--bg)}
+/* pods */
+.org-pods{display:grid;grid-template-columns:repeat(auto-fill,minmax(212px,1fr));gap:13px;align-items:start}
+.org-pods.hidden{display:none}
+.pod{border:1px solid var(--line);border-radius:14px;background:var(--bg);padding:15px 16px;cursor:pointer;transition:transform .16s var(--ease),box-shadow .16s var(--ease),border-color .16s var(--ease),opacity .2s}
+.pod:hover{border-color:var(--line-2);transform:translateY(-2px);box-shadow:0 10px 26px rgba(31,30,27,.08)}
+.pod.dim{opacity:.24;filter:grayscale(.5)}
+.pod-top{display:flex;align-items:center;gap:8px;margin-bottom:9px}
+.pod-dot{width:9px;height:9px;border-radius:3px;flex:none}
+.pod-name{font-size:13.5px;font-weight:600;letter-spacing:-.01em;line-height:1.15}
+.pod-sym{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.06em;color:var(--fg-mute);margin-left:auto;flex:none}
+.pod-mgr{font-size:12px;color:var(--fg-dim);line-height:1.45}
+.pod-mgr .mt{font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-mute);display:block}
+.pod-foot{display:flex;align-items:baseline;gap:7px;margin-top:11px;padding-top:11px;border-top:1px solid var(--line)}
+.pod-foot .pc{font-family:'IBM Plex Mono',monospace;font-size:21px;font-weight:500;line-height:1}
+.pod-foot .pl{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-mute)}
+.pod-foot .pexp{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--fg-mute);transition:transform .18s var(--ease)}
+.pod.exp{grid-column:1/-1;cursor:default}
+.pod.exp:hover{transform:none;box-shadow:none}
+.pod.exp .pod-foot .pexp{transform:rotate(180deg)}
+.pod-grid{display:none}
+.pod.exp .pod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:6px;margin-top:13px;animation:rise .3s var(--ease)}
+.acell{border:1px solid var(--line);border-radius:7px;background:var(--bg-2);padding:7px 7px;cursor:pointer;min-height:42px;display:flex;flex-direction:column;justify-content:center;gap:2px;transition:all .14s var(--ease)}
+.acell:hover{border-color:var(--fg);background:var(--bg);transform:translateY(-1px)}
+.acell .ai{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;color:var(--fg)}
+.acell .ac{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.01em;color:var(--fg-mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.acell.mgr{background:var(--accent);border-color:rgba(31,30,27,.16)}
+.acell.mgr .ai{font-weight:600}
+.org-leg{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.06em;color:var(--fg-mute);text-align:center;margin:16px 0 4px}
+/* detail panel */
+.org-detail{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(.96);width:min(440px,92vw);max-height:80vh;overflow-y:auto;background:var(--bg);border:1px solid var(--line-2);border-radius:16px;box-shadow:0 30px 80px rgba(31,30,27,.25);z-index:64;padding:22px 24px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s var(--spring)}
+.org-detail.on{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)}
+.org-detail .odh{display:flex;align-items:center;gap:10px;margin-bottom:3px}
+.org-detail .odi{font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:500}
+.org-detail .odt{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-mute);margin-left:auto;background:var(--bg-3);padding:4px 9px;border-radius:5px;flex:none}
+.org-detail .odsec{font-size:12px;color:var(--fg-mute);margin-bottom:6px}
+.org-detail .odlab{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-mute);margin:15px 0 5px}
+.org-detail .odmand{font-size:13.5px;line-height:1.55;color:var(--fg-dim)}
+.org-detail .odcov{display:flex;flex-wrap:wrap;gap:6px}
+.org-detail .odcov span{font-family:'IBM Plex Mono',monospace;font-size:11px;background:var(--bg-3);border:1px solid var(--line);border-radius:6px;padding:4px 9px}
+.org-detail .odstat{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.org-detail .odstat .s{padding:10px 12px;border-right:1px solid var(--line)}
+.org-detail .odstat .s:last-child{border-right:none}
+.org-detail .odstat .sk{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-mute)}
+.org-detail .odstat .sv{font-family:'IBM Plex Mono',monospace;font-size:17px;font-weight:500;margin-top:3px}
+.org-detail .odnote{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.02em;color:var(--fg-mute);margin-top:8px;line-height:1.4}
+.org-detail .odclose{position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:8px;color:var(--fg-mute);font-size:14px;transition:all .15s}
+.org-detail .odclose:hover{background:var(--bg-3);color:var(--fg)}
+/* leaderboard */
+.org-lb{display:none}
+.org-lb.on{display:block}
+.lb-note{display:flex;align-items:flex-start;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--amber);background:rgba(176,122,46,.08);border:1px solid rgba(176,122,46,.22);border-radius:9px;padding:9px 13px;margin-bottom:14px;line-height:1.45}
+.lb-head{display:grid;grid-template-columns:20px auto 1fr auto auto 10px;gap:11px;align-items:center;padding:0 14px 8px 10px;font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-mute)}
+.org-lb .lrow .sym{min-width:62px}
+.org-lb .lrow .mv{text-align:right;min-width:42px}
+@media(max-width:760px){
+  .org-wrap{padding:6px 16px 24px}
+  .org-pods{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+  .org-tier{gap:8px}
+  .org-node.divc{min-width:86px;padding:7px 9px}
+  .pod.exp .pod-grid{grid-template-columns:repeat(auto-fill,minmax(60px,1fr))}
+  .lb-head,.org-lb .lrow{grid-template-columns:18px auto 1fr auto 10px}
+  .org-lb .lb-sector{display:none}
+}
 </style></head><body>
 
 <!-- ===== briefing — your book first ===== -->
@@ -416,6 +516,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
       <button class="page-step on">Your book</button>
       <span class="nav-sep">→</span>
       <button class="page-step" id="goToBoardBtn" onclick="swipeToBoard()">Market report</button>
+      <span class="nav-sep">→</span>
+      <button class="page-step" onclick="goToOrg()">The firm</button>
     </div>
     <div class="hm-top">
       <h1>Good morning, JW.</h1>
@@ -440,6 +542,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
     <button class="page-step" id="goToBriefBtn" onclick="goToBrief()">Your book</button>
     <span class="nav-sep">→</span>
     <button class="page-step on">Market report</button>
+    <span class="nav-sep">→</span>
+    <button class="page-step" onclick="goToOrg()">The firm</button>
   </div>
   <div class="cHead">
     <div class="brandbar">
@@ -478,6 +582,41 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
     <p class="disclaimer"><b style="color:var(--fg-dim)">Internal research note — not investment advice.</b> A coverage-universe scan narrowed to overnight movers, one analyst agent per surviving name, synthesized by a CIO pass. Sparklines and the ticker are illustrative (no intraday tick data on this feed). Conviction bands are ordinal and uncalibrated; no probabilities, no position sizing.</p>
     <div class="prov" id="pProv"></div>
   </div>
+</div>
+
+<!-- ===== the firm — org chart ===== -->
+<div id="org">
+  <div class="org-wrap">
+    <div class="brandbar">
+      <div class="brand"><span class="seal">JW</span><span class="wm">JW Private Wealth</span></div>
+      <div class="when"><span id="oClock">--:--:-- ET</span><div class="d" id="oDt"></div></div>
+    </div>
+    <div class="page-nav" id="orgNav">
+      <button class="page-step" onclick="closeOrgToBrief()">Your book</button>
+      <span class="nav-sep">→</span>
+      <button class="page-step" onclick="closeOrgToBoard()">Market report</button>
+      <span class="nav-sep">→</span>
+      <button class="page-step on">The firm</button>
+    </div>
+    <div class="org-head">
+      <h1>The firm.</h1>
+      <div class="org-sub" id="orgSub"></div>
+    </div>
+    <div class="org-banner"><span class="od"></span><span id="orgBannerTxt">Standing roster — live status &amp; per-agent performance begin with the daily pre-open run</span></div>
+    <div class="org-flow" id="orgFlow"></div>
+    <div class="org-controls">
+      <input class="org-search" id="orgSearch" placeholder="search a desk…" autocomplete="off">
+      <div class="org-vtog">
+        <button id="vOrg" class="on" onclick="orgView('org')">Org</button>
+        <button id="vLb" onclick="orgView('lb')">Leaderboard</button>
+      </div>
+    </div>
+    <div class="org-pods" id="orgPods"></div>
+    <div class="org-lb" id="orgLb"></div>
+    <div class="org-leg">tap a desk to see its agents · tap an agent for their mandate</div>
+  </div>
+  <div class="bscrim" id="orgScrim"></div>
+  <div class="org-detail" id="orgDetail"></div>
 </div>
 
 <!-- ===== Ask the desk ===== -->
@@ -523,8 +662,12 @@ function tagEl(m) { return '<span class="tag ' + (m.direction === 'long' ? 'long
 /* ---------- briefing: living heatmap of the book ---------- */
 function briefClock() {
   const n = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }));
-  if ($('clk')) $('clk').textContent = n.toLocaleTimeString('en-US', { hour12: false }) + ' ET';
-  if ($('dt')) $('dt').textContent = n.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+  const ts = n.toLocaleTimeString('en-US', { hour12: false }) + ' ET';
+  const ds = n.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+  if ($('clk')) $('clk').textContent = ts;
+  if ($('dt')) $('dt').textContent = ds;
+  if ($('oClock')) $('oClock').textContent = ts;
+  if ($('oDt')) $('oDt').textContent = ds;
 }
 function renderBriefing() {
   if (!B.portfolio) { enterBoard(true); return; }
@@ -606,6 +749,7 @@ function enterBoard(skip) {
   var tx = null, ty = null, swiping = false;
   document.addEventListener('touchstart', function(e) {
     if (!$('brief').classList.contains('gone')) return;
+    if ($('org').classList.contains('shown')) return;
     if (e.target.closest('#hcmBuyCard')) return;
     if (e.target.closest('#hero')) return;
     tx = e.touches[0].clientX; ty = e.touches[0].clientY; swiping = false;
@@ -1064,6 +1208,197 @@ function chatInit() {
   ta.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChat(); } });
   ta.addEventListener('input', () => { ta.style.height = 'auto'; ta.style.height = Math.min(ta.scrollHeight, 96) + 'px'; });
 }
+/* ============ the firm — org chart ============ */
+var ORG = {
+  principal: { name: 'JW', title: 'Principal' },
+  chief: { id: 'CIO-00', title: 'Chief CIO' },
+  divisions: [
+    { id: 'tech',   name: 'Tech & Comms',       color: '#5B7C99' },
+    { id: 'health', name: 'Health Care',        color: '#4A8762' },
+    { id: 'fin',    name: 'Financials & RE',     color: '#B07A2E' },
+    { id: 'cons',   name: 'Consumer',           color: '#A8556C' },
+    { id: 'indu',   name: 'Indu·Mat·Enr·Util',   color: '#7E6BA8' },
+    { id: 'macro',  name: 'Macro & Thematic',    color: '#3F8E9B' }
+  ],
+  sectors: [
+    { id:'it',    name:'Information Technology', sym:'XLK',  div:'tech',   analysts:64, mgrs:4, mandate:'Mega-cap software, semis, hardware & IT services. Pre-open gap scan with catalyst attribution; escalate guidance revisions, China export actions, and hyperscaler-capex read-through.', pool:['AAPL','MSFT','NVDA','AVGO','ORCL','AMD','CRM','ADBE','CSCO','ACN','TXN','QCOM','INTC','IBM','NOW','INTU','AMAT','MU','LRCX','PANW'] },
+    { id:'comm',  name:'Communication Services', sym:'XLC',  div:'tech',   analysts:32, mgrs:2, mandate:'Internet, media, telecom & interactive. Watch ad-spend signals, platform regulation, and subscriber/engagement prints.', pool:['GOOGL','META','NFLX','DIS','TMUS','VZ','T','CMCSA','CHTR','EA','TTWO','WBD','OMC','LYV','PINS','SNAP','RBLX','MTCH'] },
+    { id:'health',name:'Health Care',            sym:'XLV',  div:'health', analysts:48, mgrs:3, mandate:'Pharma, biotech, devices, payors & tools. Escalate trial readouts, FDA actions, GLP-1 competitive shifts, and payor policy.', pool:['LLY','UNH','JNJ','ABBV','MRK','TMO','ABT','DHR','PFE','AMGN','ISRG','VRTX','REGN','BMY','GILD','CVS','MDT','CI','ELV','HCA'] },
+    { id:'fin',   name:'Financials',             sym:'XLF',  div:'fin',    analysts:48, mgrs:3, mandate:'Banks, brokers, insurers, exchanges & payments. Watch the rate path, NII, credit spreads, and capital-markets activity.', pool:['JPM','BAC','WFC','GS','MS','BLK','SCHW','C','V','MA','AXP','SPGI','CB','PGR','MMC','BX','KKR','COF','PNC','USB'] },
+    { id:'re',    name:'Real Estate',            sym:'XLRE', div:'fin',    analysts:28, mgrs:1, mandate:'REITs across data-center, industrial, retail & residential. Rate-sensitive; watch cap rates, occupancy, and financing costs.', pool:['PLD','AMT','EQIX','WELL','SPG','PSA','O','CCI','DLR','VICI','CBRE','EXR','AVB','EQR','IRM','SBAC'] },
+    { id:'cons',  name:'Consumer Discretionary', sym:'XLY',  div:'cons',   analysts:40, mgrs:2, mandate:'Retail, autos, travel, restaurants & homebuilders. Watch consumer-spend prints, traffic, pricing, and inventory.', pool:['AMZN','TSLA','HD','MCD','NKE','LOW','SBUX','BKNG','TJX','ABNB','CMG','ORLY','MAR','GM','F','LULU','DHI','RCL','EBAY','YUM'] },
+    { id:'stap',  name:'Consumer Staples',       sym:'XLP',  div:'cons',   analysts:28, mgrs:2, mandate:'Food, beverage, household & retail staples. Defensive; watch volume vs price, input costs, and share shifts.', pool:['WMT','COST','PG','KO','PEP','PM','MO','MDLZ','CL','TGT','KMB','GIS','MNST','KDP','STZ','SYY'] },
+    { id:'indu',  name:'Industrials',            sym:'XLI',  div:'indu',   analysts:40, mgrs:3, mandate:'Aero/defense, machinery, transports & capital goods. Watch order books, PMI, backlog, freight, and defense budgets.', pool:['GE','CAT','BA','HON','UNP','RTX','UPS','DE','LMT','ETN','ADP','GD','NOC','EMR','CSX','FDX','WM','PH','ITW','MMM'] },
+    { id:'enr',   name:'Energy',                 sym:'XLE',  div:'indu',   analysts:24, mgrs:1, mandate:'Integrated, E&P, services & midstream. Driven by the crude/gas path, inventories, OPEC, and refining margins.', pool:['XOM','CVX','COP','SLB','EOG','MPC','PSX','WMB','OKE','VLO','HES','OXY','KMI','HAL','DVN','BKR'] },
+    { id:'mat',   name:'Materials',              sym:'XLB',  div:'indu',   analysts:28, mgrs:2, mandate:'Chemicals, metals, mining & packaging. Watch China demand, commodity prices, FX, and the industrial cycle.', pool:['LIN','SHW','APD','FCX','ECL','NEM','NUE','DOW','DD','CTVA','VMC','MLM','PPG','ALB','STLD','CF'] },
+    { id:'util',  name:'Utilities',              sym:'XLU',  div:'indu',   analysts:20, mgrs:1, mandate:'Electrics, multi-utilities & IPPs. A rate-sensitive bond proxy; watch the rate path, load growth (AI data centers), and regulation.', pool:['NEE','SO','DUK','CEG','AEP','SRE','D','EXC','XEL','PEG','ED','VST','PCG','EIX','WEC','AWK'] }
+  ],
+  desks: [
+    { id:'macrod', name:'Macro & Cross-Asset', div:'macro', count:40, mandate:'Eight cross-asset desks set the regime backdrop the equity floor reports into — a daily read per asset class even when quiet.', subs:[['Rates','Curve, Fed path, real yields'],['FX','DXY & majors, carry'],['Commodities','Crude, gas, metals, ags'],['Crypto','BTC/ETH beta & flows'],['Credit','IG/HY spreads, issuance'],['Vol & Breadth','VIX, skew, adv/dec'],['Intl & ADR','Europe, Japan, EM'],['Energy Complex','Refining, power, uranium']] },
+    { id:'theme',  name:'Thematic Screens',    div:'macro', count:20, mandate:'Cross-cutting screens that ignore sector lines — they catch the move the sector desks split across. Daily output even when empty.', subs:[['AI Supply Chain','Compute, power, memory'],['GLP-1 / Obesity','Pharma & read-through'],['Rate-Sensitives','Duration-exposed names'],['52-Wk Momentum','New highs & leaders'],['Short-Squeeze','High SI / borrow stress'],['Earnings Tomorrow','Next-session reporters']] },
+    { id:'pf',     name:'Portfolio Desk',      div:null,    count:5,  mandate:"The principal's own book. Reads JW's overnight P&L, per-holding catalysts and news before the market floor — this is what greets you each morning.", subs:[['Book Lead','Net P&L & positioning'],['Tech Sleeve','Mega-cap holdings'],['Health Sleeve','Pharma holdings'],['Financials Sleeve','Bank/payments holdings'],['Diversifiers','Crypto & other']] },
+    { id:'grade',  name:'Grading & Ops',       div:null,    count:4,  mandate:"Scores yesterday's calls against forward prices (beta-stripped, dual-horizon) before each run, then ranks every agent — the engine behind the leaderboard.", subs:[['Grader','Forward-return scoring'],['Calibration','Conviction vs outcome'],['Attribution','Per-agent credit'],['Ledger','Rolling 60-day stats']] }
+  ]
+};
+
+function orgSeed(str){ var s = 7; for (var i = 0; i < str.length; i++) s = (s * 131 + str.charCodeAt(i)) % 2147483647; return s; }
+function orgRng(seed){ var v = seed; return function(){ v = (v * 1103515245 + 12345) & 0x7fffffff; return v / 0x7fffffff; }; }
+function orgPad(n){ return n < 10 ? '0' + n : '' + n; }
+function orgDivColor(id){ for (var i = 0; i < ORG.divisions.length; i++) if (ORG.divisions[i].id === id) return ORG.divisions[i].color; return 'var(--line-2)'; }
+function orgDivName(id){ for (var i = 0; i < ORG.divisions.length; i++) if (ORG.divisions[i].id === id) return ORG.divisions[i].name + ' division'; return 'Office of the CIO'; }
+function orgSec(id){ var r = null; ORG.sectors.forEach(function(s){ if (s.id === id) r = s; }); return r; }
+function orgDesk(id){ var r = null; ORG.desks.forEach(function(d){ if (d.id === id) r = d; }); return r; }
+
+// Expand a sector's compact source into its full agent roster (deterministic; built on first open).
+function orgBuildAgents(sec){
+  if (sec._agents) return sec._agents;
+  var out = [], pool = sec.pool || [], pl = pool.length || 1, k = 0, per = Math.round(sec.analysts / sec.mgrs);
+  for (var m = 1; m <= sec.mgrs; m++)
+    out.push({ id: sec.id.toUpperCase() + '-M' + m, tier: 'manager', role: 'Reviews ~' + per + ' analysts and signs the desk’s sector brief each morning.', cov: [] });
+  for (var a = 1; a <= sec.analysts; a++) {
+    var cov = []; for (var j = 0; j < 5; j++) cov.push(pool[(k * 5 + j) % pl]); k++;
+    out.push({ id: sec.id.toUpperCase() + '-' + orgPad(a), tier: 'analyst', role: 'Owns a 5-name basket; pre-open catalyst scan — full read on movers, one-line attestation when quiet.', cov: cov });
+  }
+  sec._agents = out; return out;
+}
+
+// Illustrative per-agent stats (deterministic) — clearly labeled; live grading begins with the daily run.
+function orgStats(id){ var r = orgRng(orgSeed(id)); var calls = 24 + Math.floor(r() * 168), hit = 44 + Math.floor(r() * 36), rel = 42 + Math.floor(r() * 44); return { calls: calls, hit: hit, rel: rel, comp: Math.round(hit * 0.6 + rel * 0.4) }; }
+
+var orgInitialized = false, orgSelDiv = null;
+
+function renderOrg(){
+  var secA = 0, secM = 0; ORG.sectors.forEach(function(s){ secA += s.analysts; secM += s.mgrs; });
+  var deskN = 0; ORG.desks.forEach(function(d){ deskN += d.count; });
+  var total = secA + secM + deskN + ORG.divisions.length + 1;
+  $('orgSub').textContent = total + ' agents · ' + ORG.sectors.length + ' sector desks · ' + ORG.desks.length + ' specialist desks · ' + ORG.divisions.length + ' divisions — every name owned, reporting up to you by the open';
+
+  var flow = '<div class="org-node principal"><div class="nt">' + escc(ORG.principal.name) + '</div><div class="nr">' + escc(ORG.principal.title) + '</div></div>' +
+    '<div class="org-link"></div>' +
+    '<div class="org-node chief"><div class="nt">' + escc(ORG.chief.title) + '</div><div class="nr">opus · final brief</div></div>' +
+    '<div class="org-link"></div><div class="org-tier divs">' +
+    ORG.divisions.map(function(d){ return '<div class="org-node divc" data-div="' + d.id + '" onclick="orgSelectDiv(\'' + d.id + '\')"><div class="nt"><span class="ndot" style="background:' + d.color + '"></span>' + escc(d.name) + '</div><div class="nr">Division CIO</div></div>'; }).join('') +
+    '</div>';
+  $('orgFlow').innerHTML = flow;
+
+  var pods = '';
+  ORG.sectors.forEach(function(s){
+    var c = orgDivColor(s.div), n = s.analysts + s.mgrs;
+    pods += '<div class="pod" data-div="' + s.div + '" data-name="' + escc(s.name).toLowerCase() + '" data-kind="sector" data-id="' + s.id + '">' +
+      '<div class="pod-top"><span class="pod-dot" style="background:' + c + '"></span><span class="pod-name">' + escc(s.name) + '</span><span class="pod-sym">' + escc(s.sym) + '</span></div>' +
+      '<div class="pod-mgr"><span class="mt">' + escc(orgDivName(s.div)) + '</span>' + s.mgrs + ' manager' + (s.mgrs === 1 ? '' : 's') + ' · ' + s.analysts + ' analysts</div>' +
+      '<div class="pod-foot"><span class="pc">' + n + '</span><span class="pl">agents</span><span class="pexp">⌄</span></div><div class="pod-grid"></div></div>';
+  });
+  ORG.desks.forEach(function(d){
+    var c = d.div ? orgDivColor(d.div) : '#9AA0A6';
+    pods += '<div class="pod" data-div="' + (d.div || '') + '" data-name="' + escc(d.name).toLowerCase() + '" data-kind="desk" data-id="' + d.id + '">' +
+      '<div class="pod-top"><span class="pod-dot" style="background:' + c + '"></span><span class="pod-name">' + escc(d.name) + '</span></div>' +
+      '<div class="pod-mgr"><span class="mt">' + (d.div ? escc(orgDivName(d.div)) : 'Office of the CIO') + '</span>' + d.subs.length + ' sub-desks</div>' +
+      '<div class="pod-foot"><span class="pc">' + d.count + '</span><span class="pl">agents</span><span class="pexp">⌄</span></div><div class="pod-grid"></div></div>';
+  });
+  $('orgPods').innerHTML = pods;
+
+  Array.prototype.forEach.call($('orgPods').querySelectorAll('.pod'), function(pod){
+    pod.addEventListener('click', function(e){
+      if (e.target.closest('.acell')) return;
+      if (!pod.classList.contains('exp') && !pod._built) { orgFillPod(pod); pod._built = true; }
+      pod.classList.toggle('exp');
+    });
+  });
+  $('orgSearch').addEventListener('input', orgFilter);
+  orgInitialized = true;
+}
+
+function orgFillPod(pod){
+  var grid = pod.querySelector('.pod-grid'), kind = pod.getAttribute('data-kind'), id = pod.getAttribute('data-id'), html = '';
+  if (kind === 'sector') {
+    var sec = orgSec(id);
+    orgBuildAgents(sec).forEach(function(ag){
+      html += '<div class="acell ' + (ag.tier === 'manager' ? 'mgr' : '') + '" onclick="orgShowAgent(\'' + sec.id + '\',\'' + ag.id + '\')"><div class="ai">' + escc(ag.id) + '</div><div class="ac">' + (ag.tier === 'manager' ? 'manager' : escc(ag.cov.join(' '))) + '</div></div>';
+    });
+  } else {
+    var desk = orgDesk(id);
+    desk.subs.forEach(function(sub, i){ html += '<div class="acell" onclick="orgShowSub(\'' + desk.id + '\',' + i + ')"><div class="ai">' + escc(sub[0]) + '</div><div class="ac">' + escc(sub[1]) + '</div></div>'; });
+  }
+  grid.innerHTML = html;
+}
+
+function orgDetailOpen(html){ var d = $('orgDetail'); d.innerHTML = '<button class="odclose" onclick="orgDetailClose()">✕</button>' + html; d.classList.add('on'); $('orgScrim').classList.add('on'); }
+function orgDetailClose(){ $('orgDetail').classList.remove('on'); $('orgScrim').classList.remove('on'); }
+
+function orgShowAgent(secId, agId){
+  var sec = orgSec(secId), ag = null; orgBuildAgents(sec).forEach(function(a){ if (a.id === agId) ag = a; });
+  if (!ag) return; var st = orgStats(ag.id);
+  var html = '<div class="odh"><span class="odi">' + escc(ag.id) + '</span><span class="odt">' + (ag.tier === 'manager' ? 'Sector Manager' : 'Equity Analyst') + '</span></div>' +
+    '<div class="odsec">' + escc(sec.name) + ' · ' + escc(orgDivName(sec.div)) + '</div>' +
+    '<div class="odlab">Daily role</div><div class="odmand">' + escc(ag.role) + '</div>';
+  if (ag.cov.length) html += '<div class="odlab">Coverage basket</div><div class="odcov">' + ag.cov.map(function(t){ return '<span>' + escc(t) + '</span>'; }).join('') + '</div>';
+  html += '<div class="odlab">Desk mandate</div><div class="odmand">' + escc(sec.mandate) + '</div>' +
+    '<div class="odlab">Performance · illustrative</div><div class="odstat"><div class="s"><div class="sk">Hit rate</div><div class="sv">' + st.hit + '%</div></div><div class="s"><div class="sk">Calls</div><div class="sv">' + st.calls + '</div></div><div class="s"><div class="sk">Relevance</div><div class="sv">' + st.rel + '</div></div></div>' +
+    '<div class="odnote">Sample figures — real per-agent grading begins with the daily pre-open run.</div>';
+  orgDetailOpen(html);
+}
+
+function orgShowSub(deskId, i){
+  var desk = orgDesk(deskId), sub = desk.subs[i];
+  var html = '<div class="odh"><span class="odi">' + escc(sub[0]) + '</span><span class="odt">Desk</span></div>' +
+    '<div class="odsec">' + escc(desk.name) + (desk.div ? ' · ' + escc(orgDivName(desk.div)) : ' · Office of the CIO') + '</div>' +
+    '<div class="odlab">Focus</div><div class="odmand">' + escc(sub[1]) + '</div>' +
+    '<div class="odlab">Desk mandate</div><div class="odmand">' + escc(desk.mandate) + '</div>';
+  orgDetailOpen(html);
+}
+
+function orgSelectDiv(id){
+  orgSelDiv = (orgSelDiv === id) ? null : id;
+  Array.prototype.forEach.call($('orgFlow').querySelectorAll('.divc'), function(n){ n.classList.toggle('sel', n.getAttribute('data-div') === orgSelDiv); });
+  orgFilter();
+}
+function orgFilter(){
+  var q = ($('orgSearch').value || '').trim().toLowerCase();
+  Array.prototype.forEach.call($('orgPods').querySelectorAll('.pod'), function(pod){
+    var okQ = !q || pod.getAttribute('data-name').indexOf(q) !== -1;
+    var okD = !orgSelDiv || pod.getAttribute('data-div') === orgSelDiv;
+    pod.classList.toggle('dim', !(okQ && okD));
+  });
+}
+function orgView(v){
+  var isLb = v === 'lb';
+  $('vOrg').classList.toggle('on', !isLb); $('vLb').classList.toggle('on', isLb);
+  $('orgFlow').classList.toggle('hidden', isLb); $('orgPods').classList.toggle('hidden', isLb);
+  $('orgLb').classList.toggle('on', isLb);
+  if (isLb && !$('orgLb')._built) { orgRenderLeaderboard(); $('orgLb')._built = true; }
+}
+function orgRenderLeaderboard(){
+  var rows = [];
+  ORG.sectors.forEach(function(s){ orgBuildAgents(s).forEach(function(ag){ var st = orgStats(ag.id); rows.push({ id: ag.id, sector: s.name, hit: st.hit, calls: st.calls, comp: st.comp }); }); });
+  rows.sort(function(a, b){ return b.comp - a.comp; });
+  var top = rows.slice(0, 60);
+  var html = '<div class="lb-note"><span>◷</span><span>Illustrative ranking — every agent is graded each morning on beta-stripped forward returns (1d &amp; 5d). Live stats begin with the daily pre-open run; showing the top 60 of ' + rows.length + ' agents.</span></div>' +
+    '<div class="lb-head"><span>#</span><span>Agent</span><span class="lb-sector">Sector</span><span>Calls</span><span>Hit</span><span></span></div>' +
+    top.map(function(r, i){
+      var rk = i < 3 ? ' r' + (i + 1) : '', hc = r.hit >= 65 ? 'var(--positive)' : r.hit >= 50 ? 'var(--amber)' : 'var(--danger)';
+      return '<div class="lrow' + rk + '"><span class="rk">' + (i + 1) + '</span><span class="sym">' + escc(r.id) + '</span><span class="cat lb-sector">' + escc(r.sector) + '</span><span class="mv">' + r.calls + '</span><span class="mv" style="color:' + hc + '">' + r.hit + '%</span><span style="color:var(--fg-mute)">›</span></div>';
+    }).join('');
+  $('orgLb').innerHTML = html;
+}
+
+function goToOrg(){
+  $('brief').classList.add('gone');
+  if (!boardInitialized) { boardInitialized = true; initBoard(); }
+  if (!orgInitialized) renderOrg();
+  $('org').classList.add('shown');
+  sessionStorage.setItem('jwPage', 'org');
+}
+function closeOrgToBoard(){ $('org').classList.remove('shown'); orgDetailClose(); sessionStorage.setItem('jwPage', 'board'); }
+function closeOrgToBrief(){ $('org').classList.remove('shown'); orgDetailClose(); $('brief').classList.remove('gone'); window.scrollTo(0, 0); sessionStorage.setItem('jwPage', 'brief'); }
+$('orgScrim').addEventListener('click', orgDetailClose);
+(function(){
+  var tx = null, ty = null, sw = false, el = $('org');
+  el.addEventListener('touchstart', function(e){ if ($('orgDetail').classList.contains('on')) return; tx = e.touches[0].clientX; ty = e.touches[0].clientY; sw = false; }, { passive: true });
+  el.addEventListener('touchmove', function(e){ if (tx === null) return; var dx = e.touches[0].clientX - tx, dy = e.touches[0].clientY - ty; if (!sw && Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 10) sw = true; }, { passive: true });
+  el.addEventListener('touchend', function(e){ if (!sw || tx === null) { tx = null; sw = false; return; } var dx = e.changedTouches[0].clientX - tx; tx = null; sw = false; if (dx > 50) closeOrgToBoard(); });
+}());
+
 chatInit();
 renderBriefing();
 // Populate ticker immediately so animation starts with content already laid out.
@@ -1079,7 +1414,13 @@ renderBriefing();
   track.getBoundingClientRect(); // force reflow so browser measures full width before animating
   track.style.animation = '';
 }());
-if (sessionStorage.getItem('jwPage') === 'board') enterBoard(true);
+var _jwPage = sessionStorage.getItem('jwPage');
+if (_jwPage === 'board') enterBoard(true);
+else if (_jwPage === 'org') {
+  enterBoard(true);
+  if (!orgInitialized) renderOrg();
+  var _o = $('org'); _o.style.transition = 'none'; _o.classList.add('shown'); _o.offsetHeight; _o.style.transition = '';
+}
 // Measure the actual briefNav Y position and set boardNav padding to match exactly.
 // CSS approximations vary by device/font-rendering; JS measurement is always pixel-perfect.
 function syncNavY() {
