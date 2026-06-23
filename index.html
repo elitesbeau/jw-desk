@@ -408,7 +408,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 #org{position:fixed;inset:0;z-index:61;background:var(--bg);overflow:hidden;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .38s cubic-bezier(.4,0,.2,1)}
 #org.shown{transform:none}
 #org.shown ~ #chatDock{display:none}
-.org-wrap{flex:1;min-height:0;display:flex;flex-direction:column;padding:6px 24px 28px;max-width:1280px;width:100%;margin:0 auto;overflow-y:auto}
+.org-wrap{flex:1;min-height:0;display:flex;flex-direction:column;padding:6px 24px 28px;max-width:1280px;width:100%;margin:0 auto;overflow-y:auto;scrollbar-width:none;-ms-overflow-style:none}
+.org-wrap::-webkit-scrollbar{width:0;height:0;display:none}
 .org-head{margin:6px 0 12px}
 .org-head h1{font-size:20px;font-weight:500;letter-spacing:-.02em}
 .org-sub{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.04em;color:var(--fg-mute);margin-top:5px}
