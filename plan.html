@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JW Private Wealth — Merged Build Plan</title>
+<meta name="description" content="Option C two-track build plan for the 500-agent pre-open firm: production chassis ships live pre-validation while the Discovery Engine proves edge.">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --paper:#FAF8F2; --panel:#FFFDF8; --ink:#211F1A; --mute:#6E685C; --faint:#928B7C;
+    --line:#E5DECF; --line-2:#EFEADD;
+    --sage:#5C7152; --sage-soft:#EAEFE4;
+    --slate:#43586B; --slate-soft:#E6EBF0;
+    --amber:#A8741F; --amber-soft:#F4E9D4;
+    --serif:"Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"Cascadia Code","SF Mono",Menlo,Consolas,monospace;
+    --maxw:1080px;
+  }
+  body{
+    background:var(--paper); color:var(--ink);
+    font-family:var(--sans); font-size:16px; line-height:1.6;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  }
+  img{max-width:100%}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px}
+
+  .eyebrow{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--faint); margin:0;
+  }
+  h2.sec{
+    font-family:var(--serif); font-weight:600; font-size:clamp(22px,3.4vw,30px);
+    line-height:1.15; margin:.35rem 0 0; text-wrap:balance; letter-spacing:-.01em;
+  }
+  .sec-intro{max-width:64ch; color:var(--mute); margin:.7rem 0 0}
+  section{padding:56px 0; border-top:1px solid var(--line)}
+  .chip{
+    display:inline-flex; align-items:center; gap:.4em;
+    font-family:var(--mono); font-size:10.5px; letter-spacing:.09em; text-transform:uppercase;
+    padding:.32em .6em; border-radius:999px; white-space:nowrap; line-height:1;
+  }
+  .chip.done{background:var(--sage-soft); color:#3c4d34; border:1px solid #cdd9c2}
+  .chip.partly{background:var(--sage-soft); color:#3c4d34; border:1px dashed #b6c6a8}
+  .chip.new{background:#fff; color:var(--mute); border:1px solid var(--line)}
+  .chip.blocked{background:var(--amber-soft); color:#7a5210; border:1px solid #e3cb9b}
+  .chip.gate{background:var(--ink); color:var(--paper); border:1px solid var(--ink)}
+  .dot{width:.5em; height:.5em; border-radius:50%; display:inline-block}
+
+  header.mast{padding:58px 0 50px}
+  .seal-row{display:flex; align-items:center; gap:16px}
+  .seal{
+    width:54px; height:54px; border-radius:14px; background:var(--ink); color:var(--paper);
+    display:grid; place-items:center; font-family:var(--serif); font-weight:600; font-size:23px;
+    letter-spacing:.01em; flex:none; box-shadow:0 1px 0 #fff inset;
+  }
+  .wordmark{font-family:var(--serif); font-size:21px; font-weight:600; line-height:1.1}
+  .wordmark span{display:block; font-family:var(--mono); font-size:11px; font-weight:400;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--faint); margin-top:3px}
+  h1{
+    font-family:var(--serif); font-weight:600; letter-spacing:-.015em;
+    font-size:clamp(34px,6vw,58px); line-height:1.04; margin:30px 0 0; max-width:18ch; text-wrap:balance;
+  }
+  .thesis{
+    margin:26px 0 0; max-width:60ch; font-size:clamp(17px,2.3vw,19.5px); line-height:1.55; color:#34322c;
+    padding-left:18px; border-left:3px solid var(--sage);
+  }
+  .thesis b{font-weight:600; color:var(--ink)}
+
+  .glance{
+    display:grid; grid-template-columns:repeat(5,1fr); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden; margin-top:40px;
+  }
+  .gtile{background:var(--panel); padding:18px 18px 16px}
+  .gtile .n{font-family:var(--serif); font-size:26px; line-height:1; font-variant-numeric:tabular-nums}
+  .gtile .l{font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--mute); margin-top:8px; line-height:1.35}
+
+  .cp-rules{list-style:none; padding:0; margin:24px 0 0; display:grid; gap:12px; counter-reset:cp}
+  .cp-rules li{
+    position:relative; padding:14px 16px 14px 52px; background:var(--panel);
+    border:1px solid var(--line); border-radius:10px; max-width:78ch;
+  }
+  .cp-rules li::before{
+    counter-increment:cp; content:counter(cp);
+    position:absolute; left:14px; top:13px; width:24px; height:24px; border-radius:7px;
+    background:var(--ink); color:var(--paper); font-family:var(--mono); font-size:12px;
+    display:grid; place-items:center; font-variant-numeric:tabular-nums;
+  }
+  .cp-rules b{font-weight:600}
+
+  .lanes{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-top:34px}
+  .lane-head{display:flex; align-items:baseline; justify-content:space-between; gap:10px;
+    padding-bottom:12px; margin-bottom:4px; border-bottom:2px solid}
+  .lane.t1 .lane-head{border-color:var(--sage)}
+  .lane.t2 .lane-head{border-color:var(--slate)}
+  .lane-title{font-family:var(--serif); font-size:19px; font-weight:600}
+  .lane-tag{font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase}
+  .lane.t1 .lane-tag{color:var(--sage)}
+  .lane.t2 .lane-tag{color:var(--slate)}
+  .stack{display:flex; flex-direction:column; gap:12px; margin-top:14px}
+
+  .card{
+    background:var(--panel); border:1px solid var(--line); border-radius:11px;
+    padding:15px 16px 16px 19px; position:relative; overflow:hidden;
+    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  }
+  .card::before{content:""; position:absolute; left:0; top:0; bottom:0; width:4px}
+  .lane.t1 .card::before{background:var(--sage)}
+  .lane.t2 .card::before{background:var(--slate)}
+  .card:hover{transform:translateY(-2px); box-shadow:0 8px 22px -14px rgba(33,31,26,.4); border-color:#d8d0bf}
+  .card-top{display:flex; align-items:center; gap:9px; flex-wrap:wrap}
+  .code{font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--mute);
+    background:var(--line-2); padding:.22em .5em; border-radius:5px}
+  .card h3{font-size:15.5px; font-weight:600; margin:9px 0 0; line-height:1.3}
+  .card p{margin:6px 0 0; font-size:13.5px; color:var(--mute); line-height:1.5}
+  .files{margin:11px 0 0; display:flex; flex-wrap:wrap; gap:5px}
+  .file{font-family:var(--mono); font-size:10.5px; color:#55514a; background:var(--paper);
+    border:1px solid var(--line); border-radius:5px; padding:.2em .45em}
+  .note{margin:10px 0 0; font-family:var(--mono); font-size:10.5px; letter-spacing:.02em;
+    color:var(--amber); display:flex; gap:6px; align-items:flex-start}
+  .note.seam{color:var(--slate)}
+
+  .converge{display:flex; flex-direction:column; align-items:center; gap:2px; margin:32px 0 0; color:var(--faint)}
+  .converge .v{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase}
+  .converge svg{display:block}
+  .gate{
+    margin-top:18px; background:var(--ink); color:#F2EEE3; border-radius:14px; padding:30px 28px;
+  }
+  .gate-head{display:flex; align-items:center; gap:12px; flex-wrap:wrap}
+  .gate-head h3{font-family:var(--serif); font-size:23px; font-weight:600; margin:0; color:#fff}
+  .gate-sub{margin:12px 0 0; color:#C9C2B2; max-width:72ch; font-size:14.5px}
+  .crit{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:24px}
+  .crit .c{background:rgba(255,255,255,.045); border:1px solid rgba(255,255,255,.12);
+    border-radius:10px; padding:15px}
+  .crit .cn{font-family:var(--mono); font-size:11px; letter-spacing:.08em; color:#9fb295}
+  .crit .ct{margin:9px 0 0; font-size:13px; line-height:1.45; color:#EBE6D9}
+  .gate-foot{margin:22px 0 0; font-size:12.5px; color:#C9C2B2; font-family:var(--mono);
+    letter-spacing:.02em; display:flex; gap:8px; align-items:center}
+
+  .two{display:grid; grid-template-columns:1.15fr .85fr; gap:42px; margin-top:24px; align-items:start}
+  @media(max-width:860px){.two{grid-template-columns:1fr; gap:34px}}
+
+  ol.seq{list-style:none; counter-reset:s; padding:0; margin:22px 0 0; display:grid; gap:12px}
+  ol.seq li{position:relative; padding:13px 16px 13px 54px; background:var(--panel);
+    border:1px solid var(--line); border-radius:10px}
+  ol.seq li::before{counter-increment:s; content:counter(s);
+    position:absolute; left:13px; top:12px; width:26px; height:26px; border-radius:50%;
+    background:var(--sage-soft); color:#3c4d34; border:1px solid #cdd9c2;
+    font-family:var(--mono); font-size:12.5px; display:grid; place-items:center; font-variant-numeric:tabular-nums}
+  ol.seq.amberseq li::before{background:var(--amber-soft); color:#7a5210; border-color:#e3cb9b}
+  ol.seq li b{font-weight:600}
+  ol.seq li .meta{display:block; margin-top:3px; font-size:13px; color:var(--mute)}
+
+  ul.check{list-style:none; padding:0; margin:22px 0 0; display:grid; gap:9px}
+  ul.check li{position:relative; padding:11px 14px 11px 40px; background:var(--panel);
+    border:1px solid var(--line); border-radius:9px; font-size:14px; line-height:1.45}
+  ul.check li::before{content:"\2713"; position:absolute; left:13px; top:11px; color:var(--sage);
+    font-weight:700; font-size:14px}
+  ul.check li b{font-weight:600}
+  ul.check li .ph{font-family:var(--mono); font-size:10.5px; color:var(--faint); letter-spacing:.04em}
+
+  .tbl-wrap{overflow-x:auto; margin-top:22px; border:1px solid var(--line); border-radius:11px}
+  table{border-collapse:collapse; width:100%; min-width:560px; background:var(--panel)}
+  th,td{text-align:left; padding:13px 16px; border-bottom:1px solid var(--line-2); font-size:13.5px; vertical-align:top}
+  th{font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--mute); background:var(--line-2)}
+  tr:last-child td{border-bottom:none}
+  td b{font-weight:600}
+  td.ph{font-family:var(--mono); font-size:11px; color:var(--slate); white-space:nowrap}
+
+  .spend-cost{font-family:var(--mono); font-size:11px; color:var(--sage); margin-left:6px; white-space:nowrap}
+
+  footer{border-top:1px solid var(--line); padding:46px 0 60px}
+  .foot-thesis{font-family:var(--serif); font-size:clamp(18px,2.6vw,22px); line-height:1.45;
+    max-width:64ch; font-weight:500; text-wrap:balance}
+  .foot-meta{margin-top:26px; display:flex; flex-wrap:wrap; gap:10px 22px; align-items:center;
+    font-family:var(--mono); font-size:11px; letter-spacing:.04em; color:var(--faint)}
+  .foot-meta .path{color:var(--mute)}
+
+  @media(max-width:760px){
+    .glance{grid-template-columns:repeat(2,1fr)}
+    .lanes{grid-template-columns:1fr}
+    .crit{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:480px){.crit{grid-template-columns:1fr}}
+
+  .reveal{opacity:0; transform:translateY(10px); animation:rise .55s cubic-bezier(.2,.7,.3,1) forwards}
+  @keyframes rise{to{opacity:1; transform:none}}
+  @media(prefers-reduced-motion:reduce){
+    .reveal{animation:none; opacity:1; transform:none}
+    .card{transition:none}
+  }
+  a{color:var(--sage); text-underline-offset:3px}
+  :focus-visible{outline:2px solid var(--sage); outline-offset:2px; border-radius:4px}
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <div class="wrap">
+    <div class="seal-row reveal">
+      <div class="seal" aria-hidden="true">JW</div>
+      <div class="wordmark">JW&nbsp;Private&nbsp;Wealth<span>Pre-open intelligence · the firm</span></div>
+    </div>
+    <h1 class="reveal" style="animation-delay:.05s">Merged build plan — the 500-agent firm.</h1>
+    <p class="thesis reveal" style="animation-delay:.1s">
+      The live system is a working demo of the machinery, <b>not a source of validated conviction</b>,
+      until the Discovery Engine has populated real validated rules behind a sector. Every pre-validation
+      output is labeled as such — and the label is enforced <b>structurally in the UI</b>, never by memory.
+    </p>
+
+    <div class="glance reveal" style="animation-delay:.15s" aria-label="At a glance">
+      <div class="gtile"><div class="n">500</div><div class="l">Agents, five tiers</div></div>
+      <div class="gtile"><div class="n">2</div><div class="l">Parallel tracks · Option&nbsp;C</div></div>
+      <div class="gtile"><div class="n">~451</div><div class="l">LLM calls / morning</div></div>
+      <div class="gtile"><div class="n">$0+$29</div><div class="l">Free LLM · Polygon chassis</div></div>
+      <div class="gtile"><div class="n">1&nbsp;mo</div><div class="l">Supervised before trust</div></div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">The spine</p>
+    <h2 class="sec">Critical path &amp; the rules that can't bend</h2>
+    <p class="sec-intro">
+      The two things that matter most — the Discovery Engine feeding validated rules into the strategy
+      docs, and benchmark agents proving the firm beats a nap — set the order. The capacity-gap universe
+      screen is the single root both tracks grow from.
+    </p>
+    <ol class="cp-rules">
+      <li><b>The capacity-gap universe screen precedes everything.</b> It defines both the engine's coverage and the Discovery Engine's search space. Build it once, share it across tracks.</li>
+      <li><b>Benchmark agents must exist and be graded before any sector can graduate.</b> They are the scorekeeper for the "beats the index" criterion.</li>
+      <li><b>A sector graduates only when all four convergence criteria hold.</b> No graduation flag is ever set by hand.</li>
+      <li><b>Grading runs first each morning</b>, before the day's scan — price-at-call captured at call time. No look-ahead, ever.</li>
+      <li><b>Point-in-time universe membership</b> (including delisted names) wherever historical data is touched — survivorship bias is worst in small/mid-caps.</li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">The build · Option C</p>
+    <h2 class="sec">Two tracks, run in parallel</h2>
+    <p class="sec-intro">
+      Track 1 ships a usable firm every morning, visibly labeled pre-validation. Track 2 runs in the
+      background from day one, expected to return mostly negative results — that is the process working.
+      The tracks meet at the strategy docs and converge at per-sector graduation.
+    </p>
+
+    <div class="lanes">
+      <div class="lane t1">
+        <div class="lane-head">
+          <span class="lane-title">Track 1 — Production chassis</span>
+          <span class="lane-tag">Ships live · pre-validation</span>
+        </div>
+        <div class="stack">
+
+          <article class="card">
+            <div class="card-top"><span class="code">T1-P0</span><span class="chip blocked"><span class="dot" style="background:var(--amber)"></span>Paid-data gate</span><span class="chip new">Net-new · root</span></div>
+            <h3>Data + infra foundation</h3>
+            <p>Whole-market Polygon snapshot, the capacity-gap screen (cover-broad / act-narrow with <span style="font-family:var(--mono);font-size:12px">conviction_eligible</span> enforced in data), 400 disjoint baskets, nightly DMA/RVOL precompute, env off the shared key.</p>
+            <div class="files"><span class="file">polygon.js</span><span class="file">universe/screen.js</span><span class="file">universe/build.js</span><span class="file">precompute.js</span></div>
+          </article>
+
+          <article class="card">
+            <div class="card-top"><span class="code">T1-P1</span><span class="chip blocked"><span class="dot" style="background:var(--amber)"></span>Free-key blocker</span><span class="chip new">Net-new</span></div>
+            <h3>The 500-agent tiered engine</h3>
+            <p>Basket analysts → sector managers → division CIOs → chief CIO, on the free provider client. Movers get a full read; quiet names a one-line attestation. Per-call timeout + error isolation so one bad basket never blocks the brief.</p>
+            <div class="files"><span class="file">roster.json</span><span class="file">scan.js</span><span class="file">llm.js</span><span class="file">index.js</span></div>
+          </article>
+
+          <article class="card">
+            <div class="card-top"><span class="code">T1-P2</span><span class="chip new">Net-new</span></div>
+            <h3>Per-sector strategy system</h3>
+            <p>One editable Markdown+YAML doc per sector — the single source of truth driving both human review and engine prompts. Hand-authored and marked <b>provisional</b>; later overwritten by validated rules.</p>
+            <div class="files"><span class="file">strategies/*.md</span><span class="file">strategy.js</span></div>
+            <p class="note seam">↳ the seam where Track 2 writes validated rules in</p>
+          </article>
+
+          <article class="card">
+            <div class="card-top"><span class="code">T1-P3</span><span class="chip gate">Non-negotiable</span><span class="chip new">Net-new</span></div>
+            <h3>Grading + benchmark agents</h3>
+            <p>Runs first each morning: forward return net of sector-ETF beta, dual-horizon, calibration-weighted, discipline rewarded. <b>Benchmark agents from the first graded day</b> — versus the small/mid index, not just SPY.</p>
+            <div class="files"><span class="file">track.js</span><span class="file">benchmarks.js</span><span class="file">data/</span></div>
+          </article>
+
+          <article class="card">
+            <div class="card-top"><span class="code">T1-P4</span><span class="chip partly"><span class="dot" style="background:var(--sage)"></span>Tab shipped</span></div>
+            <h3>Org tab + structural labeling</h3>
+            <p>The visual "Firm" tab already ships. Net-new work: derive each sector's validated styling <b>only</b> from its graduation flag — no code path can fake it — plus the firm-level honesty banner and the benchmark delta on screen.</p>
+            <div class="files"><span class="file">jw-desk-pages/index.html</span></div>
+          </article>
+
+          <article class="card">
+            <div class="card-top"><span class="code">T1-P5</span><span class="chip blocked"><span class="dot" style="background:var(--amber)"></span>Real holdings gate</span><span class="chip new">Net-new</span></div>
+            <h3>Production deploy</h3>
+            <p>Railway cron (pre-open, weekdays, holiday-guarded) + 24/7 chat flipped from canned to live. Auto-publish string-swaps the baked literals (one match each, fail loudly) and runs the PR-merge flow. Supervised first month.</p>
+            <div class="files"><span class="file">publish.js</span><span class="file">server.js</span><span class="file">holdings.js</span></div>
+          </article>
+
+        </div>
+      </div>
+
+      <div class="lane t2">
+        <div class="lane-head">
+          <span class="lane-title">Track 2 — Discovery Engine</span>
+          <span class="lane-tag">Background · day one</span>
+        </div>
+        <div class="stack">
+
+          <article class="card">
+            <div class="card-top"><span class="code">T2-P0</span><span class="chip new">Net-new · shared root</span></div>
+            <h3>Capacity-gap + point-in-time universe</h3>
+            <p>Shares the T1-P0 capacity-gap screen, and adds point-in-time membership including delisted names, so the search space at any past date reflects what was actually liquid then.</p>
+            <div class="files"><span class="file">universe/screen.js</span><span class="file">discovery/pit-universe.js</span></div>
+          </article>
+
+          <article class="card">
+            <div class="card-top"><span class="code">T2-P1</span><span class="chip new">Net-new</span></div>
+            <h3>Historical moves + matched controls</h3>
+            <p>Identify large moves inside the capacity-gap universe, then build matched control cohorts of non-movers — same sector, period, liquidity. Extract candidate signals from pre-move, point-in-time features only.</p>
+            <div class="files"><span class="file">discovery/moves.js</span><span class="file">controls.js</span><span class="file">signals.js</span></div>
+          </article>
+
+          <article class="card">
+            <div class="card-top"><span class="code">T2-P2</span><span class="chip gate">The honesty test</span><span class="chip new">Net-new</span></div>
+            <h3>Discriminating power + out-of-sample</h3>
+            <p>Score by lift / information gain — movers <b>vs. matched controls</b>, never prevalence among winners. Discover on one period, test on an untouched one; re-test decay over time. <b>A known-spurious signal must fail out-of-sample.</b></p>
+            <div class="files"><span class="file">discriminate.js</span><span class="file">validate.js</span></div>
+          </article>
+
+          <article class="card">
+            <div class="card-top"><span class="code">T2-P3</span><span class="chip new">Net-new</span></div>
+            <h3>Validated rules → strategy docs</h3>
+            <p>Write the surviving ruleset into the sector doc: flip provenance to <span style="font-family:var(--mono);font-size:12px">discovery_validated</span>, record OOS stats + version. It does <b>not</b> set the graduation flag — that waits for convergence.</p>
+            <div class="files"><span class="file">discovery/rules.js</span></div>
+          </article>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="converge" aria-hidden="true">
+      <span class="v">Both tracks converge</span>
+      <svg width="34" height="30" viewBox="0 0 34 30" fill="none">
+        <path d="M3 2 C3 14, 17 14, 17 26" stroke="#5C7152" stroke-width="1.5"/>
+        <path d="M31 2 C31 14, 17 14, 17 26" stroke="#43586B" stroke-width="1.5"/>
+        <path d="M17 28 l-4 -6 h8 z" fill="#211F1A"/>
+      </svg>
+    </div>
+
+    <div class="gate">
+      <div class="gate-head">
+        <span class="chip gate" style="background:var(--paper);color:var(--ink)">Convergence</span>
+        <h3>Per-sector graduation</h3>
+      </div>
+      <p class="gate-sub">
+        A sector flips from pre-validation to validated only when all four hold. The
+        <span style="font-family:var(--mono);font-size:12.5px;color:#d6cdbb">setGraduationFlags</span>
+        job is the only writer of the flag. The firm converts one sector at a time.
+      </p>
+      <div class="crit">
+        <div class="c"><div class="cn">01 · Discovery</div><div class="ct">Validated rules for the sector that survived out-of-sample testing.</div></div>
+        <div class="c"><div class="cn">02 · Driving prompts</div><div class="ct">Those rules are live in the sector's agent prompts — provenance and version match.</div></div>
+        <div class="c"><div class="cn">03 · Track record</div><div class="ct">Enough graded calls accumulated <em>after</em> the rules went live to show performance.</div></div>
+        <div class="c"><div class="cn">04 · Beats the nap</div><div class="ct">That performance beats the benchmark agents for the sector's small/mid universe.</div></div>
+      </div>
+      <p class="gate-foot"><span class="dot" style="background:var(--amber)"></span> Principal sign-off required before any validated label goes live.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="two">
+      <div>
+        <p class="eyebrow">Spend aligned to the edge</p>
+        <h2 class="sec">Data-spend sequence</h2>
+        <p class="sec-intro">Free first — prove the Discovery process before paying for the edge data. Each escalation is a principal go-decision, justified by measured improvement over the benchmarks, not by ambition.</p>
+        <ol class="seq">
+          <li><b>Free tier<span class="spend-cost">$0 + $29/mo chassis</span></b><span class="meta">Prove the Discovery machinery — control groups, discriminating power, the out-of-sample rejection of a spurious signal. Run the free-LLM engine. Gate: the rejection test must pass before spending further.</span></li>
+          <li><b>Options data</b><span class="meta">Once a real signal nears graduation, activate the options expression layer on capacity-gap names, where it's most valuable.</span></li>
+          <li><b>Small / mid-cap fundamentals + liquidity</b><span class="meta">Deepen the screen and signal set in the act-narrow zone — the under-researched ground where edge is findable.</span></li>
+          <li><b>Broader feeds</b><span class="meta">Only once the above are proven to add measured edge over benchmarks.</span></li>
+        </ol>
+      </div>
+      <div>
+        <p class="eyebrow">Blocked on a human</p>
+        <h2 class="sec">Principal gates</h2>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Gate</th><th>Unblocks</th><th>Phase</th></tr></thead>
+            <tbody>
+              <tr><td><b>Polygon Starter</b> go ($29/mo)</td><td>Whole-market scan</td><td class="ph">T1-P0</td></tr>
+              <tr><td><b>Free LLM key</b> (personal Gmail / Cerebras)</td><td>Free 500-agent default</td><td class="ph">T1-P1</td></tr>
+              <tr><td><b>Real holdings</b> (tickers / shares)</td><td><span style="font-family:var(--mono);font-size:12px">DEMO_MODE=false</span></td><td class="ph">T1-P5</td></tr>
+              <tr><td><b>Options data</b> go</td><td>Options-aware grading</td><td class="ph">F</td></tr>
+              <tr><td><b>Sector graduation</b> sign-off</td><td>Validated label</td><td class="ph">Conv.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Holds in every phase</p>
+    <h2 class="sec">The constraints that don't bend</h2>
+    <ul class="check">
+      <li><b>Benchmark agents from the first graded day</b> — index match is small/mid, not just SPY. <span class="ph">T1-P3</span></li>
+      <li><b>No conviction on unvalidated edge</b> — or, pre-validation, structurally labeled via the graduation flag. <span class="ph">T1-P4</span></li>
+      <li><b>Point-in-time universe</b> wherever historical data is used. <span class="ph">T2-P0</span></li>
+      <li><b>Cover broad, act narrow</b> — <span style="font-family:var(--mono);font-size:12px">conviction_eligible</span> enforced in data, not by prompt. <span class="ph">T1-P0</span></li>
+      <li><b>Supervised first month</b> of any live run. <span class="ph">T1-P5</span></li>
+      <li><b>The system distrusts itself</b> — sample sizes shown, biases reported, coverage gaps confessed, ensemble diversity tracked. <span class="ph">T1-P3 · P4</span></li>
+      <li><b>No look-ahead</b> — grading runs before each scan; price-at-call captured at call time. <span class="ph">T1-P3</span></li>
+      <li><b>Don't burn the shared data key; fail loud on publish string-swaps; isolate per-call errors.</b> <span class="ph">T1-P0 · P1 · P5</span></li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Honest sequence</p>
+    <h2 class="sec">Recommended build order</h2>
+    <p class="sec-intro">The quickest visible win is already banked — the visual org tab shipped. So the highest-leverage moves now start at the root, not the UI.</p>
+    <ol class="seq amberseq">
+      <li><b>T1-P0</b> — capacity-gap universe + Polygon + env. <span class="meta">The root dependency of both tracks. Build the screen well; everything keys off it.</span></li>
+      <li><b>T1-P1</b> — the 500-agent engine. <span class="meta">Resolve the free-key blocker, or run paid for now.</span></li>
+      <li><b>T1-P3 (benchmarks) + T1-P2 (semis doc)</b> — grading with benchmark agents and one hand-authored sector. <span class="meta">Stand up the scorekeeper before anything claims edge.</span></li>
+      <li><b>T2-P0 → T2-P2</b> — Discovery machinery to the spurious-signal rejection test. <span class="meta">The cheapest way to know the process is honest.</span></li>
+      <li><b>T1-P4</b> — finish structural pre-validation labeling on the org tab.</li>
+      <li><b>T1-P5</b> — production deploy: cron + live chat + auto-publish, supervised.</li>
+      <li><b>T2-P3 → Convergence</b> — discovery writes validated rules; graduate the first sector when all four criteria pass.</li>
+      <li><b>F</b> — options expression on graduated capacity-gap names, once options data is bought.</li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="foot-thesis">
+      This system is built to prove or disprove its own edge cheaply — not to look impressive. The
+      Discovery Engine feeding validated rules into the strategy docs, and the benchmark agents proving
+      the firm beats a nap, are the two additions that make the difference. Everything else is machinery
+      in service of those two.
+    </p>
+    <div class="foot-meta">
+      <span>JW Private Wealth · Merged Build Plan</span>
+      <span>Option C · two-track</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
