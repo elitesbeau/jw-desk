@@ -375,6 +375,29 @@
 
 <section>
   <div class="wrap">
+    <p class="eyebrow">For Jeremy · you set these up</p>
+    <h2 class="sec">Accounts &amp; API keys to create</h2>
+    <p class="sec-intro">You'll own every data and model account. Here's the full list — what each powers, what it costs, where to sign up, and the key name we'll plug in. Three of the four are free; the firm runs on <b>~$34/mo all-in</b> until we choose to add paid edge data.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Account</th><th>What it powers</th><th>Cost</th><th>Sign up at</th><th>Key name</th></tr></thead>
+        <tbody>
+          <tr><td><b>Polygon.io</b> <span class="chip new">required</span></td><td>Whole-market price data — the daily pre-open scan</td><td><b>$29/mo</b><br>Stocks Starter</td><td>polygon.io</td><td class="ph">POLYGON_API_KEY</td></tr>
+          <tr><td><b>Google Gemini</b> <span class="chip new">required</span></td><td>The 500 analyst agents — the LLM brain of the firm</td><td><b>Free</b></td><td>aistudio.google.com</td><td class="ph">GEMINI_API_KEY</td></tr>
+          <tr><td><b>Finnhub</b> <span class="chip new">required</span></td><td>Company news on the names that moved overnight</td><td><b>Free</b><br>(60 calls/min)</td><td>finnhub.io</td><td class="ph">FINNHUB_API_KEY</td></tr>
+          <tr><td><b>Railway</b> <span class="chip new">required</span></td><td>Runs it 24/7 — the pre-open cron + live "ask the desk" chat</td><td>~$5/mo<br>usage</td><td>railway.app</td><td class="ph">(stores the keys)</td></tr>
+          <tr><td><b>Options data</b> <span class="chip blocked"><span class="dot" style="background:var(--amber)"></span>later</span></td><td>Options-aware grading on small/mid-cap names</td><td>paid ·<br>chosen at phase F</td><td>TBD when we get there</td><td class="ph">—</td></tr>
+          <tr><td><b>Anthropic</b> <span class="chip new">optional</span></td><td>Paid upgrade to top-tier models instead of the free one</td><td>pay-<br>per-use</td><td>console.anthropic.com</td><td class="ph">ANTHROPIC_API_KEY</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note" style="margin-top:16px">⚠ One gotcha on the Gemini key: it <b>must come from a personal&nbsp;@gmail account</b>, not a Google&nbsp;Workspace / "Work" account — Workspace accounts have the free Gemini tier switched off. (If that's a problem, <b>Cerebras</b> at cloud.cerebras.ai is an equally-free drop-in alternative.)</p>
+    <p class="sec-intro" style="margin-top:12px">Once you've made each one, just send Beau the keys — he wires them in. Nothing else on your end.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
     <div class="two">
       <div>
         <p class="eyebrow">Spend aligned to the edge</p>
