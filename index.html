@@ -679,7 +679,7 @@ function renderBriefing() {
   $('hmPlSub').textContent = (t.dayPLPct >= 0 ? '+' : '') + t.dayPLPct + '% · ' + money(t.mktVal) + ' · ' + t.positions + ' positions';
   (function () { let n = 0; const tgt = t.dayPL, st = tgt / 26; const iv = setInterval(() => { n += st; if (Math.abs(n) >= Math.abs(tgt)) { n = tgt; clearInterval(iv); } plEl.textContent = signed(n); }, 26); })();
   // report-bar teaser (what's waiting in the market read)
-  const hl = B.headline || ''; const teaseHl = hl.length > 70 ? hl.slice(0, 67) + '…' : hl;
+  const hl = B.headline || ''; const teaseHl = hl.length > 70 ? hl.slice(0, 68).replace(/\s+\S*$/, '') + ' …' : hl;
   $('rbTease').innerHTML = '<b>' + B.funnel.agents + '</b> movers analyzed · <b>' + B.funnel.calls + '</b> conviction call' + (B.funnel.calls === 1 ? '' : 's') + (teaseHl ? ' · “' + escc(teaseHl) + '”' : '');
   // treemap of the book — tile area ∝ √value, color ∝ overnight move
   const pos = B.portfolio.positions.slice().sort((a, b) => (b.value || 0) - (a.value || 0));
