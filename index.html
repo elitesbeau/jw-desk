@@ -917,6 +917,9 @@ function toggleHeroDetail(btn) {
   grid.style.display = heroDetailOpen ? 'grid' : 'none';
   inv.style.display = heroDetailOpen ? 'block' : 'none';
   btn.textContent = heroDetailOpen ? 'Less ↑' : 'Full analysis ↓';
+  // the grid expands DOWNWARD — if the button sits at the bottom of the viewport the new
+  // content lands off-screen and the click feels dead; bring it into view
+  if (heroDetailOpen) requestAnimationFrame(function() { inv.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); });
 }
 
 /* ---------- live board ---------- */
